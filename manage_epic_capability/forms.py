@@ -13,10 +13,10 @@ class Ar_Epic_Capability_Form(forms.ModelForm):
         fields = ['Cepic_key', 'Cepic_desc','PROJECT_ID']
     def __init__(self,org_info,*args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['PROJECT_ID'].queryset = AR_product.objects.filter(required=False,ORG_ID__in=Subquery(org_info.values("id")))
-
-        self.fields['PROJECT_ID'] = forms.ModelChoiceField(required=False, empty_label="Please select product id",
-                                                     queryset=AR_product.objects.filter(
-                                                         ORG_ID__in=Subquery(org_info.values("id"))),
-                                                     widget=forms.Select(attrs={"class": "form-control"}))
+        self.fields['PROJECT_ID'].queryset = AR_product.objects.filter(ORG_ID__in=Subquery(org_info.values("id")))
+        #
+        # self.fields['PROJECT_ID'] = forms.ModelChoiceField(required=False, empty_label="Please select product id",
+        #                                              queryset=AR_product.objects.filter(
+        #                                                  ORG_ID__in=Subquery(org_info.values("id"))),
+        #                                              widget=forms.Select(attrs={"class": "form-control"}))
 

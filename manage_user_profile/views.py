@@ -21,13 +21,13 @@ def index(request):
             org_ins = get_object_or_404(AR_organization, id=request.session['org_id'])
             activity = request.POST.getlist('activity[]')
             if ArUserProfilePermission.objects.filter(profile_key=list_ins).exists():
-                messages.info(request, "Profile permission update successfully !")
+                messages.info(request, "Profile update successfully !")
             else:
-                messages.info(request, "Profile permission added successfully !")
+                messages.info(request, "Profile added successfully !")
             for activityvalue in activity:
                 value = activityvalue.lower()
                 valueacti = value.replace(" ", "")
-                editor = request.POST.get(valueacti+"edit")
+                editor = request.POST.get(valueacti + "edit")
                 if editor == "on" :
                     editoracti= True
                 else:
@@ -45,7 +45,7 @@ def index(request):
                     activitydata = ArUserProfilePermission(profile_key=list_ins, ORG_ID=org_ins, create_by=created_by_ins, update_by=created_by_ins,
                                                         activites=activityvalue,editor=editoracti,viewer=vieweracti)
                     activitydata.save()
-                    return redirect(settings.BASE_URL + 'user-profile')
+            return redirect(settings.BASE_URL + 'user-profile')
         else:
             messages.info(request, "Please select a Profile Key !")
     return render(request, 'admin/manage_user_profile/index.html',{'ar_user_data':ar_user_data,'ar_user_profile_form':ar_user_profile_form,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
@@ -59,27 +59,27 @@ def add_profile(request):
     if request.method == "POST":
         ar_user_profile_form = ArUserProfileForm(request.POST)
         if ar_user_profile_form.is_valid():
-            # profile_key  = ar_user_profile_form.cleaned_data.get('profile_key')
-            # if ArUserProfile.objects.filter(profile_key=profile_key).filter(ORG_ID=request.session['org_id']).exists():
-            #     messages.error(request, "Profile already exists.")
-            # else:
-            data = Ar_user.objects.filter(id=request.session['user_id'])
-            username = data[0].user_id
-            # data = User.objects.filter(id=username)
+            profile_key  = ar_user_profile_form.cleaned_data.get('profile_key')
+            if ArUserProfile.objects.filter(profile_key=profile_key).filter(ORG_ID=request.session['org_id']).exists():
+                messages.error(request, "Profile already exists.")
+            else:
+                data = Ar_user.objects.filter(id=request.session['user_id'])
+                username = data[0].user_id
+                # data = User.objects.filter(id=username)
 
-            created_by_ins = get_object_or_404(User, pk=username)
-            org_ins = get_object_or_404(AR_organization, id=request.session['org_id'])
-            data = ar_user_profile_form.save(commit=False)
-            data.create_by=created_by_ins
-            data.update_by = created_by_ins
-            data.ORG_ID=org_ins
-            try:
-                data.save()
-                messages.info(request, "Profile key added successfully !")
-                return redirect(settings.BASE_URL + 'user-profile')
+                created_by_ins = get_object_or_404(User, pk=username)
+                org_ins = get_object_or_404(AR_organization, id=request.session['org_id'])
+                data = ar_user_profile_form.save(commit=False)
+                data.create_by=created_by_ins
+                data.update_by = created_by_ins
+                data.ORG_ID=org_ins
+                try:
+                    data.save()
+                    messages.info(request, "User profile added successfully !")
+                    return redirect(settings.BASE_URL + 'user-profile')
 
-            except:
-                messages.error(request, ar_user_profile_form.errors)
+                except:
+                    messages.error(request, ar_user_profile_form.errors)
         else:
             messages.error(request, ar_user_profile_form.errors)
     return render(request, 'admin/manage_user_profile/profile.html',{'ar_user_data':ar_user_data,'ar_user_profile_form':ar_user_profile_form,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
@@ -97,7 +97,7 @@ def edit_user_profile(request,id):
         if ar_user_profile_form.is_valid():
             try:
                 ar_user_profile_form.save()
-                messages.info(request, "Profile key updated successfully !")
+                messages.info(request, "User profile updated successfully !")
                 return redirect(settings.BASE_URL + 'user-profile')
             except:
                 messages.error(request, ar_user_profile_form.errors)
@@ -111,10 +111,10 @@ def edit_user_profile(request,id):
 def delete_user_profile(request,id):
     try:
         ArUserProfile.objects.get(pk=id).delete()
-        messages.info(request, "Profile key removed !")
+        messages.info(request, "User profile removed !")
         return redirect(settings.BASE_URL + 'user-profile')
     except(TypeError):
-        messages.error(request, "Maybe this Profile key is used in another table so we can not remove that !")
+        messages.error(request, "Maybe this user profile is used in another table so we can not remove that !")
 
 
     return redirect(settings.BASE_URL + 'user-profile/add-profile')

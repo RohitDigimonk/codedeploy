@@ -52,7 +52,7 @@ def index(request):
                     data_content = {"BASE_URL": settings.BASE_URL, "user_name": corrent_user_info.user_name, "organization_name": org_info.organization_name,"user_email": user_email,"password":password, "logo_image": logo_image,"varification_link": varification_link}
                     email_content = render_to_string('email_template/email_send_for_invite_user.html',data_content)
                     msg = email.message.Message()
-                    msg['Subject'] = 'Invitation Link From Agil'
+                    msg['Subject'] = 'Invitation Link From Agile Ready'
                     msg['From'] = settings.EMAIL_HOST_USER
                     msg['To'] = user_email
                     password = settings.EMAIL_HOST_PASSWORD

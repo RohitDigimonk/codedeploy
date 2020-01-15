@@ -42,7 +42,7 @@ class IterationForm(forms.ModelForm):
                                                                 queryset=AR_BACKLOG.objects.filter(
                                                                     product_parent=self.instance.Product),
                                                                 widget=forms.Select(attrs={"class": "form-control"}))
-            self.fields['Team'] = forms.ModelChoiceField(required=False, empty_label="Please select team",
+        self.fields['Team'] = forms.ModelChoiceField(required=False, empty_label="Please select team",
                                                                 queryset=AR_team.objects.filter(
                                                                     ORG_id__in=Subquery(org_info.values("id"))),
                                                                 widget=forms.Select(attrs={"class": "form-control"}))

@@ -145,7 +145,7 @@ def register(request):
                     s.login(msg['From'], password)
                     s.sendmail(msg['From'], [msg['To']], msg.as_string())
                     ################################################ EMAL SEND CODE END ##############
-                    return JsonResponse({"status": "1", "message": "Registration successfully, verification link is sent to your registered email !"})
+                    return JsonResponse({"status": "1", "message": "Registration successful, verification link is sent to your registered email '"+user_email+"' !"})
 
 
 

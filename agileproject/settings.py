@@ -174,5 +174,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 # EMAIL_HOST_USER = 'no-reply@digimonk.in'
 # EMAIL_HOST_PASSWORD = 'digi@123'
-EMAIL_HOST_USER = 'mohit.chack@digimonk.in'
-EMAIL_HOST_PASSWORD = 'mohit@digimonk'
+EMAIL_HOST_USER = 'support@digimonk.in'
+EMAIL_HOST_PASSWORD = 'digimonk@123'
