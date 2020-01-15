@@ -1,0 +1,330 @@
+{% extends 'admin/dashboard-template.html' %}
+{% block content %}
+{% load static %}
+{% block cssstyle %}
+<link href='{% static "css/jquery.lwMultiSelect.css" %}'  rel="stylesheet" />
+
+ {% endblock %}
+<div class="container-fluid text-white">
+               <div class="row p-t-b-10 ">
+                  <div class="col">
+                     <h1>Manage Iteration</h1>
+                  </div>
+               </div>
+            </div>
+            </header>
+
+       <div class="container-fluid">
+           
+            <div class="row p-t-b-20">
+               <div class="col-md-12">
+                {% if messages %}
+                   {% for message in messages %}
+                     {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                    <div class="alert alert-success alert-dismissible">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>{{message}}</strong> 
+                    </div>
+                       {% endif %}
+
+                   {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <div class="alert alert-danger alert-dismissible">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>Erorr</strong> {{message}}
+                    </div>
+                       {% endif %}
+
+                   {% endfor %}
+               {% endif %}
+                 <!--  <div class="card no-b"> -->
+              <div class="login-form-card">
+                   <!-- <div class="login-form-content"> -->
+                        <form action="javascript:(0);">
+                          <div class="row">
+                      <div class="col-md-12 mb-2">
+                        <a href="{{BASE_URL}}manage-iteration/add-iteration"><button type="button" class="btn-primary add-data">Add Iteration</button></a>
+              <button  id="show_col" class="btn-primary import-data" data-toggle="modal" data-target="#myModal">Show Columns</button>
+        <button class="btn-primary import-data">Import</button>
+            </div>
+            
+                </div>
+                  <div class="table-responsive hdinpt">         
+
+                                     <!-- start Table -->
+                                     <div id="example_wrapper" class="dataTables_wrapper no-footer">
+                                      <!-- example12 -->
+                                      <table id="example" width="100%" border="1" class="table table-striped table-bordered newpage dataTable no-footer" align="center" cellpadding="0" cellspacing="0" style="font-size: 15px; width: 100%;" role="grid" aria-describedby="example_info">
+        <thead>
+          <tr class="dnd-moved" role="row">
+            {% for k , v in all_column_list.items %}   
+       
+          {% if k in get_show_column %}
+  <th align="left" valign="top" class="{{v}}" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Iteration Id: activate to sort column descending" style="width: 147px;">{{v}}</th>
+          
+          {% endif %}
+          {% endfor %}
+            
+   <th align="left" valign="top" class="action" style=" width: 0px;" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Action</th>
+</tr>
+        </thead>
+        <tbody>
+            
+
+            
+            
+            
+            {% if get_all_iterations %}
+              {% for data in get_all_iterations %}
+
+                <tr class="dnd-moved odd" role="row">
+
+                {% if 'IterationId' in get_show_column %}  
+               <td align="left" valign="top" >{{data.IterationId}}</td>
+              {% endif %}   
+              
+                {% if 'IterationName' in get_show_column %}  
+               <td align="left" valign="top" >{{data.IterationName}}</td>
+              {% endif %}   
+              
+              
+                {% if 'Product' in get_show_column %}  
+               <td align="left" valign="top" >{{data.Product}}</td>
+              {% endif %}   
+              
+
+                {% if 'Backlog' in get_show_column %}  
+               <td align="left" valign="top" >{{data.Backlog}}</td>
+              {% endif %}   
+              
+
+                {% if 'owner' in get_show_column %}  
+               <td align="left" valign="top" >{{data.owner}}</td>
+              {% endif %}   
+              
+
+                {% if 'StartDate' in get_show_column %}  
+               <td align="left" valign="top" >{{data.StartDate}}</td>
+              {% endif %}   
+              
+
+                {% if 'EndDate' in get_show_column %}  
+               <td align="left" valign="top" >{{data.EndDate}}</td>
+              {% endif %}   
+              
+
+
+                {% if 'Description' in get_show_column %}  
+               <td align="left" valign="top" >{{data.Description}}</td>
+              {% endif %}   
+              
+
+
+                {% if 'UserStory' in get_show_column %}  
+               <td align="left" valign="top" >{{data.UserStory}}</td>
+              {% endif %}   
+              
+
+                {% if 'Team' in get_show_column %}  
+               <td align="left" valign="top" >{{data.Team}}</td>
+              {% endif %}   
+
+
+
+               {% if 'IterationScore' in get_show_column %}  
+              <td align="left" valign="top">
+
+                <div class="progress">
+                         <div class="barOverflow">
+                            <div class="bar"></div>
+                         </div>
+                         <span>{{data.IterationScore}}</span>%
+                     </div>
+
+                </td>
+              {% endif %} 
+
+
+
+               {% if 'IterationSize' in get_show_column %}  
+               <td align="left" valign="top" >{{data.IterationSize}}</td>
+              {% endif %} 
+
+
+               {% if 'ORG_ID' in get_show_column %}  
+               <td align="left" valign="top" >{{data.ORG_ID}}</td>
+              {% endif %} 
+
+               {% if 'create_by' in get_show_column %}  
+               <td align="left" valign="top" >{{data.create_by}}</td>
+              {% endif %} 
+
+
+               {% if 'create_dt' in get_show_column %}  
+               <td align="left" valign="top" >{{data.create_dt}}</td>
+              {% endif %} 
+              
+
+              {% if 'update_by' in get_show_column %}  
+               <td align="left" valign="top" >{{data.update_by}}</td>
+              {% endif %} 
+
+              {% if 'update_dt' in get_show_column %}  
+               <td align="left" valign="top" >{{data.update_dt}}</td>
+              {% endif %} 
+
+
+             
+              
+
+
+
+                <td align="left" valign="top" >
+                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+                   <tbody><tr>
+                    <td align="center" valign="top"><a href="{{BASE_URL}}manage-iteration/edit-iteration/{{data.id}}" ><i class="icon-pencil"></i></a></td>
+                    <td align="center" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}manage-iteration/remove-iteration/{{data.id}}','Do you want to removed this iteration.','Iteration removed successfully','Iteration not removed.');" ><i class="icon-delete"></i></a><a></a></td>
+                   </tr>
+                </tbody></table>
+                </td>
+            </tr>
+              {% endfor %}
+            {% endif %}
+      
+                </tbody></table>
+                </td>
+            </tr></tbody>
+    </table></div>
+                                     <!---Table Ends---->
+</div>
+                                    
+                         </form>
+                     <!--  </div> -->
+             </div>
+              <!-- </div> -->
+               </div>
+         </div>
+         </div>
+
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="margin-top:60px;">
+      <div class="modal-header">
+    <h4 class="modal-title" style="width: 100%;">Choose User Story View </h4>
+        <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button>
+      </div>
+      <div class="modal-body ">
+
+      <div class="container">
+        <select id="selectDefaults" multiple="multiple">
+          {% for k , v in all_column_list.items %}
+
+          {% if k in get_show_column %}
+          <option value="{{k}}" selected="true">{{v}}</option>
+          {% else %}
+          <option value="{{k}}" >{{v}}</option>
+          {% endif %}
+          {% endfor %}
+
+        </select>
+      </div>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger click_to_submit">Submit</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+{% block script %}
+
+
+<!-- <script src="assets/js/app.js"></script>
+<script src="assets/js/sidebar-accordian.js"></script> -->
+<script src='{% static "js/jquery.lwMultiSelect.js" %}' ></script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+<script type="text/javascript">
+   $(document).ready(function(){
+  $('.attach input').change(function () {
+    $('.attach p').text(this.files.length + " file(s) selected");
+  });
+});
+</script>
+
+
+<script>
+
+ //=================================================set stype and js of select column modal start============= 
+
+ $(document).ready(function() {
+/*$('#selectDefaults').lwMultiSelect();*/
+$('#selectDefaults').lwMultiSelect({
+  addAllText:"Select All",
+  removeAllText:"Remove All",
+  selectedLabel:"Values accepted",
+  maxSelect: 0,//0 = no restrictions
+  maxText:'',
+});
+});
+ //=================================================set stype and js of select column modal END============= 
+
+
+
+//=================================================JS FOR SET COLUMN IN DATABASE start============= 
+
+$(document).on("click",".click_to_submit",function(){
+var urls = "{{BASE_URL}}iteration-view/update-table-structure/"; 
+var names = new Array();
+$(".lwms-right .lwms-selectli").each(function(){
+  names.push($(this).data("value")); 
+});
+
+if(names=="")
+{
+  swal("Warning", "Select the Columns that you want to show in table!", "warning");
+}
+else{
+  swal({
+      title: "Do you want to update the table structure ?",
+      // text: "Do you want to update the table structure.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+       window.location.href = urls+names;           
+        // swal(done, {
+        //   icon: "success",
+        // });
+      } else {
+        swal(fail);
+      }
+    });
+}
+
+
+});
+
+//=================================================JS FOR SET COLUMN IN DATABASE============= 
+
+</script>
+{% endblock %}

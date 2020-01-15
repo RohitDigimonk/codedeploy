@@ -1,0 +1,765 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Mirrored from xvelopers.com/demos/html/paper-1.8.2/dashboard3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 10:27:27 GMT -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href='{% static "img/basic/favicon.png" %}' type="image/x-icon">
+<title>Agile | DashBoard</title>
+<link rel="stylesheet" href='{% static "css/panel.css" %}'>
+<!-- <link rel="stylesheet" href='{% static "css/dtable.css" %}'> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+
+
+    <style type="text/css">
+    .navbar {
+    position: relative;
+    min-height: 67px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    height: 93px !important;
+}
+
+
+div#example_paginate {
+    position: absolute!important;
+    right: 14px!important;
+    bottom: 22px!important;
+}
+
+div#example_filter {
+    position: absolute!important;
+    right: 14px!important;
+    top: 0px!important;
+}
+
+div#example_filter input[type="search"] {
+    width: 75%!important;
+}
+/*div#example12_filter {
+    position: absolute;
+    right: 14px;
+
+}*/
+
+
+#example_wrapper {
+    margin-bottom: 70px!important;
+}
+
+
+/*#example_wrapper {
+    margin-bottom: 50px!important;
+}
+
+   #example_wrapper{
+    margin-left: -27px;
+    margin-bottom: 50px;
+  }*/
+   .dataTables_length{
+      float: left;
+   }
+   .dataTables_filter input{
+    border: 1px solid #e1e8ee;
+    box-shadow: none;
+    border-radius: 3px;
+    transition: all .2s ease-in-out;
+    min-height: 3rem;
+    padding: 0 .85rem;
+    font-weight: 300;
+   }
+   .dataTables_length select{
+    border: 1px solid #e1e8ee;
+    box-shadow: none;
+    border-radius: 3px;
+    transition: all .2s ease-in-out;
+    min-height: 3rem;
+    padding: 0 .85rem;
+    font-weight: 300;
+ }
+   .dataTables_filter{
+      float: right;
+   }
+   .dataTables_info{
+      float:left;
+   }
+   /*.paginate_button{
+    font-family: 'Montserrat', sans-serif;
+      float: right;
+      border-radius: 5px;
+      padding: 10px;
+      border:1px solid #e0dfdf;
+   }*/
+   .table th, .table td {
+    font-weight: normal;
+    white-space: nowrap;}
+
+
+thead input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+
+
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+   display: none;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 99999999999;
+  background: url({{BASE_URL}}media/img/demo/loader3.gif) center no-repeat rgba(0,0,0,0.5);
+}
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 20px;
+}
+.select2-container {
+    width: 100% !important;
+}
+</style>
+
+{% block cssstyle %}
+    {% endblock %}
+</head>
+<body>
+<div class="se-pre-con"></div>
+<div id="app" class="paper-loading"><a href="#" data-toggle="offcanvas" class="paper-nav-toggle fixed left"><i></i></a>
+   <aside class="main-sidebar fixed offcanvas scroll">
+      <section class="sidebar">
+    <div class="jquery-accordion-menu-header text-center"><a href="{{BASE_URL}}dashboard"><img src='{% static "img/basic/logo.png" %}'></a></div>
+     <ul class="sidebar-menu scroll sp-menu">
+
+     <li class="treeview dashboard_menu" ><a href="{{BASE_URL}}dashboard" data-page="dashboard"><span>Dashboard</span><i class="icon icon-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu ">
+                     <li ><a class="" data-page="product_view" href="{{BASE_URL}}products-view"><i class="fa fa-cog"></i>Product View</a></li>
+                     <li><a href="{{BASE_URL}}backlog-view" data-page="backlog_view"><i class="fa fa-cog"></i>Backlog View </a></li>
+                     <li><a href="{{BASE_URL}}user-story-view" data-page="user_story_view" ><i class="fa fa-cog"></i>User Story View</a></li>
+                     <li><a href="{{BASE_URL}}iteration-view" data-page="iteration_view" ><i class="fa fa-cog"></i>Iteration View</a></li>
+                  </ul>
+                </li>
+
+            <li class="treeview manage_account_menu"><a href="{{BASE_URL}}dashboard" data-page="manage_account"> <span>Manage Account</span><i class="icon icon-angle-left pull-right"></i></a>
+
+
+
+      <ul class="treeview-menu ">
+                        <li  class="manage_users_menu"><a href="{{BASE_URL}}dashboard" data-page="manage_user"><i class="fa fa-cog"></i><span>Manage Users</span> <i class="icon icon-angle-left pull-right"></i></a>
+                          <ul class="treeview-menu">
+                                <li><a href="{{BASE_URL}}user-profile" data-page="manage_user_profile"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage User Profile</a></li>
+                                <li><a href="{{BASE_URL}}invite-user" data-page="invite_new_user"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Invite New User</a>
+                                </li>
+                    </ul></li>
+                    <li class="nmanage_environment_menu"><a href="{{BASE_URL}}dashboard " data-page="nmanage_environment"><i class="fa fa-cog"></i><span>Manage Environment</span> <i class="icon icon-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu ">
+                        <li><a href="{{BASE_URL}}manage-epic-capabilities" data-page="manage_epic_capability"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Epic Capability</a></li>
+                        <li><a href="{{BASE_URL}}manage-feature" data-page="manage_features"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Features </a></li>
+                        <li><a href="{{BASE_URL}}manage-products" data-page="manage_products"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Products</a></li>
+                        <li><a href="{{BASE_URL}}manage-team" data-page="manage_team"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Teams</a></li>
+                        <li><a href="{{BASE_URL}}manage-team-member" data-page="manage_team_member"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Team Members</a></li>
+                        <li ><a href="{{BASE_URL}}manage-backlog" data-page="manage_backlogs"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Backlogs</a></li>
+                        <li><a href="{{BASE_URL}}manage-iteration" data-page="manage_iterations"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Iterations</a></li>
+                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_roles"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Roles</a></li>
+                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_goals"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Goals</a></li>
+                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_benefits"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Benefits</a></li>
+                        <li><a href="{{BASE_URL}}user-story-points" data-page="manage_user_story_point"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage User Story Points</a></li>
+                    </ul>
+                    </li>
+                    <li class="data_exchange_menu"><a href="{{BASE_URL}}dashboard " data-page="data_exchange"><i class="fa fa-cog"></i><span>Data Exchange</span> <i class="icon icon-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_import_data"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Import Data</a></li>
+                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_export_data"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Export Data</a></li>
+                    </ul>
+                    </li>
+                  </ul>
+
+
+            </li>
+
+         </ul>
+
+
+
+      </section>
+   </aside>
+   <div class="page offcanvas-page">
+      <div class="pos-f-t">
+         <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+               <div class="search-bar">
+                  <input class="transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text" placeholder="start typing...">
+               </div>
+               <a href="#" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a></div>
+         </div>
+      </div>
+      <div>
+         <header class="blue accent-3 relative">
+            <div class="navbar navbar-expand navbar-dark d-flex justify-content-end bd-navbar" style="float: right;">
+               <ul class="navbar-nav p-t-10">
+                  <li class="nav-item liwht">
+                     <a href="" class="nav-item nav-link" title="Help" data-toggle="modal" data-target="#help1"><i class="icon-help"></i></a>
+                  </li>
+                <li class="nav-item liwht"><a href="" class="nav-item nav-link" title="Feedback" data-toggle="modal" data-target="#feedback1"><i class="icon-list"></i></a>
+                </li>
+                  <li class="nav-item dropdown">
+                     <a class="nav-item nav-link  mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-user-circle" style="font-size: 25px; color: #fff;"></i></a>
+                     <div class="dropdown-menu dropdown-menu-right b-0 shadow1">
+                      <a class="dropdown-item" href=""><i class="icon-user-circle"></i> {{user_name}}</a>
+                      <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{BASE_URL}}dashboard"><i class="icon-dashboard"></i>Dashboard</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{BASE_URL}}account-settings"><i class="icon-cog"></i> Account Settings</a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{BASE_URL}}dashboard/logout"><i class="icon-power-off"></i> Logout</a></div>
+                  </li>
+               </ul>
+            </div>
+
+         {% block content %}
+	     {% endblock %}
+      </div>
+   </div>
+
+</div>
+        <!------------FeedBack messege Modal Popup Start------->
+<div class="modal fade in sp-map" id="feedback1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title">We value your Feedback</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="font-size: 32px;">×</span>
+          </button>
+
+      </div>
+      <div class="modal-body">
+        <div class="paper">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container-fluid">
+
+                                   <!--  <div class="login-form-content"> -->
+                <form action="{{BASE_URL}}feedback" method="POST" enctype="multipart/form-data">
+                                      {% csrf_token %}
+                  
+          <div class="row">
+             <div class="col-md-5">
+               <label>User Name:</label>
+             </div>
+             <div class="col-md-7 p-t-10">
+              <input type="text" readonly="" name="user_name" class="form-control" value="{{user_name}}" name="">
+                 
+             </div>
+          </div>
+
+          <div class="row">
+             <div class="col-md-5">
+               <label>Date/Time:</label>
+             </div>
+             <div class="col-md-7 p-t-10">
+              <input type="text" readonly="" name="date" class="form-control" value="{{date}}" name="">
+                 
+             </div>
+          </div>
+
+           <div class="row">
+             <div class="col-md-5">
+               <label>Page Name:</label>
+             </div>
+             <div id="feed" class="col-md-7 p-t-10">
+             	<input type="text" class="form-control" readonly="" name="feedback_page" value="Account Settings">'
+                 
+             </div>
+          </div>
+
+          <div class="row">
+             <div class="col-md-5">
+               <label>Feedback Nature:</label>
+             </div>
+             <div class="col-md-7 p-t-10">
+                 <select name="feed_nature" class="form-control" >
+                    <option value="Irritating Bug">Irritating Bug</option>
+                    <option value="Tolerance for a while Bug" >Tolerance for a while Bug</option>
+                    <option value="Fix It Now Bug!">Fix It Now Bug!</option>
+                    <option value="Suggestion">Suggestion</option>
+                    <option value="Complaint">Complaint</option>
+                    <option value="Other">Other</option>
+                 </select>
+             </div>
+          </div>
+          <div class="row">
+             <div class="col-md-12">
+                <label>Feedback Information:</label>
+                <textarea name="feedinformation" class="form-control" style="height: 150px!important;"></textarea>
+             </div>
+             <div class="col-md-12">
+               <label>Attachments:</label>
+               <div class="attach">
+
+                    <!-- <form action="upload.php" method="POST"> -->
+
+                        <input name="feedback_file" type="file" multiple>
+                        <p><i class="icon-upload"></i><br>Drag your files here or Click here</p>
+                    <!-- </form> -->
+               </div>
+             </div>
+             <div class="col-md-12 p-t-b-20">
+               <span>Fix It Now Bugs will get immediate attention.Please give the Agile Ready Team 24 to 72  hours to provide and initial response to all  other  feedback.</span>
+             </div>
+                  <div class="col-md-4 offset-md-4">
+                        <button type="submit" class="btn-block btn btn-white all-btn" >Submit</button>
+                    </div>
+          </div>
+                 </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!--------------------FeedBack Message Modal Ends---------------->
+                <!------------Help messege Modal Popup Start------->
+<div class="modal fade in sp-map" id="help1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title">Help</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="font-size: 32px;">×</span>
+          </button>
+
+      </div>
+      <div class="modal-body">
+        <div class="paper">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container-fluid">
+                                   <!--  <div class="login-form-content"> -->
+                <form action="javascript:(0);">
+                 <div class="table-responsive">
+                                     <!-- start Table -->
+                                     <table id="example4" width="100%" border="1" class="table table-striped table-bordered newpage" align="center" cellpadding="0" cellspacing="0" style=" font-size: 15px;">
+                                       <thead>
+            <tr class="dnd-moved">
+              <th align="left" valign="top" class="itrid">Titles</th>
+                <th align="left" valign="top" class="itrds">Details</th>
+             </tr>
+          </thead>
+        <tbody>
+            <tr>
+                <td align="left" valign="top">Topic</td>
+                <td align="left" valign="top">Dashboard</td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">Description</td>
+                <td align="left" valign="top">Dashboard Page</td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">Information</td>
+                <td align="left" valign="top">This Page Provides All Details.</td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">Useful Links</td>
+                <td align="left" valign="top">
+                   <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+                   <tr>
+                    <td align="left" valign="top">Link 1 </td>
+                   </tr>
+                   <tr>
+                   <td align="left" valign="top">Link 2</td>
+                   </tr>
+                   <tr>
+                   <td align="left" valign="top">Link 3 </td>
+                   </tr>
+                </table>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+                                     <!---Table Ends---->
+</div>
+
+
+
+
+                </form>
+              </div>
+            </div>
+
+                       <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!--------------------Help Message Modal Ends---------------->
+
+
+<script src='{% static "js/app.js" %}'></script>
+<!-- <script src="{% static "js/sidebar-accordian.js" %}"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<script src='{% static "js/custom.js" %}'></script>
+<script type="text/javascript">
+  
+  var base_url = '{{BASE_URL}}';
+</script>
+<script type="text/javascript">
+
+           $(".alert-dismissible").fadeTo(5000, 500).slideUp(500, function(){
+         $(".alert-dismissible").alert('close');
+         });
+
+
+   $('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 4000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+</script>
+<!--<script type="text/javascript">-->
+<!--$(document).ready(function() {-->
+<!--    $('#example4').DataTable();-->
+<!--} );-->
+<!--</script>-->
+<script type="text/javascript">
+   $(document).ready(function(){
+  $('.attach input').change(function () {
+    $('.attach p').text(this.files.length + " file(s) selected");
+  });
+});
+
+
+
+ function remove_product(urls,message,done,fail)
+ {
+   swal({
+      title: message,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+       window.location.href = urls;           
+        // swal(done, {
+        //   icon: "success",
+        // });
+      } else {
+        swal(fail);
+      }
+    });
+ }  
+
+
+// datatables JS START========================================
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    // $('table thead th').each( function () {
+    //     var title = $(this).text();
+    //     $(this).html( '<input type="text" placeholder="'+title+'" />' );
+    // } );
+ 
+    // DataTable
+    $('#example').DataTable();
+    // var table = $('table').DataTable();
+ 
+    // Apply the search
+    // table.columns().every( function () {
+    //     var that = this;
+ 
+    //     $( 'input', this.footer() ).on( 'keyup change clear', function () {
+    //         if ( that.search() !== this.value ) {
+    //             that
+    //                 .search( this.value )
+    //                 .draw();
+    //         }
+    //     } );
+    // } );
+
+
+
+
+} );
+// datatables JS END========================================
+
+ 
+var token = '{{csrf_token}}';
+$(document).on("change","#id_CE_ID", function(){
+  var id=$(this).val();
+  var geturl = window.location.href;
+  var url_in_array = geturl.split("/");
+  var set_url = url_in_array[2];
+  // console.log(url_in_array);
+  // console.log(set_url+"/manage-feature/get-data");
+  // console.log(id);
+  // console.log(geturl);
+  $.ajax({
+    method:"POST",
+    headers: { "X-CSRFToken": token },
+    url: "http://"+set_url+"/manage-feature/get-data",
+    data:{'check':id},
+    dataType:"json",
+    success:function(data)
+    {
+      console.log(data);
+      $("#feature_list").html('');
+      for(var i=0; i<data.check_project.length; i++)
+      {
+        $("#feature_list").append('<tr>  <td align="left" valign="top">'+data.check_project[i].Feature_key+'</td><td align="left" valign="top">'+data.check_project[i].Feature_desc+'</td><td align="left" valign="top"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0"><tr><td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td><td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td></tr></table></td> </tr>');
+      }
+    }
+  })
+
+});
+
+
+
+</script>
+
+
+
+{% for backlog_edit in backlog_edit %}
+<!-- {% if backlog_edit != "" %} -->
+<script>
+  $(document).ready(function(){
+    $('#modal-default').modal('show')
+  });
+  </script>
+  <!-- {% endif %} -->
+{% endfor %}
+
+{% for member_edit in member_edit %}
+<!-- {% if backlog_edit != "" %} -->
+<script>
+  $(document).ready(function(){
+    $('#modal-team').modal('show')
+  });
+  </script>
+
+  <!-- {% endif %} -->
+    {% endfor %}
+
+
+<script>
+
+  // manage user profile function for index page
+
+var token = '{{csrf_token}}';
+$(document).on("change","#profile_key_id", function(){
+  var id=$(this).val();
+  var geturl = window.location.href;
+  var url_in_array = geturl.split("/");
+  var set_url = url_in_array[2];
+  $.ajax({
+    method:"POST",
+    headers: { "X-CSRFToken": token },
+    url: "http://"+set_url+"/user-profile/get-data",
+    data:{'check':id},
+    dataType:"json",
+    success:function(data)
+    {
+      $(".checkbox").attr('checked',false);
+      // console.log(data);
+      // $("#feature_list").html('');
+      for(var i=0; i<data.check_project.length; i++)
+      {
+        if(data.check_project[i].editor == true)
+        {
+        $("#editor"+i+"").attr('checked', true);  
+        }
+        else{
+         $("#editor"+i+"").attr('checked', false); 
+        }
+
+        if(data.check_project[i].viewer == true)
+        {
+        $("#viewer"+i+"").attr('checked', true);  
+        }
+        else{
+         $("#viewer"+i+"").attr('checked', false); 
+        }
+      }
+    }
+  })
+
+});
+
+
+
+
+  //--------------------------- check old password is valid or not START---------------------- 
+  var token = '{{csrf_token}}';
+$(document).on("keyup","#pass_reset", function(){
+  var id=$(this).val();
+  var geturl = window.location.href;
+  var url_in_array = geturl.split("/");
+  var set_url = url_in_array[2];
+  $.ajax({
+    method:"POST",
+    headers: { "X-CSRFToken": token },
+    url: "http://"+set_url+"/account-settings/get-data",
+    data:{'check':id},
+    dataType:"json",
+    success:function(data)
+    {
+      // console.log(data);
+        $("#new_pass").prop('disabled', true);
+        $("#conf_pass").prop('disabled', true);
+        $('#changepassword').prop('disabled', true);
+        $("#new_pass").val('');
+        $("#conf_pass").val('');
+        if(data.check_project == 0)
+        {
+        $("#new_pass").prop('disabled', false);
+        $("#conf_pass").prop('disabled', false);
+        $('#changepassword').prop('disabled', false);  
+        }
+    }
+  })
+
+});
+  //------------------------------- check old password is valid or not End----------------------
+  //------------------- Check New password and confirm Pass match or not Start------------------
+
+
+$('#change_password_form').on('submit', function(e){  
+           e.preventDefault();  
+           var npwd = $("#new_pass").val();
+           var cpwd = $("#conf_pass").val();
+           if(npwd != cpwd)  
+           {  
+            swal({
+                      title: "Sorry !",
+                      text: "New Password and Confirm Password does not match !",
+                      icon: "error",
+                      button: "Ok !",
+                    }); 
+          $('#changepassword').prop('disabled', false);
+           }  
+           else  
+           { 
+            var token = '{{csrf_token}}';
+            var geturl = window.location.href;
+            var url_in_array = geturl.split("/");
+            var set_url = url_in_array[2]; 
+            $.ajax({  
+
+                    method:"POST",
+                    headers: { "X-CSRFToken": token },
+                    url: "http://"+set_url+"/account-settings/pass-change",
+                    data:{'newpwd':npwd},
+                    dataType:"json",
+
+               // method:"POST",
+               //   url:BASE_URL+"update_user_password",
+               //   data:{"newpwd":npwd},
+               //   dataType:"html",
+                 success:function(data){
+                  console.log(data)
+                 if(data.check_project == 1){
+                   swal({
+                      title: "Successfully !",
+                      text: "New Password Updated !",
+                      icon: "success",
+                      button: "Ok !",
+
+                    });
+                $("#new_pass").prop('disabled', true);
+                $("#conf_pass").prop('disabled', true);
+                $('#changepassword').prop('disabled', true);
+                $("#pass_reset").val('');
+                $("#new_pass").val('');
+                $("#conf_pass").val(''); 
+                $('#changepassword').prop('disabled', false);
+                $('#modal-default1').modal('hide');
+                $('.modal-backdrop').hide();
+
+
+                // data-dismiss="modal"
+                // window.location.reload;
+                 }
+                 }  
+            });  
+           }
+        });  
+//------------------- Check New password and confirm Pass match or not END--------------------
+        
+
+</script>
+<!-- 
+<script type="text/javascript"> 
+        $(document).ready(function () { 
+            $("#modal-default1").click(function () { 
+                location.reload(); 
+            }); 
+        }); 
+    </script>
+ -->
+
+<script >
+  
+    // datatables JS START========================================
+  $(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example12 thead tr').clone(true).appendTo( '#example12 thead' );
+    $('#example12 thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" style="font-size:15px;" placeholder="Search '+title+'" />' );
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+
+            }
+        } );
+    } );
+    var table = $('#example12').DataTable( {
+    } );
+    // $(".sorting_asc").css('visibility', 'hidden');
+} );
+// datatables JS END========================================
+
+
+</script>
+
+{% block script %}
+      {% endblock %}
+</body>
+<!-- Mirrored from xvelopers.com/demos/html/paper-1.8.2/dashboard3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 10:27:28 GMT -->
+</html>

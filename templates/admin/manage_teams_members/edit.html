@@ -1,0 +1,61 @@
+<div class="paper">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="container-fluid">
+                                   <!-- <div class="card no-b"> -->
+          <!-- <div class="login-form-card"> -->
+                     <div class="login-form-content">
+                                    <form onsubmit="doSomething();" action="{{BASE_URL}}manage-team-member/edit-team-member/{{member_id}}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                      <div class="col-md-6"></div>
+                                      <!-- <div class="col-md-3">
+                                        <button class="all-btn btn">Add New</button>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <button class="all-btn btn">Delete</button>
+                                      </div> -->
+                                      <div class="col-md-12">
+                                     <!-- start login -->
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        {{member_edit_form.user_name}}
+
+
+                                        <label>User Profile</label>
+                                        <div class="table-responsive">
+                                        {{member_edit_form.profile_permission}}
+                                      </div>
+
+                                        
+
+
+
+
+                                        <!-- <select class="form-control" name="list" placeholder="select Team Member">
+                                          <option>Team Newton</option>
+                                          <option>Team Kelvin</option>
+                                          <option>Team DaVinci</option>
+                                          <option>Team Capernicus</option>
+                                        </select> -->
+                                    </div>
+                                
+                                </div>
+                                <!-- <div class="row"> -->
+                                  <div class="col-md-3">
+                                    <button type="submit" class="btn-block btn btn-white all-btn" data-dismiss="modal">Cancel</button>
+                                  </div>
+                                  <div class="col-md-3">
+                                <div class="form-group">
+                                    <button type="submit" class="btn-block btn btn-white all-btn">Update</button>
+                               </div>
+                             </div>
+                             <!-- </div> -->
+                                </div>
+                              
+                            
+                        </form></div>
+             </div>
+          </div>
+                            </div>
+                        </div>
