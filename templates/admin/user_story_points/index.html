@@ -20,154 +20,145 @@
          <div class="container-fluid">
            
             <div class="row p-t-b-20">
-              {% if messages %}
-                   {% for message in messages %}
-                     {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
-                    <div class="alert alert-success alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>{{message}}</strong>
-                    </div>
-                       {% endif %}
+<div class="col-md-12">
+   {% if messages %}
+   {% for message in messages %}
+   {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+   <div class="alert alert-success alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>{{message}}</strong>
+   </div>
+   {% endif %}
+   {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+   <div class="alert alert-danger alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Erorr</strong> {{message}}
+   </div>
+   {% endif %}
+   {% endfor %}
+   {% endif %}
+   <!--------------------------------------  --------------------------->
+   <div class="row p-t-b-20">
+      <div class="col-md-12">
+         <!-- <div class="card no-b"> -->
+         <div class="login-form-card">
+            <!--  <div class="login-form-content"> -->
+            <form action="javascript:(0);">
+               <div class="table-responsive">
 
-                   {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                    <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>Erorr</strong> {{message}}
-                    </div>
-                       {% endif %}
+                <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default1">Add Point</button>
 
-                   {% endfor %}
-               {% endif %}
-
-      <!--------------------------------------  --------------------------->
-               <div class="col-md-8 offset-md-2">
-                  <!-- <div class="card no-b">
-              <div class="login-form-card"> -->
-                                  <!-- <div class="login-form-content"> -->
-                                    <form action="javascript:(0);">
-                                     <!-- start login -->
-                                     <div class="row">
-                                      <div class="col-md-12">
-                                         <form action="javascript:(0);">
-            <div class="table-responsive">
-                                     <!-- start Table -->
-                                     <table id="Points" width="100%" border="1" class="table table-striped table-bordered newpage" align="center" cellpadding="0" cellspacing="0" style=" font-size: 15px;">
-                  <thead>
-                    <tr>
-                <th align="left" valign="top">Point Description</th>
-                <th align="left" valign="top">Size Value</th>
-                       </tr>
-                    </thead>
+                  <!-- <button class="btn-success add-data"><a href="{{BASE_URL}}manage-epic-capabilities/add-epic-capabilities">Add Point</a></button> -->
+                  <!-- <button class="btn-primary import-data">Export</button> -->
+                  <!-- start Table --><br>
+                  <table id="example" width="100%" border="1" class="table table-striped table-bordered newpage" align="center" cellpadding="0" cellspacing="0" style=" font-size: 15px;">
+                     <thead>
+                        <tr>
+                          <th align="left" valign="top">S.No.</th>
+                           <th align="left" valign="top">Point Key</th>
+                           <th align="left" valign="top">Point Description</th>
+                           <th align="left" valign="top">Size Value</th>
+                           <th align="left" valign="top">Action</th>
+                        </tr>
+                     </thead>
                      <tbody>
-
-
-                      {% for data in story_point%}
-            <tr>
-                <td align="left" valign="top"><div class="form-group">
-                                       <input class="form-control login-frm-input" type="text" id="login" readonly="" value ="{{data.Point_Key}}">
-                                </div></td>
-                <td align="left" valign="top"><div class="form-group">
-                  <input class="form-control ccdd" type="text" id="login" readonly="" value="{{data.Point_score}}">
-
-                                  
-                                </div></td>
-            </tr>
-            {% endfor %}
-
-
-
-           <!--  <tr>
-                <td align="left" valign="top"><div class="form-group">
-                                    <input class="form-control login-frm-input" type="text" id="login" readonly="" value="Smallish">
-                                </div></td>
-                <td align="left" valign="top">
-                  <div class="form-group">
-                              <input class="form-control ccdd" type="Number" id="login" readonly="" value="{{story_point.smallish}}">      
-                                </div>
-                </td>
-            </tr>
-            <tr>
-                <td align="left" valign="top"><div class="form-group">
-                                       <input class="form-control login-frm-input" type="text" id="login" readonly="" value="Small">
-                                </div></td>
-                <td align="left" valign="top">
-                  <div class="form-group">
-                                  <input class="form-control ccdd" type="Number" id="login" readonly="" value="{{story_point.small}}">  
-                                </div>
-                              </td>
-            </tr>
-            <tr>
-                <td align="left" valign="top"><div class="form-group">
-                                       <input class="form-control login-frm-input" type="text" id="login" readonly="" value="Medium">
-                                </div></td>
-                <td align="left" valign="top">
-                  <div class="form-group">
-                                    <input class="form-control ccdd" type="Number" id="login" readonly="" value="{{story_point.medium}}">
-                                </div></td>
-            </tr>
-            <tr>
-                <td align="left" valign="top"><div class="form-group">
-                                       <input class="form-control login-frm-input" type="text" id="login" readonly="" value="Large">
-                                </div></td>
-                <td align="left" valign="top"><div class="form-group">
-                                    <input class="form-control ccdd" type="Number" id="login" readonly="" value="{{story_point.large}}">
-                                </div></td>
-            </tr>
-            <tr>
-                <td align="left" valign="top"><div class="form-group">
-                                       <input class="form-control login-frm-input" type="text" id="login" readonly="" value="Extra Large">
-                                </div></td>
-                <td align="left" valign="top"><div class="form-group">
-                                    <input class="form-control ccdd" type="Number" id="login" readonly="" value="{{story_point.extra_large}}">
-                                </div></td>
-            </tr>
-            <tr>
-                <td align="left" valign="top"><div class="form-group">
-                                       <input class="form-control login-frm-input" type="text" id="login" readonly="" value="Extra Extra Large">
-                                </div></td>
-                <td align="left" valign="top"><div class="form-group">
-                                    <input class="form-control ccdd" type="Number" id="login" readonly="" value="{{story_point.extra_extra_large}}">
-                                </div></td>
-            </tr>
-            <tr>
-                <td align="left" valign="top"><div class="form-group">
-                                       <input class="form-control login-frm-input" type="text" id="login" readonly="" value="Extra Extra Extra Large">
-                                </div></td>
-                <td align="left" valign="top"><div class="form-group">
-                                   <input class="form-control ccdd" type="Number" id="login" readonly="" value="{{story_point.extra_extra_extra_large}}">
-                                </div></td>
-            </tr>
-            <tr>
-                <td align="left" valign="top"><div class="form-group">
-                                       <input class="form-control login-frm-input" type="text" id="login" readonly="" value="Epic">
-                                </div></td>
-                <td align="left" valign="top"><div class="form-group">
-                                    <input class="form-control ccdd" type="Number" id="login" readonly="" value="{{story_point.epic}}">
-                                </div></td>
-            </tr> -->
-</tbody>
-    </table>
-                                     <!---Table Ends---->
+                        {% for data in story_point%}
+                        <tr>
+                          <td align="left" valign="top">{{forloop.counter}}</td>
+                           <td align="left" valign="top">{{data.Point_Key}}</td>
+                           <td align="left" valign="top">{{data.Point_Description}}</td>
+                           <td align="left" valign="top">{{data.Point_score}}</td>
+                           <td align="left" valign="top">
+                              <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+                                 <tr>
+                                    <td align="center" valign="top">
+                                       <a href="{{BASE_URL}}manage-epic-capabilities/edit-epic-capabilities/{{ar_epic_capability_data.id}}"><i class="icon-pencil"></i></a>
+                                    </td>
+                                    <!-- <td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td> -->
+                                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}manage-epic-capabilities/delete-epic-capabilities/{{ar_epic_capability_data.id}}','Do you want to remove this capability ?','Epic capability removed successfully.','Epic capability not removed.');"><i class="icon-delete"></i></a><a></a></td>
+                                 </tr>
+                              </table>
+                           </td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+                  <!---Table Ends---->
+               </div>
+            </form>
+            <!--  </div> -->
+         </div>
+         <!-- </div> -->
+      </div>
+   </div>
 </div>
-</form>
-                                       
-                               <!--  <div class="row">
-                                  <div class="col-md-3">
-                                    <button type="submit" disabled="" class="btn-block btn btn-white all-btn" data-dismiss="modal">Cancel</button>
+
+         </div>
+      </div>
+
+      <!-----------2nd Modal Popup Start------>
+<div class="modal fade in sp-map" id="modal-default1">
+   <div class="modal-dialog">
+      <div class="modal-content" style="width: 150%!important;">
+         <div class="modal-header">
+            <h4 class="modal-title">Add Point</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="font-size: 32px;">×</span></button>
+         </div>
+         <div class="modal-body">
+            <div class="paper">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="container-fluid">
+                        <div class="login-form-content">
+                           <form action="{{BASE_URL}}manage-backlog/add-backlog" method="POST">
+                              {% csrf_token %}
+                              <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label>Point Key<span style="color: red;"> *</span></label>
+                                       {{ar_story_point_form.Point_Key}}
+                                    </div>
                                   </div>
-                                  <div class="col-md-3">
-                                <div class="form-group">
-                                    <button type="submit" disabled="" class="btn-block btn btn-white all-btn">Update</button>
+                                </div>
+                              <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label>Point Description</label>
+                                       {{ar_story_point_form.Point_Description}}
+                                    </div>
+                                 </div>
                                </div>
-                             </div>
-                             </div> -->
-                    </div>
-             <!-- </div>
-              </div> -->
+                               <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label>Point Score<span style="color: red;"> *</span></label>
+                                       {{ar_story_point_form.Point_score}}
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-md-3">
+                                    <a href="{{BASE_URL}}manage-backlog" class="btn-block btn btn-white all-btn" >Cancel</a>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="form-group">
+                                       <button type="submit" class="btn-block btn btn-white all-btn">Add</button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
       </div>
+   </div>
+</div>
+
+<!--------------------2nd Modal Ends---------------->
    </div>
 
 {% endblock %}

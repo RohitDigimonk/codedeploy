@@ -13,9 +13,6 @@ class Ar_Backlog_Form(forms.ModelForm):
     # product_parent = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", 'name': 'product_parent'}))
     BL_STATUS = forms.ModelChoiceField(required=False,empty_label="Please select backlog status",queryset=AR_BACKLOG_STATUS.objects.all(), widget=forms.Select(attrs={'placeholder':"Status *","class": "form-control"}))
     bl_scoring_history = forms.CharField(required=False,widget=forms.Textarea(attrs={"class":"form-control login-frm-input","style":"height: 100px!important;  padding: 11px;","placeholder":"Description",'name':'story_tri_part_text'}))
-
-
-
     class Meta:
         model = AR_BACKLOG
         fields = ['title',  'owner','BL_STATUS', 'team_list', 'product_parent']

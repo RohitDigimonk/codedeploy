@@ -19,6 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/css/bootstrap-select.css" />
 
 
     <style type="text/css">
@@ -30,6 +31,9 @@
     height: 93px !important;
 }
 
+:not(.input-group) > .bootstrap-select.form-control:not([class*="col-"]) {
+    width: 30%;
+}
 
 div#example_paginate {
     position: absolute!important;
@@ -430,6 +434,7 @@ thead input {
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 <script src='{% static "js/custom.js" %}'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/js/bootstrap-select.js"></script>
 <script type="text/javascript">
   
   var base_url = '{{BASE_URL}}';

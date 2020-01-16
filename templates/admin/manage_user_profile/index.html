@@ -42,7 +42,23 @@
            <div class="row p-t-40">
              <div class="col-md-8" style="display: flex;">
                <label style="/* float:left; *//* width: 8em; */" class="control-label">Select Profile: &nbsp;</label>
-<select class="form-control" id="profile_key_id" name="list" placeholder="Select Role" style="
+
+<!-- ----------------------------------- -->
+
+<!--  <select class="selectpicker form-control" data-show-subtext="true" data-live-search="true">
+        <option>John Smith</option>
+        <option>Alex Johnson</option>
+        <option>Kevin Warren</option>
+        <option>Super Mario</option>
+        <option>Allen Martinez</option>
+        <option>Marvin Liberty</option>
+      </select> -->
+<!-- ----------------------------------- -->
+
+
+
+
+<select class="selectpicker form-control" data-show-subtext="true" data-live-search="true" id="profile_key_id" name="list" placeholder="Select Role" style="
     width: 25%;
 ">
                         <option selected="" disabled="">Select Profile</option>
@@ -108,38 +124,145 @@
             </tr>
         </thead>
         <tbody>
+
+                    <tr>
+                <td align="left" valign="top">Product View</td>
+                <input type="hidden" name="activity[]" value="Product View">
+                <td align="center" valign="top">
+                  <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox" id="editor0" name="productviewedit"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+                <td align="center" valign="top">
+                <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="viewer0" name="productviewview" >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+            </tr>
+
+                    <tr>
+                <td align="left" valign="top">Backlog View</td>
+                <input type="hidden" name="activity[]" value="Backlog View">
+                <td align="center" valign="top">
+                  <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox" id="editor1" name="backlogviewedit"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+                <td align="center" valign="top">
+                <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="viewer1" name="backlogviewview" >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+            </tr>
+            
+                    <tr>
+                <td align="left" valign="top">User Story View</td>
+                <input type="hidden" name="activity[]" value="User Story View">
+                <td align="center" valign="top">
+                  <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox" id="editor2" name="userstoryviewedit"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+                <td align="center" valign="top">
+                <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="viewer2" name="userstoryviewview" >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+            </tr>
+            
+                    <tr>
+                <td align="left" valign="top">Iteration View</td>
+                <input type="hidden" name="activity[]" value="Iteration View">
+                <td align="center" valign="top">
+                  <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox" id="editor3" name="iterationviewedit"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+                <td align="center" valign="top">
+                <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="viewer3" name="iterationviewview" >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">Invite New User</td>
+                <input type="hidden" name="activity[]" value="Invite New User">
+                <td align="center" valign="top">
+                  <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox" id="editor4" name="invitenewuseredit"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+                <td align="center" valign="top">
+                <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="viewer4" name="invitenewuserview" >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+            </tr>
+            
+
+
           <tr>
-                <td align="left" valign="top">Super User</td>
+                <td align="left" valign="top">Manage Epic Capability</td>
 
-                <input type="hidden" name="activity[]" value="Super User">
+                <input type="hidden" name="activity[]" value="Manage Epic Capability">
 
+                <td align="center" valign="top">
+                  <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox" id="editor5" name="manageepiccapabilityedit"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+
+
+                <td align="center" valign="top">
+                <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="viewer5" name="manageepiccapabilityview" >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td align="left" valign="top">Manage Features</td>
+                                <input type="hidden" name="activity[]" value="Manage Features">
                 <td align="center" valign="top">
                   <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox" id="editor0" name="superuseredit"  >
-                         <span class="slider round"></span>
-                  </label>
-                  </div>
-                </td>
-
-
-                <td align="center" valign="top">
-                <div class="text-center">
-                  <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer0" name="superuserview" >
-                         <span class="slider round"></span>
-                  </label>
-                  </div>
-                </td>
-
-            </tr>
-            <tr>
-                <td align="left" valign="top">Archive</td>
-                                <input type="hidden" name="activity[]" value="Archive">
-                <td align="center" valign="top">
-                  <div class="text-center">
-                  <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="editor1"  name="archiveedit"  >
+                         <input type="checkbox" class="checkbox"  id="editor6"  name="managefeaturesedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -147,7 +270,7 @@
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer1" name="archiveview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer6" name="managefeaturesview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -155,12 +278,12 @@
 
             </tr>
             <tr>
-                <td align="left" valign="top">Team</td>
-                                <input type="hidden" name="activity[]" value="Team">
+                <td align="left" valign="top">Manage Products</td>
+                                <input type="hidden" name="activity[]" value="Manage Products">
                 <td align="left" valign="top">
                   <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"   id="editor2"  name="teamedit"  >
+                         <input type="checkbox" class="checkbox"   id="editor7"  name="manageproductsedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -168,7 +291,7 @@
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer2" name="teamview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer7" name="manageproductsview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -176,12 +299,12 @@
 
             </tr>
             <tr>
-                <td align="left" valign="top">Product</td>
-                                <input type="hidden" name="activity[]" value="Product">
+                <td align="left" valign="top">Manage Teams</td>
+                                <input type="hidden" name="activity[]" value="Manage Teams">
                 <td align="left" valign="top">
                   <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="editor3"  name="productedit"  >
+                         <input type="checkbox" class="checkbox"  id="editor8"  name="manageteamsedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -189,7 +312,7 @@
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer3" name="productview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer8" name="manageteamsview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -197,12 +320,12 @@
 
             </tr>
             <tr>
-                <td align="left" valign="top">Export</td>
-                                <input type="hidden" name="activity[]" value="Export">
+                <td align="left" valign="top">Manage Team Members</td>
+                                <input type="hidden" name="activity[]" value="Manage Team Members">
                 <td align="left" valign="top">
                   <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="editor4" name="exportedit"  >
+                         <input type="checkbox" class="checkbox"  id="editor9" name="manageteammembersedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -210,7 +333,7 @@
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer4" name="exportview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer9" name="manageteammembersview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -218,18 +341,18 @@
 
             </tr>
             <tr>
-                <td align="left" valign="top">Import</td>
-                                <input type="hidden" name="activity[]" value="Import">
+                <td align="left" valign="top">Manage Backlogs</td>
+                                <input type="hidden" name="activity[]" value="Manage Backlogs">
                 <td align="left" valign="top"><div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="editor5" name="importedit"  >
+                         <input type="checkbox" class="checkbox"  id="editor10" name="managebacklogsedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div></td>
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer5" name="importview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer10" name="managebacklogsview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -237,18 +360,18 @@
 
             </tr>
             <tr>
-                <td align="left" valign="top">User Stories</td>
-                                <input type="hidden" name="activity[]" value="User Stories">
+                <td align="left" valign="top">Manage Iterations</td>
+                                <input type="hidden" name="activity[]" value="Manage Iterations">
                 <td align="left" valign="top"><div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="editor6" name="userstoriesedit"  >
+                         <input type="checkbox" class="checkbox"  id="editor11" name="manageiterationsedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div></td>
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer6" name="userstoriesview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer11" name="manageiterationsview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -256,18 +379,18 @@
 
             </tr>
             <tr>
-                <td align="left" valign="top">Feature</td>
-                                <input type="hidden" name="activity[]" value="Feature">
+                <td align="left" valign="top">Manage Roles</td>
+                                <input type="hidden" name="activity[]" value="Manage Roles">
                 <td align="left" valign="top"><div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="editor7" name="featureedit"  >
+                         <input type="checkbox" class="checkbox"  id="editor12" name="managerolesedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div></td>
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer7" name="featureview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer12" name="managerolesview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -275,18 +398,18 @@
 
             </tr>
             <tr>
-                <td align="left" valign="top">Iteration</td>
-                                <input type="hidden" name="activity[]" value="Iteration">
+                <td align="left" valign="top">Manage Goals</td>
+                                <input type="hidden" name="activity[]" value="Manage Goals">
                 <td align="left" valign="top"><div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="editor8" name="iterationedit"  >
+                         <input type="checkbox" class="checkbox"  id="editor13" name="managegoalsedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div></td>
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer8" name="iterationview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer13" name="managegoalsview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -294,19 +417,19 @@
 
             </tr>
             <tr>
-                <td align="left" valign="top">Epic Capability</td>
-                                <input type="hidden" name="activity[]" value="Epic Capability">
+                <td align="left" valign="top">Manage Benefits</td>
+                                <input type="hidden" name="activity[]" value="Manage Benefits">
                 <td align="left" valign="top">
                   <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="editor9" name="epiccapabilityedit"  >
+                         <input type="checkbox" class="checkbox"  id="editor14" name="managebenefitsedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div></td>
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer9" name="epiccapabilityview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer14" name="managebenefitsview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -315,19 +438,61 @@
             </tr>
 
             <tr>
-                <td align="left" valign="top">Backlogs</td>
-                                <input type="hidden" name="activity[]" value="Backlogs">
+                <td align="left" valign="top">Manage User Story Points</td>
+                                <input type="hidden" name="activity[]" value="Manage User Story Points">
                 <td align="left" valign="top">
                   <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="editor10" name="backlogsedit"  >
+                         <input type="checkbox" class="checkbox"  id="editor15" name="manageuserstorypointsedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div></td>
                 <td align="left" valign="top">
                 <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" class="checkbox"  id="viewer10" name="backlogsview"  >
+                         <input type="checkbox" class="checkbox"  id="viewer15" name="manageuserstorypointsview"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+
+            </tr>
+
+                        <tr>
+                <td align="left" valign="top">Manage Import Data</td>
+                                <input type="hidden" name="activity[]" value="Manage Import Data">
+                <td align="left" valign="top">
+                  <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="editor16" name="manageimportdataedit"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div></td>
+                <td align="left" valign="top">
+                <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="viewer16" name="manageimportdataview"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div>
+                </td>
+
+            </tr>
+
+                        <tr>
+                <td align="left" valign="top">Manage Export Data</td>
+                                <input type="hidden" name="activity[]" value="Manage Export Data">
+                <td align="left" valign="top">
+                  <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="editor17" name="manageexportdataedit"  >
+                         <span class="slider round"></span>
+                  </label>
+                  </div></td>
+                <td align="left" valign="top">
+                <div class="text-center">
+                  <label class="switch">
+                         <input type="checkbox" class="checkbox"  id="viewer17" name="manageexportdataview"  >
                          <span class="slider round"></span>
                   </label>
                   </div>

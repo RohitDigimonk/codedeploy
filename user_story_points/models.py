@@ -9,6 +9,7 @@ class ArUserStoryPoints(models.Model):
     Point_Key   = models.CharField(max_length=50,default='Point_Key', unique=True)
     Point_Description  = models.TextField(default='Set Description')
     Point_score = models.BigIntegerField(default=10)
+    ORG_ID   = models.ForeignKey(AR_organization,default="",null=True , on_delete='models.SET_NULL')
     create_by = models.ForeignKey(User,  on_delete='models.SET_NULL', related_name='UserCreateBy',default="")
     create_dt = models.DateTimeField(default=django.utils.timezone.now)
     update_by = models.ForeignKey(User,  on_delete='models.SET_NULL', related_name='UserUpdateBy',default="")
