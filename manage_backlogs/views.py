@@ -149,8 +149,11 @@ def edit_backlog(request,id):
 
 
 def delete_backlog(request,id):
-    AR_BACKLOG.objects.get(id=id).delete()
-    messages.info(request, "Backlog removed !")
+    try:
+        AR_BACKLOG.objects.get(pk=id).delete()
+        messages.info(request, "Backlog removed !")
+    except(TypeError):
+        messages.error(request, "Maybe this backlog is used in another table so we can not remove that !")
     return redirect(settings.BASE_URL + 'manage-backlog')
 
 

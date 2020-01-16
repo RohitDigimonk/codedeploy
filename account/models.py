@@ -80,7 +80,7 @@ class Ar_user(models.Model):
     subscription_level = models.CharField(max_length=50, default="Free trial")
     active_user = models.IntegerField(default=0)
     user_to_invite = models.IntegerField(default=0)
-    status = models.CharField(max_length=50, default="Active")
+    status = models.CharField(max_length=50, default="Not Active")
     # profile_permission = models.ForeignKey(ArUserProfile, on_delete=models.SET_NULL, null=True,  blank=True, related_name='user_favourite')
     profile_permission = models.ManyToManyField(ArUserProfile,blank=True, related_name='user_favourite')
     login_status = models.BooleanField(default=False)

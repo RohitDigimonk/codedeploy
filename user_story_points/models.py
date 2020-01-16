@@ -10,9 +10,9 @@ class ArUserStoryPoints(models.Model):
     Point_Description  = models.TextField(default='Set Description')
     Point_score = models.BigIntegerField(default=10)
     ORG_ID   = models.ForeignKey(AR_organization,default="",null=True , on_delete='models.SET_NULL')
-    create_by = models.ForeignKey(User,  on_delete='models.SET_NULL', related_name='UserCreateBy',default="")
+    create_by = models.ForeignKey(Ar_user,  on_delete='models.SET_NULL', related_name='UserCreateBy',default="")
     create_dt = models.DateTimeField(default=django.utils.timezone.now)
-    update_by = models.ForeignKey(User,  on_delete='models.SET_NULL', related_name='UserUpdateBy',default="")
+    update_by = models.ForeignKey(Ar_user,  on_delete='models.SET_NULL', related_name='UserUpdateBy',default="")
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
         return str(self.Point_Key)

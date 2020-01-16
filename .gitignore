@@ -1,0 +1,3 @@
+*.pyc
+agilereadyenv/
+**/manage_epic_capability/migrations/

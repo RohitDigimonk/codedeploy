@@ -71,11 +71,11 @@
                            <td align="left" valign="top">
                               <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                                  <tr>
-                                    <td align="center" valign="top">
-                                       <a href="{{BASE_URL}}manage-epic-capabilities/edit-epic-capabilities/{{ar_epic_capability_data.id}}"><i class="icon-pencil"></i></a>
-                                    </td>
+                                    <td align="center" valign="top"><a href="{{BASE_URL}}user-story-points/edit-story-point/{{data.id}}"><i class="icon-pencil"></i></a></td>
+
+                                    
                                     <!-- <td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td> -->
-                                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}manage-epic-capabilities/delete-epic-capabilities/{{ar_epic_capability_data.id}}','Do you want to remove this capability ?','Epic capability removed successfully.','Epic capability not removed.');"><i class="icon-delete"></i></a><a></a></td>
+                                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}user-story-points/delete-story-point/{{data.id}}','Do you want to remove this story point ?','Story point removed successfully.','Story point not removed.');"><i class="icon-delete"></i></a><a></a></td>
                                  </tr>
                               </table>
                            </td>
@@ -111,7 +111,7 @@
                   <div class="col-md-12">
                      <div class="container-fluid">
                         <div class="login-form-content">
-                           <form action="{{BASE_URL}}manage-backlog/add-backlog" method="POST">
+                           <form action="{{BASE_URL}}user-story-points/add-story-point" method="POST">
                               {% csrf_token %}
                               <div class="row">
                                  <div class="col-md-12">
@@ -139,7 +139,7 @@
                               </div>
                               <div class="row">
                                  <div class="col-md-3">
-                                    <a href="{{BASE_URL}}manage-backlog" class="btn-block btn btn-white all-btn" >Cancel</a>
+                                    <a href="{{BASE_URL}}user-story-points" class="btn-block btn btn-white all-btn" >Cancel</a>
                                  </div>
                                  <div class="col-md-3">
                                     <div class="form-group">
@@ -159,6 +159,77 @@
 </div>
 
 <!--------------------2nd Modal Ends---------------->
+<!------------Modal Popup------->
+<div class="modal fade in sp-map" id="modal-point">
+   <div class="modal-dialog">
+      <div class="modal-content" style="width: 150%!important;">
+         <div class="modal-header">
+            <h4 class="modal-title">Manage Story Point</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="font-size: 32px;">×</span></button>
+         </div>
+         <div class="modal-body">
+            <div class="paper">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="container-fluid">
+                        <!-- <div class="card no-b"> -->
+                        <!-- <div class="login-form-card"> -->
+                        <div class="login-form-content">
+                           <form action="{{BASE_URL}}user-story-points/edit-story-point/{{story_point_id}}" method="POST">
+                              {% csrf_token %}
+                              <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label>Point Key<span style="color: red;"> *</span></label>
+                                       {{ar_story_point_form.Point_Key}}
+                                    </div>
+                                  </div>
+                                </div>
+                              <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label>Point Description</label>
+                                       {{ar_story_point_form.Point_Description}}
+                                    </div>
+                                 </div>
+                               </div>
+                               <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label>Point Score<span style="color: red;"> *</span></label>
+                                       {{ar_story_point_form.Point_score}}
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-md-3">
+                                    <a href="{{BASE_URL}}user-story-points" class="btn-block btn btn-white all-btn" >Cancel</a>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="form-group">
+                                       <button type="submit" class="btn-block btn btn-white all-btn">Add</button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- </div>
+   </div> -->
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!---------------------------Modal Ends---------------->
+
    </div>
 
 {% endblock %}
