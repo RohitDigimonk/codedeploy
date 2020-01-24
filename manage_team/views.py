@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from agileproject import settings
-from account.models import Ar_user,AR_organization
+from account.models import Ar_user,AR_organization,Notification
 from .forms import ManageTeamForm
 from manage_product.models import AR_team
 from django.contrib import messages
@@ -9,46 +9,62 @@ import django
 from datetime import datetime
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
+from manage_product import views as product_view
 # Create your views here.
 
 @login_required
 def index(request):
-    org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
-    if AR_team.objects.filter(ORG_id=org_ins).exists():
-        AR_team_get = AR_team.objects.filter(ORG_id=org_ins).order_by("-id")
+    if product_view.check_permition(request, 'Manage Teams', 0):
+        check_edit_permission = product_view.check_permition(request, 'Manage Teams', 1)
+        org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
+        if AR_team.objects.filter(ORG_id=org_ins).exists():
+            AR_team_get = AR_team.objects.filter(ORG_id=org_ins).order_by("-id")
+        else:
+            AR_team_get = {}
+        user_objects = []
+        for team in AR_team_get:
+            for ids in team.Team_member_list.all():
+                user_objects.append(ids.id)
+        if request.method == 'POST':
+            TeamForm = ManageTeamForm(request.user, request.session['org_id'],user_objects,request.POST)
+            if TeamForm.is_valid():
+                org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
+                ar_user_insta = get_object_or_404(Ar_user, pk=request.session['user_id'])
+                team = TeamForm.save(commit=False)
+                team.create_by =  ar_user_insta
+                team.update_by =  ar_user_insta
+                team.ORG_id =  org_ins
+                try:
+                    team.save()
+                    TeamForm.save_m2m()
+                    msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Add")
+                    msg_data = msg[0].notification_desc
+                    messages.info(request, msg_data)
+                    # messages.info(request, "Team added successfully !")
+                except IntegrityError:
+                    msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Exists")
+                    msg_data = msg[0].notification_desc
+                    messages.error(request, msg_data)
+                    # messages.error(request, "The team name is alread exists !")
+                return redirect(settings.BASE_URL+"manage-team")
+        TeamForm = ManageTeamForm(request.user, request.session['org_id'],user_objects)
+        return render(request, 'admin/manage_team/index.html', {'check_edit_permission':check_edit_permission,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,'TeamForm':TeamForm,'team_get':AR_team_get})
     else:
-        AR_team_get = {}
-    user_objects = []
-    for team in AR_team_get:
-        for ids in team.Team_member_list.all():
-            user_objects.append(ids.id)
-    if request.method == 'POST':
-        TeamForm = ManageTeamForm(request.user, request.session['org_id'],user_objects,request.POST)
-        if TeamForm.is_valid():
-            org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
-            ar_user_insta = get_object_or_404(Ar_user, pk=request.session['user_id'])
-            team = TeamForm.save(commit=False)
-            team.create_by =  ar_user_insta
-            team.update_by =  ar_user_insta
-            team.ORG_id =  org_ins
-            try:
-                team.save()
-                TeamForm.save_m2m()
-                messages.info(request, "Team added successfully !")
-            except IntegrityError:
-                messages.error(request, "The team name is alread exists !")
-            return redirect(settings.BASE_URL+"manage-team")
-    TeamForm = ManageTeamForm(request.user, request.session['org_id'],user_objects)
-    return render(request, 'admin/manage_team/index.html', {'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,'TeamForm':TeamForm,'team_get':AR_team_get})
-
+        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL})
 @login_required
 def remove_team(request,id):
     try:
         team = get_object_or_404(AR_team, pk=id)
         team.delete()
-        messages.info(request, "Team removed successfully !")
+        msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Remove")
+        msg_data = msg[0].notification_desc
+        messages.info(request, msg_data)
+        # messages.info(request, "Team removed successfully !")
     except(TypeError):
-        messages.error(request, "Maybe this team is used in another table so we can not remove that !")
+        msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Remove_error")
+        msg_data = msg[0].notification_desc
+        messages.error(request, msg_data)
+        # messages.error(request, "Maybe this team is used in another table so we can not remove that !")
     return redirect(settings.BASE_URL + 'manage-team')
 
 @login_required
@@ -76,7 +92,10 @@ def edit_team(request,id):
             team.update_dt =  datetime.now()
             team.save()
             TeamForm.save_m2m()
-            messages.info(request, "Team updated successfully !")
+            msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Update")
+            msg_data = msg[0].notification_desc
+            messages.info(request, msg_data)
+            # messages.info(request, "Team updated successfully !")
             return redirect(settings.BASE_URL + "manage-team")
         else:
             messages.error(request, product_form.error)

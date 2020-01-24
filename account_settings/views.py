@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import login
 from agileproject import settings
@@ -7,13 +8,18 @@ from account.models import Ar_user,ArUserProfile,AR_organization
 from django.contrib import messages
 import hashlib
 import django
-
+from django.db.models import Subquery
 # Create your views here.
 
+@login_required
 def index(request):
     if request.user.is_authenticated:
         user = Ar_user.objects.filter(id=request.session['user_id'])
         profile = ArUserProfile.objects.filter(ORG_ID=request.session['org_id'])
+        get_count_of_invit_user = Ar_user.objects.filter(created_by=request.session['user_id']).count()
+        get_active_user = User.objects.filter(is_active=True)
+        get_count_of_active_user = Ar_user.objects.filter(created_by=request.session['user_id']).filter(
+            user_id__in=Subquery(get_active_user.values("id"))).count()
         if request.method == "POST":
             user_name = request.POST["user_name"]
             city = request.POST["city"]
@@ -32,12 +38,12 @@ def index(request):
                 return redirect(settings.BASE_URL + 'account-settings')
             else:
                 messages.info(request, "Profile not updated !")
-        return render(request,"admin/account_settings/index.html",{'profile':profile,'user':user,"BASE_URL":settings.BASE_URL,'user_name':request.session['user_name']})
+        return render(request,"admin/account_settings/index.html",{'get_count_of_active_user':get_count_of_active_user,'get_count_of_invit_user':get_count_of_invit_user,'profile':profile,'user':user,"BASE_URL":settings.BASE_URL,'user_name':request.session['user_name']})
     else:
         return redirect(settings.BASE_URL)
 
 
-
+@login_required
 def get_data(request):
     if request.method == "POST":
         check_map = request.POST['check']
@@ -55,7 +61,7 @@ def get_data(request):
     return JsonResponse({'check_project':"sorry"})
 
 
-
+@login_required
 def pass_change(request):
     if request.method == "POST":
         newpwd = request.POST['newpwd']

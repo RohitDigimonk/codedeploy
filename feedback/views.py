@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,get_object_or_404,redirect
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
@@ -13,6 +14,7 @@ from datetime import datetime
 
 
 # Create your views here.
+@login_required
 def index(request):
     print("enter")
     if request.method == "POST":

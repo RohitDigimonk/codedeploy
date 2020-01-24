@@ -11,6 +11,9 @@ urlpatterns = [
 
     path('add-new/', views.add_user_story_view, name='add_user_story_view'),
 
+    path('get-data', views.get_data, name='get_data'),
+    path('get-data/', views.get_data, name='get_data'),
+
     path('add-csv-files/', views.add_csv_files, name='add_csv_files'),
     path('add-csv-files', views.add_csv_files, name='add_csv_files'),
 

@@ -34,7 +34,6 @@ class AR_US_TYPE(models.Model):
 
 
 class AR_USER_STORY(models.Model):
-    owner = models.CharField(max_length=50,blank=True)
     title = models.CharField(max_length=80,blank=True)
     story_tri_part_text = models.TextField(blank=True)
     acceptance_criteria = models.TextField(blank=True)
@@ -50,7 +49,8 @@ class AR_USER_STORY(models.Model):
     user_story_status = models.ForeignKey(AR_US_STATUS,default="",null=True , on_delete=models.CASCADE)
     ORG_id = models.ForeignKey(AR_organization,default="",null=True , on_delete=models.SET_DEFAULT)
     UST_ID = models.ForeignKey(AR_US_TYPE,default="",null=True , on_delete=models.SET_DEFAULT)
-    ar_user = models.ForeignKey(Ar_user,default="",null=True , on_delete=models.SET_DEFAULT)
+    ar_user = models.ForeignKey(Ar_user,default="",null=True , on_delete='models.SET_NULL',related_name='ar_user')
+    owner = models.ForeignKey(Ar_user,default="",null=True , on_delete='models.SET_NULL',related_name='owner')
     created_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='create_by_user_story')
     updated_dt = models.DateTimeField(default=django.utils.timezone.now)
     created_dt = models.DateTimeField(default=django.utils.timezone.now)

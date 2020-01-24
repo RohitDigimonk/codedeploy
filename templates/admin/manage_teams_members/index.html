@@ -59,24 +59,38 @@
             <tr>
                 <th align="left" valign="top">Name</th>
                 <th align="left" valign="top">User Profile</th>
+                <th align="left" valign="top">User Type</th>
                 <th align="left" valign="top">Teams</th>
-                <th align="left" valign="top">Action</th>
+                <th align="left" style=" width: 60px!important;" valign="top">Action</th>
             </tr>
         </thead>
         <tbody>
                         {% for user_data in user %}
                         {% if user_data.user_name != "" %}
             <tr>
-
-
                 <td align="left" valign="top">{{user_data.user_name}}</td>
-                <td align="left" valign="top">{{ user_data.profile_permission.all|join:" ,<br>" }}</td>
+                <td align="left" valign="top">
+ {% if user_data.user_type == 'Root' %}
+                  All Permissions Alow
+                  {% else %}
+                  {{ user_data.profile_permission.all|join:" ,<br>" }}
+                  {% endif %}
+                </td>
+                <td align="left" valign="top">{{user_data.user_type}}</td>
                 <td align="left" valign="top">{{user_data.user_data.all|join:" ,<br>" }}</td>
                 <td align="left" valign="top">
-                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+                   {% if user_data.user_type == 'Root' %}
+                  Not Edit
+                  {% else %}
+                  
+                   {% if check_edit_permition %}
+                  
+                  <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                    <tr>
 
-                     <td align="center" valign="top"><a href="{{BASE_URL}}manage-team-member/edit-team-member/{{user_data.id}}"><i class="icon-pencil"></i></a></td>
+                     <!-- <td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#team_member_edit" class="member_edit" data-member_id="{{user_data.id}}"><i class="icon-pencil"></i></a></td> -->
+
+                     <td align="center" valign="top"><a href="{{BASE_URL}}manage-team-member/edit-team-member/{{user_data.id}}"  class="member_edit" ><i class="icon-pencil"></i></a></td>
 
                      <td align="center" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}manage-team-member/delete-team-member/{{user_data.id}}','Do you want to remove this team member ?','Team member removed successfully.','Team member not removed.');"><i class="icon-delete"></i></a></td>
 
@@ -84,6 +98,10 @@
                      <!-- <td align="center" valign="top"><a href="" data-toggle="modal" data-target="#modal-default2"><i class="icon-delete"></i><a></td> -->
                    </tr>
                 </table>
+                  {% endif %}
+
+                  {% endif %} 
+                
                 </td>
             </tr>
 

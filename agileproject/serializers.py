@@ -2,6 +2,8 @@ from rest_framework import serializers
 from manage_epic_capability.models import AR_EPIC_CAPABILITY
 from manage_features.models import AR_FEATURE
 from account.models import ArUserProfilePermission
+from user_story_view.models import AR_USER_STORY
+
 
 class Ar_Epic_Serializer(serializers.ModelSerializer):
     class Meta:
@@ -21,3 +23,10 @@ class ArUserProfilePermissionSerializer(serializers.ModelSerializer):
         fields = (
         'profile_key', 'ORG_ID', 'activites', 'editor', 'viewer', 'create_by', 'create_dt', 'update_by', 'update_dt')
 #
+
+
+class ArUserStoryViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AR_USER_STORY
+        fields = (
+        'owner', 'title', 'story_tri_part_text')

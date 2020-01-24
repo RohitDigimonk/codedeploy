@@ -77,7 +77,36 @@ console.log($(this).data("page"))
 	        	 $("#feed").html('<input type="text" value="Manage Team Member" class="form-control" readonly="" name="feedback_page">');
 	        	 for_enver = true;
 	        }
-	      break; 
+	      break;
+
+	    case "manage_goals" :
+	      	 if(jQuery.inArray("manage-goals", url_in_array) != -1 || jQuery.inArray("manage-goals#", url_in_array) != -1)
+	        {
+	        	 $(this).addClass('active');
+	        	 $("#feed").html('<input type="text" value="Manage Goal" class="form-control" readonly="" name="feedback_page">');
+	        	 for_enver = true;
+	        }
+	      break;
+
+
+	    case "manage_roles" :
+	      	 if(jQuery.inArray("manage-role", url_in_array) != -1 || jQuery.inArray("manage-role#", url_in_array) != -1)
+	        {
+	        	 $(this).addClass('active');
+	        	 $("#feed").html('<input type="text" value="Manage Roles" class="form-control" readonly="" name="feedback_page">');
+	        	 for_enver = true;
+	        }
+	      break;
+
+        case "manage_benefits" :
+	      	 if(jQuery.inArray("manage-benefits", url_in_array) != -1 || jQuery.inArray("manage-benefits#", url_in_array) != -1)
+	        {
+	        	 $(this).addClass('active');
+	        	 $("#feed").html('<input type="text" value="Manage Benefits" class="form-control" readonly="" name="feedback_page">');
+	        	 for_enver = true;
+	        }
+	      break;
+
 	    case "manage_user_story_point" :
 	      	 if(jQuery.inArray("user-story-points", url_in_array) != -1) 
 	        {
@@ -101,7 +130,7 @@ console.log($(this).data("page"))
 	        	 $("#feed").html('<input type="text" value="User Profile" class="form-control" readonly="" name="feedback_page">');
 	        	 for_manage_user = true;
 	        }
-	      break; 
+	      break;
 	   	case "dashboard":
 	      	 if(jQuery.inArray("dashboard", url_in_array) != -1) 
 	        {
@@ -139,8 +168,8 @@ console.log($(this).data("page"))
 	        	 for_dashboard = true;
 	        }
 	      break;   
-	      	      case "iteration_view":
-	      	 if(jQuery.inArray("iteration-view", url_in_array) != -1 ) 
+	      case "iteration_view":
+	      	 if(jQuery.inArray("iteration-view", url_in_array) != -1 || jQuery.inArray("iteration-view#", url_in_array) != -1 ) 
 	        {
 	        	 $(this).addClass('active');
 	        	 $("#feed").html('<input type="text" class="form-control" readonly="" name="feedback_page" value="Iteration View">');

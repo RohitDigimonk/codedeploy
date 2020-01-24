@@ -61,14 +61,8 @@
                                 </div> -->
                                 <div class="form-group">
                                         <label>Profile Permission</label>
-                                        <select   disabled="" name="profile_key" class="form-control">
-                                        {% for profile_data in profile %}
-                                        <option value="{{profile_data.profile_key}}">{{profile_data.profile_key}}</option>
-
-                                        {% endfor %}
-
-                                      </select>
-
+                                        <input type="text" name="profile_key" class="form-control" disabled="" value="({{user_data.user_type}}) || {{user_data.profile_permission.all|join:' || '}}">
+                                        
 
 
                                         <!-- <input type="text" class="form-control form-control-lg" placeholder=""> -->
@@ -116,13 +110,14 @@
                                           <option></option>
                                         </select>
                                 </div>
+                                
                                 <div class="form-group">
                                         <label>Active Users in Account</label>
-                                        <input type="text"  readonly="" name="active_user" class="form-control form-control-lg" placeholder="" value="{{user_data.active_user}}">
+                                        <input type="text"  readonly="" name="active_user" class="form-control form-control-lg" placeholder="" value="{{get_count_of_active_user}}">
                                 </div>
                                 <div class="form-group">
                                         <label>Available Users to Invite</label>
-                                        <input type="text"  readonly="" name="user_to_invite" class="form-control form-control-lg" placeholder=""  value="{{user_data.user_to_invite}}">
+                                        <input type="text"  readonly="" name="user_to_invite" class="form-control form-control-lg" placeholder=""  value="{{get_count_of_invit_user}}">
                                 </div>
                                 <div class="form-group">
                                         <label>Status</label>

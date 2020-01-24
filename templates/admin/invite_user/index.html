@@ -40,14 +40,24 @@
                                       {% csrf_token %}
                                      <!-- start login -->
                                     <div class="form-group">
-                                        <label>Email Address <samp style="color: red">*</samp></label>
+                                        <label>Email Address <samp style="color: red"> {% if get_edit_permission %}
+                                        *
+                                        {% else %}
+                                        (You are not authorized person.)
+                                        {% endif %}
+                                          </samp></label>
+                                          
+                                        {% if get_edit_permission %}
                                         <input type="text" required="" name="email" class="form-control form-control-lg" placeholder="Email Address">
+                                        {% else %}
+                                        <input type="text" required="true" name="email" class="form-control form-control-lg" readonly="true" placeholder="You are not authorized person.">
+                                        {% endif %}
                                 </div>
                                 <div class="row">
-                                  <div class="col-md-2">
+                                  <div class="col-md-6">
                                     <button type="reset" class="btn-block btn btn-white all-btn" data-dismiss="modal">Reset</button>
                                   </div>
-                                  <div class="col-md-4">
+                                  <div class="col-md-6">
                                 <div class="form-group">
                                     <button type="submit" class="btn-block btn btn-white all-btn">Send Invitations</button>
                                </div>

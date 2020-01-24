@@ -112,3 +112,25 @@ class csvFilesUplodaded(models.Model):
     updated_dt = models.DateTimeField(default=django.utils.timezone.now)
     created_dt = models.DateTimeField(default=django.utils.timezone.now)
     updated_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL', related_name='update_by_csvFilesUplodaded')
+
+
+
+class Notification(models.Model):
+    page_name = models.CharField(max_length=50)
+    notification_key = models.CharField(max_length=50)
+    notification_desc = models.TextField()
+    def _str__(self):
+        return str(self.notification_desc)
+
+
+class ArUserStoryScoringPoints(models.Model):
+    Score_for = models.CharField(max_length=50)
+    Score_key = models.CharField(max_length=50)
+    Keyword = models.TextField()
+    Score_one = models.IntegerField(default=0)
+    Score_two = models.IntegerField(default=0)
+    Score_three = models.IntegerField(default=0)
+    Last_Update = models.DateTimeField(default=django.utils.timezone.now)
+
+    def __str__(self):
+        return str(self.Score_key)

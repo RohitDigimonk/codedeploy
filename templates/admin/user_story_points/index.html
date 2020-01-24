@@ -46,7 +46,12 @@
             <form action="javascript:(0);">
                <div class="table-responsive">
 
+                {% if check_edit_permition %}
                 <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default1">Add Point</button>
+
+ {% else %}
+                   <button class="btn-success add-data" data-toggle="modal" disabled="true" data-target="#modal-default1">You are not authorized person.</button>
+                        {% endif %}   
 
                   <!-- <button class="btn-success add-data"><a href="{{BASE_URL}}manage-epic-capabilities/add-epic-capabilities">Add Point</a></button> -->
                   <!-- <button class="btn-primary import-data">Export</button> -->
@@ -58,7 +63,7 @@
                            <th align="left" valign="top">Point Key</th>
                            <th align="left" valign="top">Point Description</th>
                            <th align="left" valign="top">Size Value</th>
-                           <th align="left" valign="top">Action</th>
+                           <th align="left" style=" width: 60px!important;" valign="top">Action</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -69,15 +74,19 @@
                            <td align="left" valign="top">{{data.Point_Description}}</td>
                            <td align="left" valign="top">{{data.Point_score}}</td>
                            <td align="left" valign="top">
+                              {% if check_edit_permition %}
                               <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                                  <tr>
-                                    <td align="center" valign="top"><a href="{{BASE_URL}}user-story-points/edit-story-point/{{data.id}}"><i class="icon-pencil"></i></a></td>
-
-                                    
+                                    <td align="center" valign="top">
+                                       <a href="{{BASE_URL}}user-story-points/edit-story-point/{{data.id}}"><i class="icon-pencil"></i></a>
+                                    </td>
                                     <!-- <td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td> -->
                                     <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}user-story-points/delete-story-point/{{data.id}}','Do you want to remove this story point ?','Story point removed successfully.','Story point not removed.');"><i class="icon-delete"></i></a><a></a></td>
                                  </tr>
                               </table>
+                              {% else %}
+                              <span class="label label-danger">You are not authorized person.</span>
+                        {% endif %}      
                            </td>
                         </tr>
                         {% endfor %}

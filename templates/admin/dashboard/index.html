@@ -1,80 +1,241 @@
 {% extends 'admin/dashboard-template.html' %}
-{% block content %}
-{% load static %}
-            <div class="container-fluid text-white">
-               <div class="row p-t-b-10 ">
-                  <div class="col">
-                     <h1>Dashboard</h1>
-                  </div>
-               </div>
-            </div>
-         </header>
+ {% block cssstyle %}
+<style type="text/css">
+  .scrollbar
+  {
+     /*margin-left: 30px;*/
+     padding: 0 5px;
+      /* margin-left: 30px; */
+      border-radius: 5px;
+      border: 2px solid #000;
+      float: left;
+      height: 170px;
+      width: 145px;
+      background: #F5F5F5;
+      overflow-y: scroll;
+      /* margin-bottom: 25px;
+     /*margin-bottom: 25px;*/
+  }
+  
+  .force-overflow
+  {
+     min-height: 162px;
+  }
+  
+  .wrapper
+  {
+     text-align: left;
+     width: 293px;
+     margin: auto;
+  }
+  
+  .style-2::-webkit-scrollbar-track
+  {
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+     border-radius: 5px;
+     background-color: #F5F5F5;
+  }
+  
+  .style-2::-webkit-scrollbar
+  {
+     width: 10px;
+     background-color: #F5F5F5;
+  }
+  
+  .style-2::-webkit-scrollbar-thumb
+  {
+     border-radius: 5px;
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+     background-color: #D62929;
+  }
+</style>{% endblock %} {% block content %} {% load static %}
+<div class="container-fluid text-white">
+  <div class="row p-t-b-10 ">
+    <div class="col">
+      <h1>Dashboard</h1>
+    </div>
+  </div>
+</div>
+</header>
 <div class="container-fluid">
-
-            <div class="row p-t-b-20">
-               <div class="col-md-12">
-                  <div class="card no-b">
-
-                     <div class="collapse show" id="invoiceCard">
-                        <div class="card-body p-0">
-                           <div class="col--md-12 p-0">
-                              <!-- <div class="card widget"> -->
-                                 <div class="card-body">
-                                    <div class="row">
-                                       <div class="col-md-1"></div>
-                                       <div class="col-md-2 p-4 b-r">
-                                         <a href="{{BASE_URL}}manage-team"> <span class="text-center">
+  <div class="row p-t-b-20">
+    <div class="col-md-12">
+      <div class="card no-b">
+        <div class="collapse show" id="invoiceCard">
+          <div class="card-body p-0">
+            <div class="col--md-12 p-0">
+              <!-- <div class="card widget"> -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-2 p-4 b-r">
+                    <a href="{{BASE_URL}}manage-team"> <span class="text-center">
                                              <i class="fas text-themecolor icon-users"></i>
                                           </span>
-                                          <h1 class="font-light count">{{team}}</h1>
-                                           <h5>Teams</h5></a>
-                                       </div>
-                                       <div class="col-md-2 p-4 b-r">
-                                          <a href="{{BASE_URL}}manage-products"><span class="text-center"><i class="fas text-themecolor icon-heartbeat"></i>
+                      <h1 class="font-light count">{{team}}</h1>
+                      <h5>Teams</h5>
+                    </a>
+                  </div>
+                  <div class="col-md-2 p-4 b-r"> <a href="{{BASE_URL}}manage-products"><span class="text-center"><i class="fas text-themecolor icon-heartbeat"></i>
                                           </span>
                                           <h1 class="font-light count">{{product}}</h1>
                                           <h5>Products</h5></a>
-                                       </div>
-
-                                       <div class="col-md-2 p-4 b-r">
-                                          <a href="{{BASE_URL}}dashboard">
-                                          <span class="text-center">
+                  </div>
+                  <div class="col-md-2 p-4 b-r">
+                    <a href="{{BASE_URL}}dashboard"> <span class="text-center">
                                              <i class="fas text-themecolor icon-gift"></i>
                                           </span>
-                                          <h1 class="font-light count">{{itearations}}</h1>
-                                          <h5>Iterations</h5>
-                                       </a>
-                                       </div>
-                                       <div class="col-md-2 p-4 b-r">
-                                          <a href="{{BASE_URL}}manage-backlog">
-                                          <span class="text-center">
+                      <h1 class="font-light count">{{itearations}}</h1>
+                      <h5>Iterations</h5>
+                    </a>
+                  </div>
+                  <div class="col-md-2 p-4 b-r">
+                    <a href="{{BASE_URL}}manage-backlog"> <span class="text-center">
                                              <i class="fas text-themecolor icon-gift"></i>
                                           </span>
-                                          <h1 class="font-light count">{{backlog}}</h1>
-                                          <h5>Backlogs</h5>
-                                       </a>
-                                       </div>
-                                       <div class="col-md-2 p-4 b-r">
-                                          <a href="{{BASE_URL}}user-story-view">
-                                          <span class="text-center">
+                      <h1 class="font-light count">{{backlog}}</h1>
+                      <h5>Backlogs</h5>
+                    </a>
+                  </div>
+                  <div class="col-md-2 p-4 b-r">
+                    <a href="{{BASE_URL}}user-story-view"> <span class="text-center">
                                              <i class="fas text-themecolor icon-book"></i>
                                           </span>
-                                          <h1 class="font-light count">{{user_storyes}}</h1>
-                                          <h5>User Stories</h5></a>
-                                       </div>
-                                       <div class="col-md-1"></div>
-                                    </div>
-                                 </div>
-                             <!--  </div> -->
-                               <!---->
-                                <!-- <div class="card widget"><div class="card-body"><div class="row border-bottom"><div class="col-12"><h4 class="card-title mb-3">Todo</h4> <div class="mr-4"><form><div class="px-2"><div class="form-group"><input type="text" name="title" placeholder="Title" class="form-control"> </div></div></form> <div><div class="vb vb-invisible" style="position: relative; overflow: hidden;"><div class="m-b-20 vb-content" style="max-height: 200px; display: block; overflow: hidden scroll; height: 100%; width: calc(100% + 17px);"></div><div class="vb-dragger" style="position: absolute;"><div class="vb-dragger-styler"></div></div></div></div></div></div></div></div></div>  -->
-                               <!----> <!----></div>
-                        </div>
-                     </div>
+                      <h1 class="font-light count">{{user_storyes}}</h1>
+                      <h5>User Stories</h5>
+                    </a>
                   </div>
-               </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-2  p-4 l-r">
+                    <div class="wrapper">
+                      <div class="scrollbar style-2" class="">
+                        <div class="force-overflow table-responsive">
+                          <table class="table-bordered">
+                            <tbody>
+                            {% for data in team_data %}
+                              <tr>
+                                <td>{{data.Team_name}}</td>
+                                <td>{{data.Team_member_list.all.count}} Members</td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 p-4 l-r">
+                    <div class="wrapper">
+                      <div class="scrollbar style-2" class="">
+                        <div class="force-overflow table-responsive">
+                          <table class=" table-bordered">
+                            <tbody>
+                              {% for data in product_data %}
+                              <tr>
+                                <td>{{data.Product_name}}</td>
+                                <td>
+                                  <div class="progress">
+                                    <div class="barOverflow">
+                                      <div class="bar"></div>
+                                    </div> <span>{{data.Product_score}}</span>%</div>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                              
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 p-4 l-r">
+                    <div class="wrapper">
+                      <div class="scrollbar style-2" class="">
+                        <div class="force-overflow table-responsive">
+                          <table class=" table-bordered">
+                            <tbody>
+                              {% for data in itearations_data %}
+                              <tr>
+                                <td>{{data.IterationName}}</td>
+                                <td>
+                                  <div class="progress">
+                                    <div class="barOverflow">
+                                      <div class="bar"></div>
+                                    </div> <span>{{data.IterationScore}}</span>%</div>
+                                </td>
+                              </tr>
+                              {% endfor %}
+
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    </a>
+                  </div>
+                  <div class="col-md-2 p-4 l-r">
+                    <div class="wrapper">
+                      <div class="scrollbar style-2" class="">
+                        <div class="force-overflow table-responsive">
+                          <table class=" table-bordered">
+                            <tbody>
+                              {% for data in backlog_data %}
+                              <tr>
+                                <td>{{data.title}}</td>
+                                <td>
+                                  <div class="progress">
+                                    <div class="barOverflow">
+                                      <div class="bar"></div>
+                                    </div> <span>{{data.backlog_score}}</span>%</div>
+                                </td>
+                              </tr>
+                              {% endfor %}
+
+
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    </a>
+                  </div>
+                  <div class="col-md-2 p-4 l-r">
+                    <div class="wrapper">
+                      <div class="scrollbar style-2" class="">
+                        <div class="force-overflow table-responsive">
+                          <table class=" table-bordered">
+                            <tbody>
+                                
+                              {% for data in user_storyes_data %}
+                              <tr>
+                                <td>{{data.title}}</td>
+                                <td>{{data.readiness_quality_score}}</td>
+                                <td>{{data.ac_readability_score}} %</td>
+                              </tr>
+                              {% endfor %}
+                              
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+              </div>
+              <!--  </div> -->
+              <!---->
+              <!-- <div class="card widget"><div class="card-body"><div class="row border-bottom"><div class="col-12"><h4 class="card-title mb-3">Todo</h4> <div class="mr-4"><form><div class="px-2"><div class="form-group"><input type="text" name="title" placeholder="Title" class="form-control"> </div></div></form> <div><div class="vb vb-invisible" style="position: relative; overflow: hidden;"><div class="m-b-20 vb-content" style="max-height: 200px; display: block; overflow: hidden scroll; height: 100%; width: calc(100% + 17px);"></div><div class="vb-dragger" style="position: absolute;"><div class="vb-dragger-styler"></div></div></div></div></div></div></div></div></div>  -->
+              <!---->
+              <!---->
             </div>
-         </div>
-
-
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

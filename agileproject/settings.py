@@ -57,9 +57,12 @@ INSTALLED_APPS = [
     # 'product_view',
     # 'backlog_view',
     'manage_user_profile',
+    'manage_role',
     'user_story_points',
     'manage_team_member',
     'feedback',
+    'manage_goals',
+    'manage_benefits',
 ]
 
 MIDDLEWARE = [
@@ -161,7 +164,7 @@ STATICFILES_DIRS = [
     STATIC_DIR
 ]
 
-BASE_URL = 'http://203.190.153.20/'
+BASE_URL = 'http://3.17.177.133/'
 
 MEDIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

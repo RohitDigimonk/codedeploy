@@ -54,6 +54,7 @@ def account_activate(request,uidb64,token):
         request.session['user_id'] = get_user_info.id
         request.session['org_id'] = get_user_info.org_id.id
         request.session['user_name'] = get_user_info.user_name
+        request.session['user_type'] = get_user_info.user_type
         login(request,user)
         message = '0'
     else:
@@ -224,15 +225,24 @@ def login_user(request):
         email = request.POST["email"]
         password = request.POST["password"]
         user = auth.authenticate(username=email, password=password)
+
         if user is not None:
             get_user_info = Ar_user.objects.get(user=user)
-            # org_ins = get_object_or_404(AR_organization, id=get_user_info.org_id_id)
-            request.session['user_id'] = get_user_info.id
-            request.session['org_id'] = get_user_info.org_id.id
-            request.session['user_name'] = get_user_info.user_name
-            auth.login(request, user)
-            status = "1"
-            message = "Login"
+            status=get_user_info.status
+            if status=="Active":
+
+
+                # org_ins = get_object_or_404(AR_organization, id=get_user_info.org_id_id)
+                request.session['user_id'] = get_user_info.id
+                request.session['org_id'] = get_user_info.org_id.id
+                request.session['user_name'] = get_user_info.user_name
+                request.session['user_type'] = get_user_info.user_type
+                auth.login(request, user)
+                status = "1"
+                message = "Login"
+            else:
+                status = "0"
+                message = "Your account is not active please contact with your root admin."
         else:
             status = "0"
             message = "Username and password is incorrect & maybe your account is not activate click <b style='color:#03a9f4' data-toggle='modal'  data-target='#varification_ling'>here</b> to get the verification link !"

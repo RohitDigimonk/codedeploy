@@ -52,6 +52,11 @@ button.btn-success.add-data {
 
 div#example_filter input[type="search"] {
     width: 75%!important;
+
+}
+
+.profile-sear #example_filter {
+    margin-top: -33px!important;
 }
 /*div#example12_filter {
     position: absolute;
@@ -140,6 +145,10 @@ thead input {
 .select2-container {
     width: 100% !important;
 }
+ .table td {
+    font-weight: normal;
+    white-space: normal;
+}
 </style>
 
 {% block cssstyle %}
@@ -182,9 +191,9 @@ thead input {
                         <li><a href="{{BASE_URL}}manage-team-member" data-page="manage_team_member"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Team Members</a></li>
                         <li ><a href="{{BASE_URL}}manage-backlog" data-page="manage_backlogs"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Backlogs</a></li>
                         <li><a href="{{BASE_URL}}manage-iteration" data-page="manage_iterations"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Iterations</a></li>
-                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_roles"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Roles</a></li>
-                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_goals"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Goals</a></li>
-                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_benefits"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Benefits</a></li>
+                        <li><a href="{{BASE_URL}}manage-role" data-page="manage_roles"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Roles</a></li>
+                        <li><a href="{{BASE_URL}}manage-goals" data-page="manage_goals"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Goals</a></li>
+                        <li><a href="{{BASE_URL}}manage-benefits" data-page="manage_benefits"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Benefits</a></li>
                         <li><a href="{{BASE_URL}}user-story-points" data-page="manage_user_story_point"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage User Story Points</a></li>
                     </ul>
                     </li>
@@ -434,6 +443,7 @@ thead input {
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 <script src='{% static "js/custom.js" %}'></script>
+<script src='{% static "js/editor.js" %}'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/js/bootstrap-select.js"></script>
 <script type="text/javascript">
   
@@ -559,6 +569,93 @@ $(document).on("change","#id_CE_ID", function(){
 </script>
 
 
+<!-- =-------------------------------- -->
+<script>
+  $(document).on("change",".role_goal_benefits", function(){
+  var id=$(this).val();
+  
+
+  var id1 = $("#rol").val();
+  var id2 = $("#gol").val();
+  var id3 = $("#ben").val();
+  var id4 = $("#id_story_tri_part_text").val();
+  if (id1 != "")
+  {
+    id1_data = "As a " + id1 + " "
+    id1_num = 25
+  }
+  else{
+    id1_data = ""
+    id1_num = 0
+  }
+    if (id2 != "")
+  {
+    id2_data = "I want to " + id2 + " "
+    id2_num = 25
+  }
+  else{
+    id2_data = ""
+    id2_num = 0
+  }
+    if (id3 != "")
+  {
+    id3_data = "so that " + id3
+    id3_num = 15
+  }
+  else{
+    id3_data = ""
+    id3_num = 0
+  }
+  if (id4 == "")
+  {
+  $("#id_readiness_quality_score").val(id1_num+id2_num+id3_num +10);
+  }
+  $("#fillinput").val(id1_data+id2_data+id3_data);
+
+});
+// --------------+++++++++++++++++++++++++=-----------------------------
+  $(document).on("blur","#id_story_tri_part_text", function(){
+  var id=$(this).val();
+  
+  var geturl = window.location.href;
+  var url_in_array = geturl.split("/");
+  var set_url = url_in_array[2];
+  $.ajax({
+    method:"POST",
+    headers: { "X-CSRFToken": token },
+    url: "http://"+set_url+"/user-story-view/get-data",
+    data:{'check':id},
+    dataType:"json",
+    success:function(data)
+    {
+      // console.log(data);
+      var id1=data.check_project;
+            // console.log(id1);
+
+        $("#id_readiness_quality_score").val(id1);
+      // if (data=="")
+      // {
+      // $("#id_Use_in").val("");
+        
+      // }
+      // else {
+      // var rolval=[];
+      // for(var i=0; i<data.check_project.length; i++)
+      // {
+      //   rolval.push(" " + data.check_project[i].title + " ");
+      // }
+      //   $("#id_Use_in").val(rolval);
+      // }
+    }
+  })
+
+  // $("#id_readiness_quality_score").val(id1_num+id2_num+id3_num);
+});
+
+  </script>
+
+<!-- =-------------------------------- -->
+
 
 {% for backlog_edit in backlog_edit %}
 <!-- {% if backlog_edit != "" %} -->
@@ -596,6 +693,109 @@ $(document).on("change","#id_CE_ID", function(){
 
 <script>
 
+  // ---------------------------------Benefits in Use---------------------------------
+var token = '{{csrf_token}}';
+$(document).on("keyup","#id_Benefits_title", function(){
+  var id=$(this).val();
+  var geturl = window.location.href;
+  var url_in_array = geturl.split("/");
+  var set_url = url_in_array[2];
+  $.ajax({
+    method:"POST",
+    headers: { "X-CSRFToken": token },
+    url: "http://"+set_url+"/manage-benefits/get-data",
+    data:{'check':id},
+    dataType:"json",
+    success:function(data)
+    {
+      console.log(data);
+      if (data=="")
+      {
+      $("#id_Use_in").val("");
+        
+      }
+      else {
+      var rolval=[];
+      for(var i=0; i<data.check_project.length; i++)
+      {
+        rolval.push(" " + data.check_project[i].title + " ");
+      }
+        $("#id_Use_in").val(rolval);
+      }
+    }
+  })
+
+});
+// ---------------------------------Gole in Use---------------------------------
+var token = '{{csrf_token}}';
+$(document).on("keyup","#id_Goal_title", function(){
+  var id=$(this).val();
+  var geturl = window.location.href;
+  var url_in_array = geturl.split("/");
+  var set_url = url_in_array[2];
+  $.ajax({
+    method:"POST",
+    headers: { "X-CSRFToken": token },
+    url: "http://"+set_url+"/manage-goals/get-data",
+    data:{'check':id},
+    dataType:"json",
+    success:function(data)
+    {
+      console.log(data);
+      if (data=="")
+      {
+      $("#id_Use_in").val("");
+        
+      }
+      else {
+      var rolval=[];
+      for(var i=0; i<data.check_project.length; i++)
+      {
+        rolval.push(" " + data.check_project[i].title + " ");
+      }
+        $("#id_Use_in").val(rolval);
+      }
+    }
+  })
+
+});
+
+// ---------------------------------Role in Use---------------------------------
+var token = '{{csrf_token}}';
+$(document).on("keyup","#id_title", function(){
+  var id=$(this).val();
+  var geturl = window.location.href;
+  var url_in_array = geturl.split("/");
+  var set_url = url_in_array[2];
+  $.ajax({
+    method:"POST",
+    headers: { "X-CSRFToken": token },
+    url: "http://"+set_url+"/manage-role/get-data",
+    data:{'check':id},
+    dataType:"json",
+    success:function(data)
+    {
+      console.log(data);
+      if (data=="")
+      {
+      $("#id_use").val("");
+        
+      }
+      else {
+      var rolval=[];
+      for(var i=0; i<data.check_project.length; i++)
+      {
+        rolval.push(" " + data.check_project[i].title + " ");
+      }
+        $("#id_use").val(rolval);
+      }
+    }
+  })
+
+});
+
+
+
   // manage user profile function for index page
 
 var token = '{{csrf_token}}';
@@ -612,25 +812,25 @@ $(document).on("change","#profile_key_id", function(){
     dataType:"json",
     success:function(data)
     {
-      $(".checkbox").attr('checked',false);
+      $(".checkbox").prop('checked',false);
       // console.log(data);
       // $("#feature_list").html('');
       for(var i=0; i<data.check_project.length; i++)
       {
         if(data.check_project[i].editor == true)
         {
-        $("#editor"+i+"").attr('checked', true);  
+        $("#editor"+i+"").prop('checked', true);  
         }
         else{
-         $("#editor"+i+"").attr('checked', false); 
+         $("#editor"+i+"").prop('checked', false); 
         }
 
         if(data.check_project[i].viewer == true)
         {
-        $("#viewer"+i+"").attr('checked', true);  
+        $("#viewer"+i+"").prop('checked', true);  
         }
         else{
-         $("#viewer"+i+"").attr('checked', false); 
+         $("#viewer"+i+"").prop('checked', false); 
         }
       }
     }

@@ -1,0 +1,36 @@
+<div class="paper">
+                   <div class="row">
+                      <div class="col-md-12">
+                         <div class="container-fluid">
+                            <div class="login-form-content">
+                               <form action="{{BASE_URL}}manage-benefits/edit/{{id}}" method="POST">
+                                 {% csrf_token %}
+                                  <div class="form-group">
+                                        <label>Benefit Title</label>
+                                         {{ArManageBenefitsForm_get.Benefits_title}}
+                                 
+                                </div>
+                                <div class="form-group">
+                                    <label>Benefit Description</label>
+                                    {{ArManageBenefitsForm_get.Benefits_description}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Benefit Use in</label>
+                                    {{ArManageBenefitsForm_get.Use_in}}
+                                </div>
+                                 <div class="row">
+                                  <div class="col-md-6">
+                                    <button type="submit" class="btn-block btn btn-white all-btn" data-dismiss="modal">Cancel</button>
+                                  </div>
+                                  <div class="col-md-6">
+                                <div class="form-group">
+                                    <button type="submit" class="btn-block btn btn-white all-btn">Update</button>
+                               </div>
+                             </div>
+                             </div>
+                               </form>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>

@@ -22,10 +22,11 @@ class AR_team(models.Model):
         return str(self.Team_name)
 
 class AR_product(models.Model):
-    Procduct_name = models.CharField(max_length=50)
-    Procduct_description = models.TextField()
+    Product_name = models.CharField(max_length=50)
+    Product_description = models.TextField()
     Team_parent = models.ManyToManyField(AR_team,blank=True, related_name='user_favourite')
-    Children_backlog_list = models.ManyToManyField(AR_team,blank=True, related_name='backlog_favourite')
+    Children_backlog_list = models.TextField()
+    # Children_backlog_list = models.ManyToManyField(AR_team,blank=True, related_name='backlog_favourite')
     Business_unit = models.CharField(max_length=100)
     Product_size = models.IntegerField(default=0)
     Product_score  = models.IntegerField(default=0)
@@ -37,7 +38,7 @@ class AR_product(models.Model):
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
 
     def __str__(self):
-        return self.Procduct_name
+        return self.Product_name
 
 
 

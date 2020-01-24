@@ -4,8 +4,8 @@ from .models import AR_product,AR_team
 
 class Ar_productAdmin(admin.ModelAdmin):
     date_hierarchy = 'create_dt'
-    search_fields = ['Procduct_name','ORG_ID']
-    list_display = ('Procduct_name','Product_size','Product_score','US_quality_threshold','ORG_ID','create_by','create_dt')
+    search_fields = ['Product_name','ORG_ID']
+    list_display = ('Product_name','Product_size','Product_score','US_quality_threshold','ORG_ID','create_by','create_dt')
 
 
 class Ar_teamAdmin(admin.ModelAdmin):

@@ -75,7 +75,8 @@
 
                 </div>
 
-            <div class="table-responsive hdinpt">
+            <div class="table-responsive">
+            <!-- <div class="table-responsive hdinpt"> -->
               
                                      <!-- start Table -->
                                      <div id="example_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="example_length"><label>Show <select name="example_length" aria-controls="example" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>
@@ -83,62 +84,35 @@
                                      <table id="example" width="100%" border="1" class="table table-striped table-bordered newpage dataTable no-footer" align="center" cellpadding="0" cellspacing="0" style="font-size: 15px; width: 100%;" role="grid" aria-describedby="example_info">
            <thead>
             <tr class="dnd-moved" role="row">
+              <th align="left" valign="top">S.No.</th>
 <!--    <th align="left" class="slct" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Select: activate to sort column descending" style="width: 57px;">Select</th> -->
-   
 
 
 <!-- --------------------------------------- -->
 
-{% for k , v in all_column_list.items %}   
-       
-          {% if k in get_show_column %}
-  
-         <th align="left" class="{{v}}" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{v}}</th>  
-          {% endif %}
+  {% if get_show_column|length > 0 %}
+        {% for v in get_show_column %}
+          <th align="left" class="{{v}}" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{ all_column_list|get_item:v  }}  </th>
           {% endfor %}
+           
+  {% else %}
 
-   <th align="left" class="action" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 62px;">Action</th>
+
+           {% for k , v in all_column_list.items %}
+          <th align="left" class="{{v}}" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{v}}</th>
+          {% endfor %}    
+            
+        
+  {% endif %}
+
+
+
+
+   <th align="left" class="action" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 60px!important;">Action</th>
 </tr>
         </thead>
                 <tbody>
 
-
-<!-- ----------------------------------------------------------------------------- -->
-<!-- 
-{% for product in product_data %}
-            <tr class="dnd-moved">
-              <td align="left" valign="top">{{product.Procduct_name}}</td>
-                <td align="left" valign="top">{{product.Procduct_name}}</td>
-                <td align="left" valign="top">
-                     <div class="progress">
-                         <div class="barOverflow">
-                            <div class="bar"></div>
-                         </div>
-                         <span>{{product.Product_score}}</span>%
-                     </div>
-                </td>
-                <td align="left" valign="top">{{product.Team_parent.all|join:", " }}</td>
-                <td align="left" valign="top">{{product.backlog_by_product.all|join:", " }}</td>
-                <td align="left" valign="top">{{product.Procduct_name}} Iteration</td>
-
-                
-
-                <td align="left" valign="top">{{product.epic_by_product.all|join:", "}} </td>
-                <td align="left" valign="top">{{product.Procduct_name}} Feature</td>
-                 <td align="left" valign="top">{{product.Procduct_name}} Owner</td>
-                <td align="left" valign="top">
-                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td>
-                   </tr>
-                </table>
-                </td>
-            </tr>
-
-            {% endfor %}
- -->
-<!-- --------------------------------------------------------------------------------------- -->
 
       
             
@@ -147,79 +121,105 @@
 
         
         <tr class="dnd-moved odd" role="row">
-<!--               <td align="center" class="usid" valign="top"><input type="checkbox" class="all_project_get_ids" value="{{data.id}}" name=""></td> -->
+          <td align="left" valign="top">{{forloop.counter}}</td>
 
-                           {% if 'Team_parent' in get_show_column %}
-             <td align="left" class="backpa"  style="width: 52px;" valign="top">{{data.Team_parent.all|join:", " }}</td> 
+
+
+{% if get_show_column|length > 0 %}
+
+  {% for v in get_show_column %}
+              
+              {% if v == 'Team_parent' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.Team_parent.all|join:", "  }}</td> 
               {% endif %}
 
-             {% if 'Children_backlog_list' in get_show_column %}  
+              {% if v == 'Children_backlog_list' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.Children_backlog_list}}</td> 
+              {% endif %}
+
+              {% if v == 'Product_name' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.Product_name  }}</td> 
+              {% endif %}
+
+              {% if v == 'Product_description' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.Product_description  }}</td> 
+              {% endif %}
+
+              {% if v == 'Business_unit' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.Business_unit  }}</td> 
+              {% endif %}
+
+              {% if v == 'Product_size' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.Product_size  }}</td> 
+              {% endif %}
+
+
+
+              {% if v == 'Product_score' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top"><div class="barOverflow">
+                            <div class="bar"></div>
+                         </div>
+                         <span>{{data.Product_score}}</span>%
+                     </div></td> 
+              {% endif %}
+
+              {% if v == 'US_quality_threshold' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.US_quality_threshold  }}</td> 
+              {% endif %}      
+             
+
+
+             {% if v == 'ORG_ID' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.ORG_ID  }}</td> 
+              {% endif %} 
+
+
+              {% if v == 'create_by' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.create_by  }}</td> 
+              {% endif %}
+
+
+              {% if v == 'create_dt' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.create_dt  }}</td> 
+              {% endif %} 
+
+
+              {% if v == 'update_by' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.update_by  }}</td> 
+              {% endif %}  
+         
+
+              {% if v == 'update_dt' %}
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.update_dt  }}</td> 
+              {% endif %}  
+
+
+  {% endfor %}
+
+
+{% else %}
+ <td align="left" class="backpa"  style="width: 52px;" valign="top">{{data.Team_parent.all|join:", " }}</td>
              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{data.Children_backlog_list.all|join:", " }}</td>
-              {% endif %}
-
-              
-             {% if 'Procduct_name' in get_show_column %} 
-
-             <td align="left" class="usid" valign="top"  style="width: 52px;">{{data.Procduct_name}}</td>
-              {% endif %}
-
-              {% if 'Procduct_description' in get_show_column %} 
-
-              <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.Procduct_description}}</td>
-              {% endif %}
-             
-              
-              {% if 'Business_unit' in get_show_column %}  
-
+             <td align="left" class="usid" valign="top"  style="width: 52px;">{{data.Product_name}}</td>
+              <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.Product_description}}</td>
               <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.Business_unit}}</td>
-              {% endif %}
-             
-             {% if 'Product_size' in get_show_column %} 
-
              <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.Product_size}}</td>
-              {% endif %}
-              {% if 'Product_score' in get_show_column %} 
-
               <td align="left" class="usid"  style="width: 52px;" valign="top"><div class="progress">
                          <div class="barOverflow">
                             <div class="bar"></div>
                          </div>
                          <span>{{data.Product_score}}</span>%
                      </div></td>
-              {% endif %}
-               {% if 'US_quality_threshold' in get_show_column %}  
-
                <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.US_quality_threshold}}</td>
-              {% endif %}
-             
-             
-              {% if 'ORG_ID' in get_show_column %}  
-
               <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.ORG_ID}}</td>
-              {% endif %}
-              
-              
-
-              {% if 'create_by' in get_show_column %}  
-
               <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.create_by}}</td>
-              {% endif %}
-
-
-              {% if 'create_dt' in get_show_column %}  
-
               <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.create_dt}}</td>
-              {% endif %}
-
-               {% if 'update_by' in get_show_column %}  
-
                <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.update_by}}</td>
-              {% endif %}
-
-              {% if 'update_dt' in get_show_column %}  
-
               <td align="left" class="usid"  style="width: 52px;" valign="top">{{data.update_dt}}</td>
-              {% endif %}
+{% endif %}
+
+
+
 
                 <td align="left" class="action" valign="top">
                 <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
@@ -354,13 +354,16 @@
         <select id="selectDefaults" multiple="multiple">
           {% for k , v in all_column_list.items %}   
        
-          {% if k in get_show_column %}
-          <option value="{{k}}" selected="true">{{v}}</option>
-          {% else %}
-          <option value="{{k}}" >{{v}}</option>
+          {% if k not in get_show_column %}
+           <option value="{{k}}" >{{v}}</option>
+
           {% endif %}
+
+
           {% endfor %}
-          
+          {% for selected_item in get_show_column %}
+           <option value="{{selected_item}}" selected="true">{{ all_column_list|get_item:selected_item  }}</option>
+           {% endfor %}
         </select>
       </div>
     </div>
@@ -477,7 +480,7 @@ if(names=="")
 }
 else{
   swal({
-      title: "Do you want to update the table structure?",
+      title: "Do you want to rearrange column order?",
       // text: "Do you want to update the table structure.",
       icon: "warning",
       buttons: true,
