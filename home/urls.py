@@ -5,6 +5,7 @@ urlpatterns= [
     path('', views.index, name='index'),
     # path('/', views.index, name='index'),
 
+
     path('ar-whyar/', views.whyar, name='whyar'),
     path('ar-whyar', views.whyar, name='whyar'),
 

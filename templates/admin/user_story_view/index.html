@@ -30,15 +30,15 @@
                    {% for message in messages %}
                      {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
                     <div class="alert alert-success alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                     <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>Erorr</strong> {{message}}
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+                      <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
@@ -47,7 +47,7 @@
                   <!-- <div class="card no-b"> -->
               <div class="login-form-card">
         
-                        <form action="javascript:(0);">
+                       
                           <div class="row">
                       <div class="col-md-12 mb-2">
                         <button class="btn-primary add-data"><a href="{{BASE_URL}}user-story-view/add-new" style="text-decoration: none; color: #fff;">Add User Story</a></button>
@@ -321,7 +321,7 @@
                 <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                    <tbody><tr>
                     <td align="center" valign="top"><a href="{{BASE_URL}}user-story-view/edit-story/{{data.id}}"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}user-story-view/remove-user-story/{{data.id}}','Do you want to removed this user story.','Story removed successfully','Story not removed.');"><i class="icon-delete"></i></a><a></a></td>
+                    <td align="center" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}user-story-view/remove-user-story/{{data.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');"><i class="icon-delete"></i></a><a></a></td>
                    </tr>
                 </tbody></table>
                 </td>
@@ -333,7 +333,7 @@
                                      <!---Table Ends---->
 </div>
                                     
-                         </form>
+                        
                       <!-- </div> -->
              </div>
               <!-- </div> -->
@@ -426,7 +426,8 @@
     <div class="modal-content" style="margin-top:60px;">
       <div class="modal-header">
     <h4 class="modal-title" style="width: 100%;">Choose User Story View </h4>
-        <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button>
+      <a href="{{BASE_URL}}user-story-view" class="close"><span aria-hidden="true" style="font-size: 32px; color: #000;">×</span></a>
+        <!-- <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button> -->
       </div>
       <div class="modal-body ">
 
@@ -449,7 +450,8 @@
       </div>
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a href="{{BASE_URL}}user-story-view" class="btn btn-default" >Close</a>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         <button type="button" class="btn btn-danger click_to_submit">Submit</button>
       </div>
     </div>
@@ -520,8 +522,8 @@ $("#myModalImportCSVOpen").click();
 if(ids!="")
 {
   swal({
-      title: "Are you sure?",
-      text: "Do you want to created copy of selected Storyes",
+      title: "{{Copy_Request_msg}}",
+      // text: "Do you want to created copy of selected Storyes",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -539,7 +541,7 @@ if(ids!="")
 }
 else
 {
-  swal("Warning", "Select the story that you want to create a copy!", "warning");
+  swal("Warning", "{{Copy_Story_msg}}", "warning");
 }
 
 
@@ -570,7 +572,7 @@ if(names=="")
 }
 else{
   swal({
-      title: "Do you want to rearrange column order ?",
+      title: "{{Rearrange_Request_msg}}",
       // text: "Do you want to update the table structure.",
       icon: "warning",
       buttons: true,

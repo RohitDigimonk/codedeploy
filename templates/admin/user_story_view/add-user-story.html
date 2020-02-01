@@ -35,7 +35,7 @@
         {% for error in field.errors %}
              <div class="alert alert-danger alert-dismissible">
                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>Erorr</strong>  <p>{{field.label}}  {{ error }} </p>
+                      <strong>{{field.label}}  {{ error }} </strong>
                     </div>
 
         {% endfor %}
@@ -51,7 +51,7 @@
                                       <div class="col-md-6">
                                      <!-- start login -->
                                       <div class="form-group">
-                                        <label>Title</label>
+                                        <label>Title<span style="color: red;"> *</span></label>
                                         {{ar_user_story_form.title}}        
                                 </div>
                                 <div class="form-group">
@@ -104,7 +104,8 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <label>So that</label><button type="submit" class="btn all-btn" style="float: right;">Save</button>
+                      <label>So that</label>
+                      <button id="reset_story" class="btn all-btn" style="float: right;">Reset</button>
                       <select id="ben" class="form-control  role_goal_benefits selectbox">
                         <option value="">Select</option>
                         {% for data in Ar_Manage_Benefits %}
@@ -125,7 +126,7 @@
                                        {{ar_user_story_form.story_points}}
                                 </div>
                                 <div class="form-group">
-                                        <label>User Story Status</label>
+                                        <label>User Story Status<span style="color: red;"> *</span></label>
                                          {{ar_user_story_form.user_story_status}}
                                 </div>
 
@@ -136,7 +137,7 @@
                                     
                                
                                 <div class="form-group">
-                                        <label>User Story Type</label>
+                                        <label>User Story Type<span style="color: red;"> *</span></label>
                                         {{ar_user_story_form.UST_ID}}         
                                 </div>
                                 
@@ -184,7 +185,7 @@
                                 </div>
                 
                                 <div class="form-group">
-                                        <label>Backlogs Parents</label>
+                                        <label>Backlogs Parents<span style="color: red;"> *</span></label>
                                        {{ar_user_story_form.backlog_parent}}
                                 </div>
                               
@@ -194,7 +195,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                        <label>Team Member Author</label>
+                                        <label>Team Member Author<span style="color: red;"> *</span></label>
                                         {{ar_user_story_form.ar_user}}         
                                 </div>
                                 

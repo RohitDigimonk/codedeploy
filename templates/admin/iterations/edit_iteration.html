@@ -22,14 +22,14 @@
                    {% for message in messages %}
                      {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
                     <div class="alert alert-success alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                     <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>Erorr</strong> {{message}}
                     </div>
                        {% endif %}
@@ -100,6 +100,7 @@
 
                         <div class="col-md-12">
                          <div class="form-group">
+                          <input type="hidden" id="selected_user_storyes" value='{{IterationInfo.UserStory.all|join:"|"}}'>
                                         <label>Associated User Story List</label>
                                        {{IterationForm.UserStory}}
                                 </div>
@@ -132,10 +133,10 @@
                             <div class="row">
 
                                 
-                                  <div class="col-md-6">
-                                    <button type="reset" class="btn-block btn btn-white all-btn" onclick="goBack()">Cancel</button>
+                                  <div class="col-md-2">
+                                    <button type="reset" class="btn-block btn btn-white all-btn" onclick="goBack()">Reset</button>
                                   </div>
-                                  <div class="col-md-6">
+                                  <div class="col-md-2">
                                 <div class="form-group">
                                     <button type="submit" class="btn-block btn btn-white all-btn">Update</button>
                                </div>
@@ -159,6 +160,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha256-5YmaxAwMjIpMrVlK84Y/+NjCpKnFYa8bWWBbUHSBGfU=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
+
+
+$(document).ready(function(){
+
+  var get_backlog_id = $("#id_Backlog").val();
+ get_user_story(get_backlog_id);
+
+});
+
 function doSomething() {
     $(".se-pre-con").css("display","block");
 }
@@ -177,6 +187,34 @@ $("#id_StartDate").on("dp.change", function (e) {
             $('#id_StartDate').data("DateTimePicker").maxDate(e.date);
         });
   });
+
+
+$(document).on('change','#id_UserStory',function(){
+
+var ids = $(this).val();
+
+var ids_in_string = ids.join(",");
+
+if(ids_in_string != "")
+{
+  
+  $.ajax({
+      method:"POST",
+      url:"{{BASE_URL}}iteration-view/get_storyes_scores_and_size",
+      data:{"storyes_ids":ids_in_string},
+      dataType:"JSON",
+      success:function(data){
+        $("#id_IterationScore").val(data.get_score.toFixed(0));
+        $("#id_IterationSize").val(data.get_size);
+      }
+     });
+   }  
+else{
+  $("#id_IterationScore").val("0");
+  $("#id_IterationSize").val("0");
+}
+
+});
 
   $(document).ready(function(){
 
@@ -214,13 +252,28 @@ $("#id_Product").change(function(){
   });
 
  $(document).on("change","#id_Backlog",function(){
+
   var get_backlog_id = $(this).val();
+ get_user_story(get_backlog_id);
+  $("#id_IterationScore").val("0");
+  $("#id_IterationSize").val("0");
+ 
+ }); 
+
+
+
+
+function get_user_story(backlog_id)
+{
+  var get_backlog_id = backlog_id;
+  var selected_user_storyes = $("#selected_user_storyes").val();
+   
   if(get_backlog_id)
   {
      $.ajax({
       method:"POST",
       url:"{{BASE_URL}}iteration-view/get_user_story",
-      data:{"get_backlog_id":get_backlog_id},
+      data:{"get_backlog_id":get_backlog_id,"selected_user_storyes":selected_user_storyes},
       dataType:"html",
       success:function(data){
           $("#id_UserStory").html(data);
@@ -230,11 +283,10 @@ $("#id_Product").change(function(){
   }
   else
   {
+     $("#id_UserStory").html('');
      
-    
   }
-  
- }); 
+} 
 
 </script>
 

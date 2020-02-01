@@ -25,14 +25,14 @@
    {% for message in messages %}
    {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
    <div class="alert alert-success alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
       <strong>{{message}}</strong>
    </div>
    {% endif %}
    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
    <div class="alert alert-danger alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong>Erorr</strong> {{message}}
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+      <strong>{{message}}</strong> 
    </div>
    {% endif %}
    {% endfor %}
@@ -43,15 +43,17 @@
          <!-- <div class="card no-b"> -->
          <div class="login-form-card">
             <!--  <div class="login-form-content"> -->
-            <form action="javascript:(0);">
+            <form  action="javascript:(0);">
                <div class="table-responsive">
 
-                {% if check_edit_permition %}
-                <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default1">Add Point</button>
+                <!-- {% if check_edit_permition %} -->
+                <!-- <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default1">Add Point</button> -->
 
- {% else %}
-                   <button class="btn-success add-data" data-toggle="modal" disabled="true" data-target="#modal-default1">You are not authorized person.</button>
-                        {% endif %}   
+ <!-- {% else %} -->
+                   <!-- <button class="btn-success add-data" data-toggle="modal" disabled="true" data-target="#modal-default1">You are not authorized person.</button>
+                        {% endif %}  --> 
+
+                        <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default1">Add Point</button> 
 
                   <!-- <button class="btn-success add-data"><a href="{{BASE_URL}}manage-epic-capabilities/add-epic-capabilities">Add Point</a></button> -->
                   <!-- <button class="btn-primary import-data">Export</button> -->
@@ -74,19 +76,34 @@
                            <td align="left" valign="top">{{data.Point_Description}}</td>
                            <td align="left" valign="top">{{data.Point_score}}</td>
                            <td align="left" valign="top">
-                              {% if check_edit_permition %}
                               <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                                  <tr>
                                     <td align="center" valign="top">
                                        <a href="{{BASE_URL}}user-story-points/edit-story-point/{{data.id}}"><i class="icon-pencil"></i></a>
                                     </td>
                                     <!-- <td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td> -->
-                                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}user-story-points/delete-story-point/{{data.id}}','Do you want to remove this story point ?','Story point removed successfully.','Story point not removed.');"><i class="icon-delete"></i></a><a></a></td>
+                                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}user-story-points/delete-story-point/{{data.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');"><i class="icon-delete"></i></a><a></a></td>
+                                 </tr>
+                              </table>
+                              <!-- {% if check_edit_permition %}
+                              <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+                                 <tr>
+                                    <td align="center" valign="top">
+                                       <a href="{{BASE_URL}}user-story-points/edit-story-point/{{data.id}}"><i class="icon-pencil"></i></a>
+                                    </td>
+                                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}user-story-points/delete-story-point/{{data.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');"><i class="icon-delete"></i></a><a></a></td>
                                  </tr>
                               </table>
                               {% else %}
-                              <span class="label label-danger">You are not authorized person.</span>
-                        {% endif %}      
+<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+                                 <tr>
+                                    <td align="center" valign="top">
+                                       <a href="{{BASE_URL}}user-story-points/edit-story-point/{{data.id}}"><i class="icon-pencil"></i></a>
+                                    </td>
+                                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}user-story-points/delete-story-point/{{data.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');"><i class="icon-delete"></i></a><a></a></td>
+                                 </tr>
+                              </table>
+                        {% endif %}   -->    
                            </td>
                         </tr>
                         {% endfor %}
@@ -111,6 +128,7 @@
       <div class="modal-content" style="width: 150%!important;">
          <div class="modal-header">
             <h4 class="modal-title">Add Point</h4>
+
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true" style="font-size: 32px;">×</span></button>
          </div>
@@ -120,7 +138,7 @@
                   <div class="col-md-12">
                      <div class="container-fluid">
                         <div class="login-form-content">
-                           <form action="{{BASE_URL}}user-story-points/add-story-point" method="POST">
+                           <form onsubmit="doSomething();" action="{{BASE_URL}}user-story-points/add-story-point" method="POST">
                               {% csrf_token %}
                               <div class="row">
                                  <div class="col-md-12">
@@ -174,8 +192,8 @@
       <div class="modal-content" style="width: 150%!important;">
          <div class="modal-header">
             <h4 class="modal-title">Manage Story Point</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true" style="font-size: 32px;">×</span></button>
+
+            <a href="{{BASE_URL}}user-story-points" class="close" ><span aria-hidden="true" style="font-size: 32px; color: crimson;">×</span></a>
          </div>
          <div class="modal-body">
             <div class="paper">
@@ -185,7 +203,7 @@
                         <!-- <div class="card no-b"> -->
                         <!-- <div class="login-form-card"> -->
                         <div class="login-form-content">
-                           <form action="{{BASE_URL}}user-story-points/edit-story-point/{{story_point_id}}" method="POST">
+                           <form onsubmit="doSomething();" action="{{BASE_URL}}user-story-points/edit-story-point/{{story_point_id}}" method="POST">
                               {% csrf_token %}
                               <div class="row">
                                  <div class="col-md-12">
@@ -217,7 +235,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <div class="form-group">
-                                       <button type="submit" class="btn-block btn btn-white all-btn">Add</button>
+                                       <button type="submit" class="btn-block btn btn-white all-btn">Update</button>
                                     </div>
                                  </div>
                               </div>

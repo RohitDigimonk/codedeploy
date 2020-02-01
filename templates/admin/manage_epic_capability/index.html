@@ -47,14 +47,14 @@
    {% for message in messages %}
    {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
    <div class="alert alert-success alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
       <strong>{{message}}</strong>
    </div>
    {% endif %}
    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
    <div class="alert alert-danger alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong>Erorr</strong> {{message}}
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+      <strong>{{message}}</strong> 
    </div>
    {% endif %}
    {% endfor %}
@@ -65,7 +65,7 @@
          <!-- <div class="card no-b"> -->
          <div class="login-form-card">
             <!--  <div class="login-form-content"> -->
-            <form action="javascript:(0);">
+           
                <div class="table-responsive">
                   <button class="btn-success add-data"><a href="{{BASE_URL}}manage-epic-capabilities/add-epic-capabilities">Add Capability</a></button>
                   <!-- <button class="btn-primary import-data">Export</button> -->
@@ -94,7 +94,7 @@
                                        <a href="{{BASE_URL}}manage-epic-capabilities/edit-epic-capabilities/{{ar_epic_capability_data.id}}"><i class="icon-pencil"></i></a>
                                     </td>
                                     <!-- <td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td> -->
-                                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}manage-epic-capabilities/delete-epic-capabilities/{{ar_epic_capability_data.id}}','Do you want to remove this capability ?','Epic capability removed successfully.','Epic capability not removed.');"><i class="icon-delete"></i></a><a></a></td>
+                                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}manage-epic-capabilities/delete-epic-capabilities/{{ar_epic_capability_data.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');"><i class="icon-delete"></i></a><a></a></td>
                                  </tr>
                               </table>
                            </td>
@@ -104,7 +104,7 @@
                   </table>
                   <!---Table Ends---->
                </div>
-            </form>
+      
             <!--  </div> -->
          </div>
          <!-- </div> -->

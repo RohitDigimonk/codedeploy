@@ -60,6 +60,23 @@
 <div class="container-fluid">
   <div class="row p-t-b-20">
     <div class="col-md-12">
+         {% if messages %}
+   {% for message in messages %}
+   {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+   <div class="alert alert-success alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+      <strong>{{message}}</strong>
+   </div>
+   {% endif %}
+   {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+   <div class="alert alert-danger alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+      <strong>{{message}}</strong> 
+   </div>
+   {% endif %}
+   {% endfor %}
+   {% endif %}
+   <!--------------------------------------  --------------------------->
       <div class="card no-b">
         <div class="collapse show" id="invoiceCard">
           <div class="card-body p-0">
@@ -76,13 +93,13 @@
                       <h5>Teams</h5>
                     </a>
                   </div>
-                  <div class="col-md-2 p-4 b-r"> <a href="{{BASE_URL}}manage-products"><span class="text-center"><i class="fas text-themecolor icon-heartbeat"></i>
+                  <div class="col-md-2 p-4 b-r"> <a href="{{BASE_URL}}products-view"><span class="text-center"><i class="fas text-themecolor icon-heartbeat"></i>
                                           </span>
                                           <h1 class="font-light count">{{product}}</h1>
                                           <h5>Products</h5></a>
                   </div>
                   <div class="col-md-2 p-4 b-r">
-                    <a href="{{BASE_URL}}dashboard"> <span class="text-center">
+                    <a href="{{BASE_URL}}iteration-view"> <span class="text-center">
                                              <i class="fas text-themecolor icon-gift"></i>
                                           </span>
                       <h1 class="font-light count">{{itearations}}</h1>
@@ -90,7 +107,7 @@
                     </a>
                   </div>
                   <div class="col-md-2 p-4 b-r">
-                    <a href="{{BASE_URL}}manage-backlog"> <span class="text-center">
+                    <a href="{{BASE_URL}}backlog-view"> <span class="text-center">
                                              <i class="fas text-themecolor icon-gift"></i>
                                           </span>
                       <h1 class="font-light count">{{backlog}}</h1>

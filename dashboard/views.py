@@ -10,6 +10,10 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+
+
+
 @login_required
 def logout(request):
     if 'user_id' in request.session:

@@ -1,3 +1,26 @@
+
+$(document).on("click",".get_help_conte",function(){
+
+
+var geturl = window.location.href;
+var url_in_array = geturl.split(base_url);
+var page_name = url_in_array[1];
+
+$.ajax({
+	method:"POST",
+	url:base_url+"account/get_help_content",
+	data:{"page_name":page_name},
+	dataType:"html",
+	success:function(data)
+	{
+		// console.log(data);
+		$("#help1 .modal-body").html(data);
+	}
+});
+
+
+});
+
 $(document).ready(function(){
 
 var geturl = window.location.href;
@@ -8,9 +31,13 @@ var url_in_array = geturl.split("/");
 var for_enver = false;
 var for_manage_user = false;
 var for_dashboard = false;
+
+
+
+
 $(".sidebar-menu li a").each(function(){
 	
-console.log($(this).data("page"))
+console.log($(this).data("page"));
 	switch($(this).data("page"))
     {
     	case "manage_products" :
@@ -43,7 +70,7 @@ console.log($(this).data("page"))
 	        }
 	      break;   
        case "manage_team" :
-	      	 if(jQuery.inArray("manage-team", url_in_array) != -1) 
+	      	 if(jQuery.inArray("manage-team", url_in_array) != -1|| jQuery.inArray("manage-team#", url_in_array) != -1) 
 	        {
 	        	 $(this).addClass('active');
 	        	 $("#feed").html('<input type="text" value="Manage Team" class="form-control" readonly="" name="feedback_page">');

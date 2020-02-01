@@ -7,11 +7,12 @@ from account.models import AR_organization,Ar_user,Notification
 from django.contrib import messages
 from django.db.models import Q
 from manage_product import views as product_view
-
 from django.http import HttpResponse,JsonResponse
 from user_story_view.models import AR_USER_STORY
+from datetime import datetime
 from agileproject.serializers import ArUserStoryViewSerializer
 # Create your views here.
+
 
 @login_required
 def index(request):
@@ -25,10 +26,9 @@ def index(request):
             if ArManageGoalsForm_get.is_valid():
                 Goal_title = ArManageGoalsForm_get.cleaned_data.get('Goal_title')
                 if ArManageGoals.objects.filter(Goal_title=Goal_title).filter(ORG_ID=org_ins).exists():
-                    msg = Notification.objects.filter(page_name="Manage Goal").filter(notification_key="Exists")
-                    msg_data = msg[0].notification_desc
-                    messages.error(request, Goal_title + msg_data)
-                    # messages.error(request, " '"+Goal_title+"' Goal already exists.")
+                    msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Exists")
+                    msg_data = msg.notification_desc
+                    messages.error(request, Goal_title +" , " + msg_data)
                 else:
                     try:
                         ar_user_insta = get_object_or_404(Ar_user, pk=request.session['user_id'])
@@ -39,18 +39,25 @@ def index(request):
                         ManageGoals.save()
                         create_goal_id = "AR_GOAL_"+str(ManageGoals.id)
                         ArManageGoals.objects.filter(id=ManageGoals.id).update(Goal_id=create_goal_id)
-                        msg = Notification.objects.filter(page_name="Manage Goal").filter(notification_key="Add")
-                        msg_data = msg[0].notification_desc
+                        msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Add")
+                        msg_data = msg.notification_desc
                         messages.info(request, msg_data)
-                        # messages.info(request, "Goal added successfully !")
                     except(TypeError, OverflowError):
                         messages.error(request, "Something was wrong !")
             else:
                 messages.info(request, ArManageGoalsForm_get.errors)
             return redirect(settings.BASE_URL + "manage-goals")
-        return render(request, 'admin/manage_goals/index.html',{'goal_edit_status':goal_edit_status,'get_all_goal':get_all_goal,'ArManageGoalsForm_get':ArManageGoalsForm_get,'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Not_Remove")
+        Not_Remove_msg = msg.notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Remove Request")
+        Remove_Request_msg = msg.notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Remove_Success")
+        Remove_done_msg = msg.notification_desc
+        return render(request, 'admin/manage_goals/index.html',{'date':datetime.now(),'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'goal_edit_status':goal_edit_status,'get_all_goal':get_all_goal,'ArManageGoalsForm_get':ArManageGoalsForm_get,'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
     else:
-        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
+        error_data = msg.notification_desc
+        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL,'error_message':error_data})
 
 @login_required
 def edit(request,id):
@@ -62,26 +69,25 @@ def edit(request,id):
         if ArManageGoalsForm_get.is_valid():
             Goal_title = ArManageGoalsForm_get.cleaned_data.get('Goal_title')
             if ArManageGoals.objects.filter(Goal_title=Goal_title).filter(ORG_ID=org_ins).filter(~Q(id=id)).exists():
-                msg = Notification.objects.filter(page_name="Manage Goal").filter(notification_key="Exists")
-                msg_data = msg[0].notification_desc
-                messages.error(request, Goal_title + msg_data)
-                # messages.error(request, " '" + Goal_title + "' Goal already exists.")
+                msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Exists")
+                msg_data = msg.notification_desc
+                messages.error(request, Goal_title +" , " + msg_data)
             else:
                 try:
                     ar_user_insta = get_object_or_404(Ar_user, pk=request.session['user_id'])
                     ManageGoals = ArManageGoalsForm_get.save(commit=False)
                     ManageGoals.updated_by = ar_user_insta
                     ManageGoals.save()
-                    msg = Notification.objects.filter(page_name="Manage Goal").filter(notification_key="Add")
-                    msg_data = msg[0].notification_desc
+                    msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Add")
+                    msg_data = msg.notification_desc
                     messages.info(request, msg_data)
-                    # messages.info(request, "Goal added successfully !")
                 except(TypeError, OverflowError):
                     messages.error(request, "Something was wrong !")
         else:
             messages.info(request, ArManageGoalsForm_get.errors)
         return redirect(settings.BASE_URL + "manage-goals")
-    return render(request,'admin/manage_goals/edit.html',{'ArManageGoalsForm_get':ArManageGoalsForm_get,'id':id})
+    return render(request,'admin/manage_goals/edit.html',{'date':datetime.now(),'ArManageGoalsForm_get':ArManageGoalsForm_get,'id':id})
+
 
 @login_required
 def remove_goal(request,id):
@@ -89,23 +95,19 @@ def remove_goal(request,id):
         try:
             ManageGoals = get_object_or_404(ArManageGoals, pk=id)
             ManageGoals.delete()
-            msg = Notification.objects.filter(page_name="Manage Goal").filter(notification_key="Remove")
-            msg_data = msg[0].notification_desc
+            msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Remove")
+            msg_data = msg.notification_desc
             messages.info(request, msg_data)
-            # messages.info(request, "Goal removed successfully !")
         except(TypeError):
-            msg = Notification.objects.filter(page_name="Manage Goal").filter(notification_key="Remove_error")
-            msg_data = msg[0].notification_desc
+            msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Remove_error")
+            msg_data = msg.notification_desc
             messages.error(request, msg_data)
-            # messages.error(request, "Maybe this goal is used in another table so we can not remove that !")
         return redirect(settings.BASE_URL + 'manage-goals')
     else:
-        msg = Notification.objects.filter(page_name="Manage Goal").filter(notification_key="Permission")
-        msg_data = msg[0].notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Permission")
+        msg_data = msg.notification_desc
         messages.error(request, msg_data)
-        # messages.warning(request, "You are not authorized person. !")
         return redirect(settings.BASE_URL + 'manage-goals')
-
 
 
 def get_data(request):

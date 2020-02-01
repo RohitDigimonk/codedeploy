@@ -51,7 +51,7 @@
                                       <div class="col-md-6">
                                      <!-- start login -->
                                       <div class="form-group">
-                                        <label>Title</label>
+                                        <label>Title<span style="color: red;"> *</span></label>
                                         {{ar_user_story_form.title}}        
                                 </div>
                                 <div class="form-group">
@@ -75,11 +75,11 @@
                   <label>Story Builder</label>
                   <input type="text" class="form-control login-frm-input" id="fillinput" readonly="readonly">
                 </div>
-                <div class="row">
+                                <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label>As a</label>
-                      <select class="form-control selectbox" name="" id="">
+                      <select class="form-control role_goal_benefits selectbox" name="" id="rol">
                         <option value="">Select</option>
                         {% for data in Ar_Role %}
                         <option value="{{data.title}}">{{data.title}}</option>
@@ -90,25 +90,32 @@
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label>I want to</label>
-                      <select class="form-control selectbox">
+                      <select id = "gol" class="form-control  role_goal_benefits selectbox">
                         <option value="">Select</option>
-                        <option value="Goal">Goal1</option>
+                        {% for data in Ar_Manage_Goals %}
+                        <option value="{{data.Goal_title}}">{{data.Goal_title}}</option>
+                        {% endfor %}
+<!--                         <option value="Goal">Goal1</option>
                         <option value="Goal">Goal2</option>
                         <option value="Goal">Goal3</option>
-                        <option value="Goal">Goal4</option>
+                        <option value="Goal">Goal4</option> -->
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <label>So that</label><button type="submit" class="btn all-btn" style="float: right;">Save</button>
-                      <select class="form-control selectbox">
+                      <label>So that</label>
+                      <button type="reset"  id="reset_edit_story" class="btn all-btn" style="float: right;">Reset</button>
+                      <select id="ben" class="form-control  role_goal_benefits selectbox">
                         <option value="">Select</option>
-                        <option value="Benefit">Benefit</option>
+                        {% for data in Ar_Manage_Benefits %}
+                        <option value="{{data.Benefits_title}}">{{data.Benefits_title}}</option>
+                        {% endfor %}
+<!--                         <option value="Benefit">Benefit</option>
                         <option value="Benefit">Benefit1</option>
                         <option value="Benefit">Benefit2</option>
                         <option value="Benefit">Benefit3</option>
-                        <option value="Benefit">Benefit4</option>
+                        <option value="Benefit">Benefit4</option> -->
                       </select>
                     </div>
                   </div>
@@ -119,7 +126,7 @@
                                        {{ar_user_story_form.story_points}}
                                 </div>
                                 <div class="form-group">
-                                        <label>User Story Status</label>
+                                        <label>User Story Status<span style="color: red;"> *</span></label>
                                          {{ar_user_story_form.user_story_status}}
                                 </div>
 
@@ -130,7 +137,7 @@
                                     
                                
                                 <div class="form-group">
-                                        <label>User Story Type</label>
+                                        <label>User Story Type<span style="color: red;"> *</span></label>
                                         {{ar_user_story_form.UST_ID}}         
                                 </div>
                                 
@@ -178,7 +185,7 @@
                                 </div>
                 
                                 <div class="form-group">
-                                        <label>Backlogs Parents</label>
+                                        <label>Backlogs Parents<span style="color: red;"> *</span></label>
                                        {{ar_user_story_form.backlog_parent}}
                                 </div>
                               
@@ -188,7 +195,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                        <label>Team Member Author</label>
+                                        <label>Team Member Author<span style="color: red;"> *</span></label>
                                         {{ar_user_story_form.ar_user}}         
                                 </div>
                                 
@@ -203,7 +210,7 @@
                                   </div>
                                  <div class="col-md-2">
                                   
-                                    <button type="submit" class="btn btn-block btn-white all-btn">Add</button>
+                                    <button type="submit" class="btn btn-block btn-white all-btn">Update</button>
                                   </div>
                                
                              </div>

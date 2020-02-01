@@ -30,15 +30,15 @@
                    {% for message in messages %}
                      {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
                     <div class="alert alert-success alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                     <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>Erorr</strong> {{message}}
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+                     {{message}}
                     </div>
                        {% endif %}
 
@@ -47,7 +47,7 @@
                   <!-- <div class="card no-b"> -->
               <div class="login-form-card">
         
-                        <form action="javascript:(0);">
+                       
                           <div class="row">
                       <div class="col-md-12 mb-2">
                         <button class="btn-primary add-data"><a href="{{BASE_URL}}manage-products/add-product">Add Product</a></button>
@@ -134,7 +134,11 @@
               {% endif %}
 
               {% if v == 'Children_backlog_list' %}
-              <td align="left" class="backpa"  style="width: 52px;" valign="top">{{ data.Children_backlog_list}}</td> 
+
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">
+              {{ data.backlog_by_product.all|join:" | " }}
+              <!-- {{ data.Children_backlog_list}} -->
+            </td> 
               {% endif %}
 
               {% if v == 'Product_name' %}
@@ -156,11 +160,13 @@
 
 
               {% if v == 'Product_score' %}
-              <td align="left" class="backpa"  style="width: 52px;" valign="top"><div class="barOverflow">
+              <td align="left" class="backpa"  style="width: 52px;" valign="top">
+                <!-- <div class="barOverflow">
                             <div class="bar"></div>
-                         </div>
+                         </div> -->
                          <span>{{data.Product_score}}</span>%
-                     </div></td> 
+                     </div>
+                   </td> 
               {% endif %}
 
               {% if v == 'US_quality_threshold' %}
@@ -225,105 +231,20 @@
                 <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                    <tbody><tr>
                     <td align="center"  class="usid" valign="top"><a href="{{BASE_URL}}manage-products/edit-product/{{data.id}}"><i class="icon-pencil"></i></a></td>
-                    <td align="center"  class="usid" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}manage-products/remove-product/{{data.id}}','Do you want to remove this product ?','Product removed successfully.','Product not removed.');"><i class="icon-delete"></i></a><a></a></td>
+                    <td align="center"  class="usid" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}manage-products/remove-product/{{data.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');"><i class="icon-delete"></i></a><a></a></td>
                    </tr>
                 </tbody></table>
                 </td>
             </tr>
     {% endfor %}
             {% endif %}
-            
-<!-- --------------------------------------------------------------------------------------- -->
 
-
-
-<!-- 
-            <tr class="dnd-moved">
-              <td align="left" valign="top">7845652587</td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">
-                     <div class="progress">
-                         <div class="barOverflow">
-                            <div class="bar"></div>
-                         </div>
-                         <span>60</span>%
-                     </div>
-                </td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">Text String </td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">Text String</td>
-                 <td align="left" valign="top">User 2</td>
-                <td align="left" valign="top">
-                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td>
-                   </tr>
-                </table>
-                </td>
-
-            </tr>
-            <tr class="dnd-moved">
-              <td align="left" valign="top">8956466986</td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">
-                     <div class="progress">
-                         <div class="barOverflow">
-                            <div class="bar"></div>
-                         </div>
-                         <span>40</span>%
-                     </div>
-                </td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">Text String </td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">Text String</td>
-                 <td align="left" valign="top">User 3</td>
-                <td align="left" valign="top">
-                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td>
-                   </tr>
-                </table>
-                </td>
-            </tr>
-            <tr  class="dnd-moved">
-              <td align="left" valign="top">3625467896</td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">
-                     <div class="progress">
-                         <div class="barOverflow">
-                            <div class="bar"></div>
-                         </div>
-                         <span>20</span>%
-                     </div>
-                </td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">Text String </td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">Text String</td>
-                <td align="left" valign="top">Text String</td>
-                 <td align="left" valign="top">User 4</td>
-                <td align="left" valign="top">
-                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td>
-                   </tr>
-                </table>
-                </td>
-            </tr>
-             -->
         </tbody>
     </table></div>
                                      <!---Table Ends---->
 </div>
                                     
-                         </form>
+                        
                       <!-- </div> -->
              </div>
               <!-- </div> -->
@@ -346,7 +267,8 @@
     <div class="modal-content" style="margin-top:60px;">
       <div class="modal-header">
     <h4 class="modal-title" style="width: 100%;">Choose Product View </h4>
-        <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button>
+        <a href="{{BASE_URL}}products-view" class="close"><span aria-hidden="true" style="font-size: 32px; color: #000;">×</span></a>
+        <!-- <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button> -->
       </div>
       <div class="modal-body ">
     
@@ -368,7 +290,9 @@
       </div>
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a href="{{BASE_URL}}products-view" class="btn btn-default" >Close</a>
+
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         <button type="button" class="btn btn-danger click_to_submit">Submit</button>
       </div>
     </div>
@@ -480,7 +404,7 @@ if(names=="")
 }
 else{
   swal({
-      title: "Do you want to rearrange column order?",
+      title: "{{Rearrange_Request_msg}}",
       // text: "Do you want to update the table structure.",
       icon: "warning",
       buttons: true,

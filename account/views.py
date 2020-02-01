@@ -5,7 +5,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User,auth
-from .models import Ar_user,AR_organization,AR_organization_status
+from .models import Ar_user,AR_organization,AR_organization_status,Notification,ArHelpContect
 from django.db.models import Q,Subquery,Count
 import string
 import random
@@ -16,6 +16,17 @@ import email.message
 from django.template.loader import render_to_string
 # Create your views here.
 
+
+
+@csrf_exempt
+def get_help_content(request):
+    page_name = request.POST["page_name"]
+    if ArHelpContect.objects.filter(Page_slug=page_name).exists():
+        get_help_content = get_object_or_404(ArHelpContect, Page_slug=page_name)
+    else:
+        get_help_content = get_object_or_404(ArHelpContect, Page_slug="dashboard")
+    # return HttpResponse(page_name)
+    return render(request, 'admin/dashboard/help_content.html', {'get_help_content': get_help_content,"BASE_URL":settings.BASE_URL})
 
 
 def test_mail(request):
@@ -100,14 +111,21 @@ def register(request):
         organization = request.POST["organization"]
         organization_url = request.POST["organization_url"]
         if User.objects.filter(email=user_email).exists():
-            return JsonResponse({"status":"0","message":"E-mail is already exists !"})
+            msg = get_object_or_404(Notification, page_name="E mail", notification_key="Exists")
+            msg_data = msg.notification_desc
+            # messages.error(request, title + " " + msg_data)
+            return JsonResponse({"status":"0","message":user_email + " , " + msg_data})
         
         else:
             if Ar_user.objects.filter(phone=number).exists():
-                return JsonResponse({"status": "0", "message": "Phone no. is already exists !"})
+                msg = get_object_or_404(Notification, page_name="Phone", notification_key="Exists")
+                msg_data = msg.notification_desc
+                return JsonResponse({"status": "0", "message": number + " , " + msg_data})
             else:
                 if AR_organization.objects.filter(organization_url=organization_url).filter(~Q(organization_url="")).exists():
-                    return JsonResponse({"status": "0", "message": "Organization URL is already exists !"})
+                    msg = get_object_or_404(Notification, page_name="Organization Url", notification_key="Exists")
+                    msg_data = msg.notification_desc
+                    return JsonResponse({"status": "0", "message": organization_url + " , " + msg_data})
                 else:
                     org_id = ''.join([random.choice(string.digits + string.ascii_letters) for i in range(0, 10)])
                     while AR_organization.objects.filter(org_id=org_id).exists():
@@ -124,7 +142,7 @@ def register(request):
                         ar_org.save()
                     org_ins = get_object_or_404(AR_organization, organization_name=organization)
 
-                    Ar_users = Ar_user(user_id=user.id,user_name=yourname,country=country, city=city,state=state,zip=zip_code,phone=number,org_id=org_ins)
+                    Ar_users = Ar_user(status = "Active", user_id=user.id,user_name=yourname,country=country, city=city,state=state,zip=zip_code,phone=number,org_id=org_ins)
                     Ar_users.save()
                     uid = urlsafe_base64_encode(force_bytes(get_user_instant.id))
                     token = account_activation_token.make_token(get_user_instant)
@@ -146,7 +164,10 @@ def register(request):
                     s.login(msg['From'], password)
                     s.sendmail(msg['From'], [msg['To']], msg.as_string())
                     ################################################ EMAL SEND CODE END ##############
-                    return JsonResponse({"status": "1", "message": "Registration successful, verification link is sent to your registered email '"+user_email+"' !"})
+                    msg = get_object_or_404(Notification, page_name="Registration", notification_key="Done")
+                    msg_data = msg.notification_desc
+                    # return JsonResponse({"status": "0", "message": organization_url + " " + msg_data})
+                    return JsonResponse({"status": "1", "message": msg_data + " "+user_email+"' !"})
 
 
 
@@ -211,10 +232,14 @@ def send_varification_link(request):
             s.login(msg['From'], password)
             s.sendmail(msg['From'], [msg['To']], msg.as_string())
             status = "1"
-            message = "Link is send to your email id !"
+            msg = get_object_or_404(Notification, page_name="Sign_Up", notification_key="Send")
+            msg_data = msg.notification_desc
+            message = msg_data
         else:
             status = "0"
-            message = "Email is not registered !"
+            msg = get_object_or_404(Notification, page_name="Sign_Up", notification_key="Not_Send")
+            msg_data = msg.notification_desc
+            message = msg_data
         return JsonResponse({"status":status,"message":message})
 
 
@@ -242,8 +267,12 @@ def login_user(request):
                 message = "Login"
             else:
                 status = "0"
-                message = "Your account is not active please contact with your root admin."
+                msg = get_object_or_404(Notification, page_name="Login", notification_key="Not_Active_Root")
+                msg_data = msg.notification_desc
+                message = msg_data
         else:
             status = "0"
-            message = "Username and password is incorrect & maybe your account is not activate click <b style='color:#03a9f4' data-toggle='modal'  data-target='#varification_ling'>here</b> to get the verification link !"
+            msg = get_object_or_404(Notification, page_name="Login", notification_key="Not_Active")
+            msg_data = msg.notification_desc
+            message = msg_data
     return JsonResponse({"status":status,"message":message})

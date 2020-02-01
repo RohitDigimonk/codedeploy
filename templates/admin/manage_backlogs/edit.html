@@ -5,7 +5,7 @@
                         <!-- <div class="card no-b"> -->
                         <!-- <div class="login-form-card"> -->
                         <div class="login-form-content">
-                           <form action="{{BASE_URL}}manage-backlog/edit-backlog/{{backlog_id}}" method="POST">
+                           <form onsubmit="doSomething();" action="{{BASE_URL}}manage-backlog/edit-backlog/{{backlog_id}}" method="POST">
                               {% csrf_token %}
                               <div class="row">
                                  <div class="col-md-8"></div>
@@ -42,7 +42,7 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label>Product Parent</label>
+                                       <label>Product Parent<span style="color: red;"> *</span></label>
                                        {{ar_backlog_edit_form.product_parent}}
                                        <!-- <input class="form-control login-frm-input" type="text" value="" placeholder="BookMine" aid="login" name="login"> -->
                                     </div>
@@ -80,3 +80,4 @@
                   </div>
                </div>
             </div>
+            

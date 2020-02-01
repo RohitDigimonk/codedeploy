@@ -37,34 +37,40 @@ def index(request):
                 try:
                     team.save()
                     TeamForm.save_m2m()
-                    msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Add")
-                    msg_data = msg[0].notification_desc
+                    msg = get_object_or_404(Notification, page_name="Manage Team", notification_key="Add")
+                    msg_data = msg.notification_desc
                     messages.info(request, msg_data)
-                    # messages.info(request, "Team added successfully !")
                 except IntegrityError:
-                    msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Exists")
-                    msg_data = msg[0].notification_desc
+                    msg = get_object_or_404(Notification, page_name="Manage Team", notification_key="Exists")
+                    msg_data = msg.notification_desc
                     messages.error(request, msg_data)
-                    # messages.error(request, "The team name is alread exists !")
                 return redirect(settings.BASE_URL+"manage-team")
         TeamForm = ManageTeamForm(request.user, request.session['org_id'],user_objects)
-        return render(request, 'admin/manage_team/index.html', {'check_edit_permission':check_edit_permission,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,'TeamForm':TeamForm,'team_get':AR_team_get})
+        msg = get_object_or_404(Notification, page_name="Manage Team", notification_key="Not_Remove")
+        Not_Remove_msg = msg.notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Team", notification_key="Remove Request")
+        Remove_Request_msg = msg.notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Team", notification_key="Remove_Success")
+        Remove_done_msg = msg.notification_desc
+        return render(request, 'admin/manage_team/index.html', {'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'check_edit_permission':check_edit_permission,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,'TeamForm':TeamForm,'team_get':AR_team_get})
     else:
-        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
+        error_data = msg.notification_desc
+        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL,'error_message':error_data})
+
+
 @login_required
 def remove_team(request,id):
     try:
         team = get_object_or_404(AR_team, pk=id)
         team.delete()
-        msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Remove")
-        msg_data = msg[0].notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Team", notification_key="Remove")
+        msg_data = msg.notification_desc
         messages.info(request, msg_data)
-        # messages.info(request, "Team removed successfully !")
     except(TypeError):
-        msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Remove_error")
-        msg_data = msg[0].notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Team", notification_key="Remove_error")
+        msg_data = msg.notification_desc
         messages.error(request, msg_data)
-        # messages.error(request, "Maybe this team is used in another table so we can not remove that !")
     return redirect(settings.BASE_URL + 'manage-team')
 
 @login_required
@@ -92,10 +98,9 @@ def edit_team(request,id):
             team.update_dt =  datetime.now()
             team.save()
             TeamForm.save_m2m()
-            msg = Notification.objects.filter(page_name="Manage Team").filter(notification_key="Update")
-            msg_data = msg[0].notification_desc
+            msg = get_object_or_404(Notification, page_name="Manage Team", notification_key="Update")
+            msg_data = msg.notification_desc
             messages.info(request, msg_data)
-            # messages.info(request, "Team updated successfully !")
             return redirect(settings.BASE_URL + "manage-team")
         else:
             messages.error(request, product_form.error)

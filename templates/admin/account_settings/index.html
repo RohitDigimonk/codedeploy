@@ -18,15 +18,15 @@
                    {% for message in messages %}
                      {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
                     <div class="alert alert-success alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                     <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>Erorr</strong> {{message}}
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+                      <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
@@ -36,7 +36,7 @@
               <div class="login-form-card">
                                   <div class="login-form-content">
 
-                                    <form action="#" method="POST">
+                                    <form action="#"  onsubmit="doSomething();" method="POST">
                                       {% csrf_token %}
                                      <!-- start login -->
                                      <div class="row">
@@ -198,7 +198,7 @@
             <div class="col-md-12">
               <div class="container-fluid">
                                    <!--  <div class="login-form-content"> -->
-                <form id="change_password_form" action="javascript:(0);">
+                <form id="change_password_form"  onsubmit="doSomething();" action="javascript:(0);">
                   <div class="row">
                                         <div class="col-md-12">
                     <div class="form-group">

@@ -14,6 +14,8 @@ urlpatterns = [
     path('edit-iteration/<int:id>', views.edit_iteration, name='edit_iteration'),
     path('edit-iteration/<int:id>/', views.edit_iteration, name='edit_iteration'),
 
+    path('get_storyes_scores_and_size', views.get_storyes_scores_and_size, name='get_storyes_scores_and_size'),
+
     path('remove-iteration/<int:id>/', views.remove_iteration, name='remove_iteration'),
 
     path('update-table-structure/<str:columnnames>/', views.update_table_structure, name='update_table_structure'),

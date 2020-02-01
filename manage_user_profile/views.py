@@ -21,22 +21,19 @@ def index(request):
                 list_ins = get_object_or_404(ArUserProfile, profile_key=list)
                 data = Ar_user.objects.filter(id=request.session['user_id'])
                 username = data[0].user_id
-                # data = User.objects.filter(id=username)
-
                 created_by_ins = get_object_or_404(User, pk=username)
-                # created_by_ins = get_object_or_404(User, pk=get)
                 org_ins = get_object_or_404(AR_organization, id=request.session['org_id'])
                 activity = request.POST.getlist('activity[]')
                 if ArUserProfilePermission.objects.filter(profile_key=list_ins).exists():
-                    msg = Notification.objects.filter(page_name="Manage User Profile").filter(notification_key="Update")
-                    msg_data = msg[0].notification_desc
+                    msg = get_object_or_404(Notification, page_name="Manage User Profile",
+                                            notification_key="Update")
+                    msg_data = msg.notification_desc
                     messages.info(request, msg_data)
-                    # messages.info(request, "Profile update successfully !")
                 else:
-                    msg = Notification.objects.filter(page_name="Manage User Profile").filter(notification_key="Add")
-                    msg_data = msg[0].notification_desc
+                    msg = get_object_or_404(Notification, page_name="Manage User Profile",
+                                            notification_key="Add")
+                    msg_data = msg.notification_desc
                     messages.info(request, msg_data)
-                    # messages.info(request, "Profile added successfully !")
                 for activityvalue in activity:
                     value = activityvalue.lower()
                     valueacti = value.replace(" ", "")
@@ -61,9 +58,18 @@ def index(request):
                 return redirect(settings.BASE_URL + 'user-profile')
             else:
                 messages.info(request, "Please select a Profile Key !")
-        return render(request, 'admin/manage_user_profile/index.html',{'ar_user_data':ar_user_data,'ar_user_profile_form':ar_user_profile_form,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Manage User Profile", notification_key="Not_Remove")
+        Not_Remove_msg = msg.notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage User Profile",   notification_key="Remove Request")
+        Remove_Request_msg = msg.notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage User Profile",
+                                notification_key="Remove_Success")
+        Remove_done_msg = msg.notification_desc
+        return render(request, 'admin/manage_user_profile/index.html',{'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'ar_user_data':ar_user_data,'ar_user_profile_form':ar_user_profile_form,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
     else:
-        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
+        error_data = msg.notification_desc
+        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL,'error_message':error_data})
 
 
 def add_profile(request):
@@ -77,15 +83,13 @@ def add_profile(request):
             if ar_user_profile_form.is_valid():
                 profile_key  = ar_user_profile_form.cleaned_data.get('profile_key')
                 if ArUserProfile.objects.filter(profile_key=profile_key).filter(ORG_ID=request.session['org_id']).exists():
-                    msg = Notification.objects.filter(page_name="Manage User Profile").filter(notification_key="Exists")
-                    msg_data = msg[0].notification_desc
-                    messages.error(request,profile_key + msg_data)
-                    # messages.error(request, "Profile alr/eady exists.")
+                    msg = get_object_or_404(Notification, page_name="Manage User Profile",
+                                            notification_key="Exists")
+                    msg_data = msg.notification_desc
+                    messages.error(request,profile_key +" , " + msg_data)
                 else:
                     data = Ar_user.objects.filter(id=request.session['user_id'])
                     username = data[0].user_id
-                    # data = User.objects.filter(id=username)
-
                     created_by_ins = get_object_or_404(User, pk=username)
                     org_ins = get_object_or_404(AR_organization, id=request.session['org_id'])
                     data = ar_user_profile_form.save(commit=False)
@@ -94,19 +98,20 @@ def add_profile(request):
                     data.ORG_ID=org_ins
                     try:
                         data.save()
-                        msg = Notification.objects.filter(page_name="Manage User Profile").filter(notification_key="Add")
-                        msg_data = msg[0].notification_desc
+                        msg = get_object_or_404(Notification, page_name="Manage User Profile",
+                                                notification_key="Add")
+                        msg_data = msg.notification_desc
                         messages.info(request, msg_data)
-                        # messages.info(request, "User profile added successfully !")
                         return redirect(settings.BASE_URL + 'user-profile/add-profile')
-
                     except:
                         messages.error(request, ar_user_profile_form.errors)
             else:
                 messages.error(request, ar_user_profile_form.errors)
         return render(request, 'admin/manage_user_profile/profile.html',{'ar_user_data':ar_user_data,'ar_user_profile_form':ar_user_profile_form,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
     else:
-        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
+        error_data = msg.notification_desc
+        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL,'error_message':error_data})
 
 def edit_user_profile(request,id):
     if request.session['user_type'] == "Root":
@@ -120,10 +125,10 @@ def edit_user_profile(request,id):
             if ar_user_profile_form.is_valid():
                 try:
                     ar_user_profile_form.save()
-                    msg = Notification.objects.filter(page_name="Manage User Profile").filter(notification_key="Update")
-                    msg_data = msg[0].notification_desc
+                    msg = get_object_or_404(Notification, page_name="Manage User Profile",
+                                            notification_key="Update")
+                    msg_data = msg.notification_desc
                     messages.info(request, msg_data)
-                    # messages.info(request, "User profile updated successfully !")
                     return redirect(settings.BASE_URL + 'user-profile/add-profile')
                 except:
                     messages.error(request, ar_user_profile_form.errors)
@@ -133,27 +138,26 @@ def edit_user_profile(request,id):
             ar_user_profile_form = ArUserProfileForm(instance=ar_user_profile_form)
         return render(request, 'admin/manage_user_profile/profile.html',{'ar_user_data':ar_user_data,'ar_user_profile_form':ar_user_profile_form,'ar_user_profile':ar_user_profile,'date':datetime.now(),'user_profile_id':user_profile_id,'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
     else:
-        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
+        error_data = msg.notification_desc
+        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL,'error_message':error_data})
 
 def delete_user_profile(request,id):
     if request.session['user_type'] == "Root":
         try:
             ArUserProfile.objects.get(pk=id).delete()
-            msg = Notification.objects.filter(page_name="Manage User Profile").filter(notification_key="Remove")
-            msg_data = msg[0].notification_desc
+            msg = get_object_or_404(Notification, page_name="Manage User Profile", notification_key="Remove")
+            msg_data = msg.notification_desc
             messages.info(request, msg_data)
-            # messages.info(request, "User profile removed !")
             return redirect(settings.BASE_URL + 'user-profile')
         except(TypeError):
-            msg = Notification.objects.filter(page_name="Manage User Profile").filter(notification_key="Remove_error")
-            msg_data = msg[0].notification_desc
+            msg = get_object_or_404(Notification, page_name="Manage User Profile", notification_key="Remove_error")
+            msg_data = msg.notification_desc
             messages.error(request, msg_data)
-            # messages.error(request, "Maybe this user profile is used in another table so we can not remove that !")
     else:
-        msg = Notification.objects.filter(page_name="Manage User Profile").filter(notification_key="Permission")
-        msg_data = msg[0].notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage User Profile", notification_key="Permission")
+        msg_data = msg.notification_desc
         messages.error(request, msg_data)
-        # messages.error(request, "You don't have permission for this page !")
     return redirect(settings.BASE_URL + 'user-profile/add-profile')
 
 def get_data(request):

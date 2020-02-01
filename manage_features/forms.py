@@ -16,7 +16,7 @@ class Ar_Featurre_Form(forms.ModelForm):
         # fields = ['Cepic_key', 'Cepic_desc']
     def __init__(self,org_info,*args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['CE_ID'] = forms.ModelChoiceField(required=False, empty_label="Please select capability",queryset=AR_EPIC_CAPABILITY.objects.filter(ORG_ID__in=Subquery(org_info.values("id"))), widget=forms.Select(attrs={"class": "form-control"}))
+        self.fields['CE_ID'] = forms.ModelChoiceField(required=False, empty_label="Please select capability or None",queryset=AR_EPIC_CAPABILITY.objects.filter(ORG_ID__in=Subquery(org_info.values("id"))), widget=forms.Select(attrs={"class": "form-control"}))
         self.fields['User_story'].queryset = AR_USER_STORY.objects.filter(ORG_id__in=Subquery(org_info.values("id")))
         #
         # self.fields['User_story'] = forms.ModelChoiceField(required=False, empty_label="Please select user story",

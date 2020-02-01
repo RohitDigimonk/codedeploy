@@ -24,21 +24,21 @@
          {% for message in messages %}
          {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
          <div class="alert alert-success alert-dismissible">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
             <strong>{{message}}</strong> 
          </div>
          {% endif %}
          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
          <div class="alert alert-danger alert-dismissible">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Erorr</strong> {{message}}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+            <strong>{{message}}</strong> 
          </div>
          {% endif %}
          {% endfor %}
          {% endif %}
          <!-- <div class="card no-b"> -->
          <div class="login-form-card">
-            <form action="javascript:(0);">
+            <form  action="javascript:(0);">
                <div class="row">
                   <div class="col-md-12 mb-2">
                      <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default1">Add Backlog</button>
@@ -103,7 +103,7 @@
 
        {% for v in get_show_column %}
            {% if  v == 'team_list'  %}  
-                              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.team_list}}</th>
+                              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.team_list.all|join:" | " }}</th>
                               {% endif %}
                               {% if v == 'product_parent'  %}  
                               <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.product_parent}}</th>
@@ -113,7 +113,7 @@
                               <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.title}}</th>
                               {% endif %}
                               {% if v == 'children_us_list' %}  
-                              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.children_us_list}}</th>
+                              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.story_by_backlog.all|join:" | " }}</th>
                               {% endif %}
                               {% if v == 'owner' %}  
                               <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.owner}}</th>
@@ -158,7 +158,7 @@
 <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.team_list}}</th>
  <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.product_parent}}</th>
  <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.title}}</th>
- <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.children_us_list}}</th>
+ <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.story_by_backlog.all|join:" | " }}</th>
 <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{data.owner}}</th>
 <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">
                                  <div class="progress">
@@ -195,7 +195,7 @@
 
 
                                           <!-- <td align="center" valign="top"><a href="{{BASE_URL}}manage-backlog/edit-backlog/{{data.id}}"><i class="icon-pencil"></i></a></td> -->
-                                          <td align="center" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}manage-backlog/delete-backlog/{{data.id}}','Do you want to remove this backlog ?','Backlog removed successfully','Backlog not removed.');"><i class="icon-delete"></i></a><a></a></td>
+                                          <td align="center" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}manage-backlog/delete-backlog/{{data.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');"><i class="icon-delete"></i></a><a></a></td>
                                        </tr>
                                     </tbody>
                                  </table>
@@ -261,7 +261,7 @@
                         <!-- <div class="login-form-card"> -->
                         <div class="login-form-content">
                           
-                           <form action="{{BASE_URL}}manage-backlog/add-backlog" method="POST">
+                           <form  onsubmit="doSomething();" action="{{BASE_URL}}manage-backlog/add-backlog" method="POST">
                               {% csrf_token %}
                               <div class="row">
                                  <div class="col-md-6">
@@ -286,7 +286,7 @@
                                        <!-- <input class="form-control login-frm-input" type="text" value="" placeholder="User" aid="login" name="login"> -->
                                     </div>
                                     <div class="form-group">
-                                       <label>Product Parent</label>
+                                       <label>Product Parent<span style="color: red;"> *</span></label>
                                        {{ar_backlog_form.product_parent}}
                                        <!-- <input class="form-control login-frm-input" type="text" value="" placeholder="BookMine" aid="login" name="login"> -->
                                     </div>
@@ -348,7 +348,8 @@
       <div class="modal-content" style="margin-top:60px;">
          <div class="modal-header">
             <h4 class="modal-title" style="width: 100%;">Choose Backlog View </h4>
-            <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button>
+            <a href="{{BASE_URL}}backlog-view" class="close"><span aria-hidden="true" style="font-size: 32px; color: #000;">×</span></a>
+            <!-- <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button> -->
          </div>
          <div class="modal-body ">
             <div class="container">
@@ -369,7 +370,8 @@
             </div>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <a href="{{BASE_URL}}backlog-view" class="btn btn-default" >Close</a>
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
             <button type="button" class="btn btn-danger click_to_submit">Submit</button>
          </div>
       </div>
@@ -475,7 +477,7 @@
    }
    else{
      swal({
-         title: "Do you want to rearrange column order ?",
+         title:"{{Rearrange_Request_msg}}",
          // text: "Do you want to update the table structure.",
          icon: "warning",
          buttons: true,
@@ -540,4 +542,20 @@ $.ajax({
     $(".se-pre-con").css("display","block");
 }
 </script>
-{% endblock %}
+
+<script src='{% static "js/capability.js" %}'></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+
+
+   // $('#id_PROJECT_ID').prepend('<option value="" selected="">Select Product</option>');
+   $('#id_team_list').addClass("form-control");
+   $('#id_team_list').select2({
+    placeholder: "Please select products"
+});
+   // $('#id_PROJECT_ID').select2();
+  });
+</script>
+      {% endblock %}
+

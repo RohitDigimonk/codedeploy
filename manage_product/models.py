@@ -25,7 +25,7 @@ class AR_product(models.Model):
     Product_name = models.CharField(max_length=50)
     Product_description = models.TextField()
     Team_parent = models.ManyToManyField(AR_team,blank=True, related_name='user_favourite')
-    Children_backlog_list = models.TextField()
+    # Children_backlog_list = models.TextField()
     # Children_backlog_list = models.ManyToManyField(AR_team,blank=True, related_name='backlog_favourite')
     Business_unit = models.CharField(max_length=100)
     Product_size = models.IntegerField(default=0)

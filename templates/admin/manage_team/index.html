@@ -42,15 +42,15 @@
                    {% for message in messages %}
                      {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
                     <div class="alert alert-success alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                     <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>Erorr : </strong> {{message}}
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+                      <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
@@ -58,7 +58,7 @@
                {% endif %}
           <div class="login-form-card">
                    <!-- <div class="login-form-content"> -->
-                        <form action="javascript:(0);">
+                      
             <div class="table-responsive">
               {% if check_edit_permission %}
               <button class="btn-success add-data" data-toggle="modal" data-target="#team_add">Add Team</button>
@@ -98,7 +98,7 @@
                 <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                    <tbody><tr>
                     <td align="center" valign="top"><a href="#" data-toggle="modal" data-target="#team_edit" class="edit_team" data-team_id="{{team.id}}"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}manage-team/remove-team/{{team.id}}','Do you want to remove this team ?','Team removed successfully','Team not removed.');"><i class="icon-delete"></i></a></td>
+                    <td align="center" valign="top"><a href="javascript:;"  onclick="remove_product('{{BASE_URL}}manage-team/remove-team/{{team.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');"><i class="icon-delete"></i></a></td>
                    </tr>
                 </tbody></table>
                 {% else %}
@@ -116,7 +116,7 @@
                                      <!---Table Ends---->
 </div>
                                     
-                         </form>
+                  
                       <!-- </div> -->
              </div>
           <!-- </div> -->

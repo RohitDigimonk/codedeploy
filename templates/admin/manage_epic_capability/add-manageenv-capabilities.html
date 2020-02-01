@@ -23,14 +23,14 @@
                    {% for message in messages %}
                      {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
                     <div class="alert alert-success alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                     <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>Erorr</strong> {{message}}
                     </div>
                        {% endif %}
@@ -47,7 +47,7 @@
     {% endfor %}
 {% endif %}
 				   <div class="login-form-card">
-                                    <form action="{{BASE_URL}}manage-epic-capabilities/add-epic-capabilities" method="POST">
+                                    <form onsubmit="doSomething();" action="{{BASE_URL}}manage-epic-capabilities/add-epic-capabilities" method="POST">
                                       {% csrf_token %}
                                      <!-- start login -->
                                     <div class="row">
@@ -74,7 +74,7 @@
                              </div>
                                 <div class="row">
                                   <div class="col-md-2">
-                                    <button type="reset" class="btn-block btn btn-white all-btn" >Cancel</button>
+                                    <button type="reset" class="btn-block btn btn-white all-btn" >Reset</button>
                                   </div>
                                   <div class="col-md-2">
                                 <div class="form-group">

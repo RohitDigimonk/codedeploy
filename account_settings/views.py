@@ -32,12 +32,18 @@ def index(request):
             if Ar_user.objects.filter(id=request.session['user_id']).exists():
                 Ar_user.objects.filter(id=request.session['user_id']).update(user_name=user_name, city=city,state=state,zip=zip,country=country,
                                                             phone=phone)
-                messages.info(request, "Profile updated successfully !")
+                msg = Notification.objects.filter(page_name="Account Settings").filter(notification_key="Done")
+                msg_data = msg[0].notification_desc
+                messages.info(request, msg_data)
+                # messages.info(request, "Profile updated successfully !")
                 del request.session['user_name']
                 request.session['user_name'] = user_name
                 return redirect(settings.BASE_URL + 'account-settings')
             else:
-                messages.info(request, "Profile not updated !")
+                msg = Notification.objects.filter(page_name="Account Settings").filter(notification_key="Not Done")
+                msg_data = msg[0].notification_desc
+                messages.error(request, msg_data)
+                # messages.info(request, "Profile not updated !")
         return render(request,"admin/account_settings/index.html",{'get_count_of_active_user':get_count_of_active_user,'get_count_of_invit_user':get_count_of_invit_user,'profile':profile,'user':user,"BASE_URL":settings.BASE_URL,'user_name':request.session['user_name']})
     else:
         return redirect(settings.BASE_URL)

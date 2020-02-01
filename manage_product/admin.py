@@ -1,14 +1,15 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
 from .models import AR_product,AR_team
 # Register your models here.
 
-class Ar_productAdmin(admin.ModelAdmin):
+class Ar_productAdmin(ImportExportModelAdmin):
     date_hierarchy = 'create_dt'
     search_fields = ['Product_name','ORG_ID']
     list_display = ('Product_name','Product_size','Product_score','US_quality_threshold','ORG_ID','create_by','create_dt')
 
 
-class Ar_teamAdmin(admin.ModelAdmin):
+class Ar_teamAdmin(ImportExportModelAdmin):
     date_hierarchy = 'create_dt'
     search_fields = ['Team_name','ORG_id']
     list_display = ('Team_name','Team_description','ORG_id','create_by','update_by','update_by','create_dt',)

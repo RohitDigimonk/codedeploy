@@ -27,14 +27,14 @@
                    {% for message in messages %}
                      {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
                     <div class="alert alert-success alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                     <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>Erorr</strong> {{message}}
                     </div>
                        {% endif %}
@@ -45,7 +45,7 @@
               <div class="login-form-card">
                                   <div class="login-form-content">
 
-                                    <form action="{{BASE_URL}}manage-team-member/edit-team-member/{{member_id}}" method="POST">
+                                    <form onsubmit="doSomething();" action="{{BASE_URL}}manage-team-member/edit-team-member/{{member_id}}" method="POST">
                                       {% csrf_token %}
                                      <!-- start login -->
                                      <div class="row">
@@ -160,12 +160,12 @@
 
                               </div>
                                 <div class="row">
-                                  <div class="col-md-6 btn-new">
+                                  <div class="col-md-2 btn-new">
                                     <div class="form-group">
                                     <button type="reset" class="btn-new btn-block btn btn-white all-btn" data-dismiss="modal">Reset</button>
                                   </div>
                                   </div>
-                                  <div class="col-md-6 btn-new">
+                                  <div class="col-md-2 btn-new">
                                 <div class="form-group">
                                     <button type="submit" class="btn-new btn-block btn btn-white all-btn">Update</button>
                                </div>
@@ -224,7 +224,7 @@
             <div class="col-md-12">
               <div class="container-fluid">
                                    <!--  <div class="login-form-content"> -->
-                <form id="change_password_form" action="javascript:(0);">
+                <form onsubmit="doSomething();" id="change_password_form" action="javascript:(0);">
                   <div class="row">
                                         <div class="col-md-12">
                     <div class="form-group">

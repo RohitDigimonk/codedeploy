@@ -39,7 +39,7 @@ class AR_USER_STORY(models.Model):
     acceptance_criteria = models.TextField(blank=True)
     ac_readability_score = models.IntegerField(blank=True)
     conversation = models.TextField(blank=True)
-    backlog_parent = models.ForeignKey(AR_BACKLOG,default="",null=True , on_delete=models.SET_DEFAULT)
+    backlog_parent = models.ForeignKey(AR_BACKLOG,default="",null=True , on_delete=models.SET_DEFAULT, related_name='story_by_backlog')
     convo_readability_score = models.IntegerField(blank=True)
     attachments = models.FileField(upload_to='attachments/',default="None",blank=True,null=True)
     autoscoring_on = models.BooleanField(default=False,blank=True)

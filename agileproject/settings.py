@@ -164,7 +164,7 @@ STATICFILES_DIRS = [
     STATIC_DIR
 ]
 
-BASE_URL = 'http://3.17.177.133/'
+BASE_URL = 'http://203.190.153.20/'
 
 MEDIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

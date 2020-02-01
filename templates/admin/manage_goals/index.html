@@ -18,19 +18,19 @@
          {% for message in messages %}
          {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
          <div class="alert alert-success alert-dismissible">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
             <strong>{{message}}</strong>
          </div>
          {% endif %}
          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
          <div class="alert alert-danger alert-dismissible">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Erorr</strong> {{message}}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+            <strong>{{message}}</strong> 
          </div>
          {% endif %}
                                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
                     <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>Warning</strong> {{message}}
                     </div>
                        {% endif %}
@@ -48,7 +48,7 @@
 {% endif %}    
                   <!-- <div class="card no-b"> -->
               <div class="login-form-card">
-                        <form action="javascript:(0);">
+                        <form  action="javascript:(0);">
                   <div class="table-responsive">
               <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default1">Add Goals</button>
                                      <!-- start Table -->
@@ -76,7 +76,7 @@
                 <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                    <tr>
                     <td align="center" valign="top"><a href="javascript:void(0);" data-goal_id="{{data.id}}" data-toggle="modal" data-target="#modal-edit" class="edit_goal_data"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a onclick="remove_product('{{BASE_URL}}manage-goals/remove-goal/{{data.id}}','Do you want to remove this goal ?','Goal removed successfully','Goal not removed.');"  href="javascript:void(0);" ><i class="icon-delete"></i><a></td>
+                    <td align="center" valign="top"><a onclick="remove_product('{{BASE_URL}}manage-goals/remove-goal/{{data.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');"  href="javascript:void(0);" ><i class="icon-delete"></i><a></td>
                    </tr>
                 </table>
                 </td>
@@ -119,7 +119,7 @@
                             <div class="login-form-content">
                                
                              {% if goal_edit_status %}
-                             <form action="#" method="POST">
+                             <form onsubmit="doSomething();" action="#" method="POST">
                                  {% csrf_token %}
                                   <div class="form-group">
                                         <label>Goal Title</label>

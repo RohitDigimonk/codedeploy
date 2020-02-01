@@ -22,15 +22,15 @@
                    {% for message in messages %}
                      {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
                     <div class="alert alert-success alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
                       <strong>{{message}}</strong> 
                     </div>
                        {% endif %}
 
                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                     <div class="alert alert-danger alert-dismissible">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>Erorr</strong> {{message}}
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+                      <strong>{{message}}</strong>
                     </div>
                        {% endif %}
 
@@ -39,7 +39,7 @@
                  <!--  <div class="card no-b"> -->
               <div class="login-form-card">
                    <!-- <div class="login-form-content"> -->
-                        <form action="javascript:(0);">
+                        
                           <div class="row">
                       <div class="col-md-12 mb-2">
                         <a href="{{BASE_URL}}manage-iteration/add-iteration"><button type="button" class="btn-primary add-data">Add Iteration</button></a>
@@ -94,14 +94,11 @@
 
                {% if  v == 'IterationId' %}  
                <td align="left" valign="top" >{{data.IterationId}}</td>
-              {% endif %}   
-              
-                {% if v == 'IterationName'  %}  
+              {% endif %}
+              {% if v == 'IterationName'  %}  
                <td align="left" valign="top" >{{data.IterationName}}</td>
               {% endif %}   
-              
-              
-                {% if v == 'Product' %}  
+              {% if v == 'Product' %}  
                <td align="left" valign="top" >{{data.Product}}</td>
               {% endif %}   
               
@@ -118,10 +115,8 @@
 
                 {% if v == 'StartDate' %}  
                <td align="left" valign="top" >{{data.StartDate}}</td>
-              {% endif %}   
-              
-
-                {% if v == 'EndDate'  %}  
+              {% endif %}
+              {% if v == 'EndDate'  %}  
                <td align="left" valign="top" >{{data.EndDate}}</td>
               {% endif %}   
               
@@ -129,16 +124,14 @@
 
                 {% if v == 'Description'  %}  
                <td align="left" valign="top" >{{data.Description}}</td>
-              {% endif %}   
-              
+              {% endif %}
 
 
-                {% if v == 'UserStory'  %}  
-               <td align="left" valign="top" >{{data.UserStory}}</td>
-              {% endif %}   
-              
-
-                {% if 'Team' in get_show_column %}  
+              {% if v == 'UserStory'  %}  
+               <td align="left" valign="top" >{{data.UserStory.all|join:" | " }}</td>
+              {% endif %}
+                
+                {% if v == 'Team' %}  
                <td align="left" valign="top" >{{data.Team}}</td>
               {% endif %}   
 
@@ -185,9 +178,8 @@
               {% if v == 'update_dt'  %}  
                <td align="left" valign="top" >{{data.update_dt}}</td>
               {% endif %} 
-
                {% endfor %} 
-
+ 
               
 
 {% else %}
@@ -201,7 +193,7 @@
                <td align="left" valign="top" >{{data.StartDate}}</td>
                <td align="left" valign="top" >{{data.EndDate}}</td>
                <td align="left" valign="top" >{{data.Description}}</td>
-               <td align="left" valign="top" >{{data.UserStory}}</td>
+               <td align="left" valign="top" >{{data.UserStory.all|join:" | "}}</td>
                <td align="left" valign="top" >{{data.Team}}</td>
               <td align="left" valign="top">
 
@@ -231,7 +223,7 @@
                 <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                    <tbody><tr>
                     <td align="center" valign="top"><a href="{{BASE_URL}}manage-iteration/edit-iteration/{{data.id}}" ><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}manage-iteration/remove-iteration/{{data.id}}','Do you want to removed this iteration.','Iteration removed successfully','Iteration not removed.');" ><i class="icon-delete"></i></a><a></a></td>
+                    <td align="center" valign="top"><a href="javascript:;" onclick="remove_product('{{BASE_URL}}manage-iteration/remove-iteration/{{data.id}}','{{Remove_Request_msg}}','{{Remove_done_msg}}','{{Not_Remove_msg}}');" ><i class="icon-delete"></i></a><a></a></td>
                    </tr>
                 </tbody></table>
                 </td>
@@ -246,7 +238,7 @@
                                      <!---Table Ends---->
 </div>
                                     
-                         </form>
+                        
                      <!--  </div> -->
              </div>
               <!-- </div> -->
@@ -263,7 +255,8 @@
     <div class="modal-content" style="margin-top:60px;">
       <div class="modal-header">
     <h4 class="modal-title" style="width: 100%;">Choose User Story View </h4>
-        <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button>
+    <a href="{{BASE_URL}}iteration-view" class="close"><span aria-hidden="true" style="font-size: 32px; color: #000;">×</span></a>
+        <!-- <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button> -->
       </div>
       <div class="modal-body ">
 
@@ -282,7 +275,8 @@
       </div>
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <a href="{{BASE_URL}}iteration-view" class="btn btn-default" >Close</a>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         <button type="button" class="btn btn-danger click_to_submit">Submit</button>
       </div>
     </div>
@@ -352,7 +346,7 @@ if(names=="")
 }
 else{
   swal({
-      title: "Do you want to rearrange column order ?",
+      title: "{{Rearrange_Request_msg}}",
       // text: "Do you want to update the table structure.",
       icon: "warning",
       buttons: true,

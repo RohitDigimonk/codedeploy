@@ -12,9 +12,6 @@ class ArStoryPointForm(forms.ModelForm):
     Point_Description = forms.CharField(required=False,widget=forms.Textarea(attrs={"class": "form-control",'placeholder':"Point Description ", 'name': 'Point_Description'}))
 
     Point_score = forms.CharField(widget=forms.NumberInput(attrs={"class": "form-control",'placeholder':"Point Score *", 'name': 'Point_score'}))
-    # product_parent = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", 'name': 'product_parent'}))
-    # BL_STATUS = forms.ModelChoiceField(required=False,empty_label="Please select backlog status",queryset=AR_BACKLOG_STATUS.objects.all(), widget=forms.Select(attrs={'placeholder':"Status *","class": "form-control"}))
-    # bl_scoring_history = forms.CharField(required=False,widget=forms.Textarea(attrs={"class":"form-control login-frm-input","style":"height: 100px!important;  padding: 11px;","placeholder":"Description",'name':'story_tri_part_text'}))
     class Meta:
         model = ArUserStoryPoints
         fields = ['Point_Key',  'Point_Description','Point_score']
@@ -22,6 +19,7 @@ class ArStoryPointForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
     #     self.fields['team_list'] = forms.ModelChoiceField(required=False,empty_label="Please select team",queryset=AR_team.objects.filter(ORG_id__in=Subquery(org_info.values("id"))), widget=forms.Select(attrs={"class": "form-control"}))
     #     self.fields['product_parent'] = forms.ModelChoiceField(required=False,empty_label="Please select product",queryset=AR_product.objects.filter(ORG_ID__in=Subquery(org_info.values("id"))), widget=forms.Select(attrs={"class": "form-control"}))
+
 
 
 

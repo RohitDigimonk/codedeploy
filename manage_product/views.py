@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
 from agileproject import settings
 from .forms import ProductForm
 from django.contrib import messages
+from manage_backlogs.models import AR_BACKLOG
 from account.models import Ar_user,AR_organization,ArShowcolumns,ArUserProfilePermission,Notification
 from django.contrib.auth.decorators import login_required
 from .models import AR_product
@@ -65,19 +66,15 @@ def index(request,set_statue="",set_statue_2="",csv_id=""):
         get_status_of_permission = check_permition(request, 'Product View', 0)
     if get_status_of_permission:
         org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
-        all_project_get = {}
-    ##############################################
         if AR_product.objects.filter(ORG_ID=org_ins).exists():
             all_project_get = AR_product.objects.filter(ORG_ID=org_ins).order_by("-id")
         else:
             all_project_get = {}
-
         if ArShowcolumns.objects.filter(Table_name='AR_PRODUCT').filter(user_id=request.session['user_id']).exists():
             show_column = ArShowcolumns.objects.filter(Table_name='AR_PRODUCT').filter(user_id=request.session['user_id'])
             get_show_column = show_column[0].columnName.split(",")
         else:
             get_show_column = {}
-
         all_column_list = {
             "Team_parent": "Team Parent",
             "Children_backlog_list": "Children Backlog List",
@@ -93,14 +90,23 @@ def index(request,set_statue="",set_statue_2="",csv_id=""):
             "update_by":"Updated By",
             "update_dt":"Updated Date",
                 }
-    ##########################################################
-        return render(request, 'admin/manage_product/index.html', {'all_project_get':all_project_get,'all_column_list':all_column_list,"get_show_column":get_show_column,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,"all_project_get":all_project_get})
+        msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Rearrange_Request")
+        Rearrange_Request_msg = msg.notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Not_Remove")
+        Not_Remove_msg = msg.notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Remove Request")
+        Remove_Request_msg = msg.notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Remove_Success")
+        Remove_done_msg = msg.notification_desc
+        ar_backlog = AR_BACKLOG.objects.all()
+        return render(request, 'admin/manage_product/index.html', {'ar_backlog':ar_backlog,'Rearrange_Request_msg':Rearrange_Request_msg,'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'all_project_get':all_project_get,'all_column_list':all_column_list,"get_show_column":get_show_column,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,"all_project_get":all_project_get})
     else:
-        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
+        error_data = msg.notification_desc
+        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL,'error_message':error_data})
 @login_required
 def add_product(request):
     if check_permition(request, 'Manage Products', 1):
-        # product_form = ProductForm(request.POST or None,request.session['org_id'])
         if request.method == 'POST':
             product_form = ProductForm(request.user,request.session['org_id'], request.POST)
             status = product_form.is_valid()
@@ -108,10 +114,9 @@ def add_product(request):
                 Product_name = product_form.cleaned_data.get('Product_name')
                 org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
                 if AR_product.objects.filter(Product_name=Product_name).filter(ORG_ID=org_ins).exists():
-                    msg = Notification.objects.filter(page_name="Manage Products").filter(notification_key="Exists")
-                    msg_data = msg[0].notification_desc
+                    msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Exists")
+                    msg_data = msg.notification_desc
                     messages.error(request, msg_data)
-                    # messages.error(request, "Product already exists.")
                 else:
                     org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
                     ar_user_insta = get_object_or_404(Ar_user, pk=request.session['user_id'])
@@ -121,10 +126,9 @@ def add_product(request):
                     product.update_by = ar_user_insta
                     product.save()
                     product_form.save_m2m()
-                    msg = Notification.objects.filter(page_name="Manage Products").filter(notification_key="Add")
-                    msg_data = msg[0].notification_desc
+                    msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Add")
+                    msg_data = msg.notification_desc
                     messages.info(request, msg_data)
-                    # messages.info(request, "Product added successfully !")
                     return redirect(settings.BASE_URL + "manage-products")
             else:
                 messages.error(request, product_form.errors)
@@ -133,27 +137,26 @@ def add_product(request):
             product_form = ProductForm(request.user,request.session['org_id'])
         return render(request, 'admin/manage_product/add_project.html', {'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL,'product_form':product_form})
     else:
-        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
+        error_data = msg.notification_desc
+        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL,'error_message':error_data})
 @login_required
 def remove_product(request,id):
     if check_permition(request, 'Manage Products', 1):
         try:
             project = get_object_or_404(AR_product, pk=id)
             project.delete()
-            # messages.info(request, "Product removed successfully !")
-            msg = Notification.objects.filter(page_name="Manage Products").filter(notification_key="Remove")
-            msg_data = msg[0].notification_desc
+            msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Remove")
+            msg_data = msg.notification_desc
             messages.info(request, msg_data)
         except(TypeError, OverflowError):
-            msg = Notification.objects.filter(page_name="Manage Products").filter(notification_key="Remove_error")
-            msg_data = msg[0].notification_desc
+            msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Remove_error")
+            msg_data = msg.notification_desc
             messages.error(request, msg_data)
-            # messages.error(request, "Maybe this project is used in another table so we can not remove that !")
     else:
-        msg = Notification.objects.filter(page_name="Manage Products").filter(notification_key="Permission")
-        msg_data = msg[0].notification_desc
+        msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Permission")
+        msg_data = msg.notification_desc
         messages.error(request, msg_data)
-        # messages.error(request, "You are not authorized person.")
     return redirect(settings.BASE_URL+'manage-products')
 
 @login_required
@@ -168,10 +171,9 @@ def edit_product(request,id):
                 product.update_by = ar_user_insta
                 product.save()
                 product_form.save_m2m()
-                msg = Notification.objects.filter(page_name="Manage Products").filter(notification_key="Update")
-                msg_data = msg[0].notification_desc
+                msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Update")
+                msg_data = msg.notification_desc
                 messages.info(request, msg_data)
-                # messages.info(request, "Product updated successfully !")
                 return redirect(settings.BASE_URL + "manage-products")
             else:
                 messages.error(request, product_form.error)
@@ -180,17 +182,18 @@ def edit_product(request,id):
             product_form = ProductForm(request.user, request.session['org_id'],instance=product_info)
         return render(request, 'admin/manage_product/edit_project.html',{'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL, 'product_form': product_form})
     else:
-        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL})
+        msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
+        error_data = msg.notification_desc
+        return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL,'error_message':error_data})
 
-#####################################
+
 def update_table_structure(request,columnnames):
     if  ArShowcolumns.objects.filter(Table_name='AR_PRODUCT').filter(user_id=request.session['user_id']).exists():
         save_column = ArShowcolumns.objects.filter(Table_name='AR_PRODUCT').filter(user_id=request.session['user_id']).update(columnName=columnnames)
     else:
         save_column = ArShowcolumns(Table_name='AR_PRODUCT',user_id=request.session['user_id'],columnName=columnnames,ORG_id=request.session['org_id'])
         save_column.save()
-    msg = Notification.objects.filter(page_name="View Products").filter(notification_key="Rearrange")
-    msg_data = msg[0].notification_desc
+    msg = get_object_or_404(Notification, page_name="View Products", notification_key="Rearrange")
+    msg_data = msg.notification_desc
     messages.info(request, msg_data)
-    # messages.info(request, "Table column order rearrange successfully.")
     return redirect(settings.BASE_URL + 'products-view')

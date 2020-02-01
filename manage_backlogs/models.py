@@ -22,12 +22,14 @@ class AR_BACKLOG_STATUS(models.Model):
 class AR_BACKLOG(models.Model):
     title = models.CharField(max_length=100)
     # product_parent = models.CharField(max_length=50)
-    children_us_list = models.CharField(max_length=50)
-    owner = models.CharField(max_length=100)
+    # children_us_list = models.TextField(blank=True)
+
+    owner = models.ForeignKey(Ar_user,  default="",null=True , on_delete='models.SET_NULL')
     backlog_score = models.IntegerField()
     Backlog_size = models.IntegerField()
-    team_list = models.ForeignKey(AR_team,  default="",null=True , on_delete='models.SET_NULL')
-    product_parent = models.ForeignKey(AR_product,  default="",null=True , on_delete='models.SET_NULL')
+    # team_list = models.ForeignKey(AR_team,  default="",null=True , on_delete='models.SET_NULL')
+    team_list = models.ManyToManyField(AR_team,blank=True, related_name='backlog_team')
+    product_parent = models.ForeignKey(AR_product,  default="",null=True , on_delete='models.SET_NULL', related_name='backlog_by_product')
     BL_STATUS = models.ForeignKey(AR_BACKLOG_STATUS,  default="",null=True , on_delete='models.SET_NULL')
     ORG_ID = models.ForeignKey(AR_organization,  default="",null=True , on_delete='models.SET_NULL')
     created_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='create_by_backlog')

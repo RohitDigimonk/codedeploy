@@ -1,7 +1,8 @@
 from django.contrib import admin
 from .models import ArIterations
+from import_export.admin import ImportExportModelAdmin
 # Register your models here.
-class ArIterationsAdmin(admin.ModelAdmin):
+class ArIterationsAdmin(ImportExportModelAdmin):
     search_fields = ['IterationName']
     list_display = ('IterationName','owner','IterationId','StartDate','EndDate','Product','Backlog','Team','IterationScore','IterationSize')
 

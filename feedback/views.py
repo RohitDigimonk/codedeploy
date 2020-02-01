@@ -8,7 +8,7 @@ from datetime import datetime
 from django.contrib import messages
 from manage_backlogs.models import AR_BACKLOG
 from manage_backlogs.forms import Ar_Backlog_Form
-from account.models import AR_organization
+from account.models import AR_organization,Notification
 from manage_epic_capability.models import AR_EPIC_CAPABILITY
 from datetime import datetime
 
@@ -38,7 +38,9 @@ def index(request):
         entry_user = ArFeedback(page_name=feedback_page, feedback_nature=feed_nature, feedback_information=feedinformation,
                                 attachments=upload_file_name,created_by=created_by_ins)
         entry_user.save()
-        messages.info(request, "Feedback send successfully !")
+        msg = Notification.objects.filter(page_name="Feedback").filter(notification_key="Send")
+        msg_data = msg[0].notification_desc
+        messages.info(request, msg_data)
         if feedback_page =="Manage Products":
             return redirect(settings.BASE_URL+'manage-products')
         elif feedback_page =="Manage Feature":
@@ -62,9 +64,21 @@ def index(request):
         elif feedback_page =="User Story View":
             return redirect(settings.BASE_URL + 'user-story-view')
         elif feedback_page =="Product View":
-            return redirect(settings.BASE_URL + 'product-view')
+            return redirect(settings.BASE_URL + 'products-view')
         elif feedback_page == "Backlog View":
             return redirect(settings.BASE_URL + 'backlog-view')
+        elif feedback_page == "Iteration View":
+            return redirect(settings.BASE_URL + 'iteration-view')
+        elif feedback_page == "Manage Iteration":
+            return redirect(settings.BASE_URL + 'manage-iteration')
+        elif feedback_page == "Manage Roles":
+            return redirect(settings.BASE_URL + 'manage-role')
+        elif feedback_page == "Manage Goal":
+            return redirect(settings.BASE_URL + 'manage-goals')
+        elif feedback_page == "Manage Benefits":
+            return redirect(settings.BASE_URL + 'manage-benefits')
+        elif feedback_page == "Manage User Story Point":
+            return redirect(settings.BASE_URL + 'user-story-points')
         elif feedback_page == "Account Settings":
             return redirect(settings.BASE_URL + 'account-settings')
 

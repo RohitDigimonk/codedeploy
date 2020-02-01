@@ -3,7 +3,7 @@
                       <div class="col-md-12">
                          <div class="container-fluid">
                             <div class="login-form-content">
-                               <form action="{{BASE_URL}}manage-benefits/edit/{{id}}" method="POST">
+                               <form onsubmit="doSomething();" action="{{BASE_URL}}manage-benefits/edit/{{id}}" method="POST">
                                  {% csrf_token %}
                                   <div class="form-group">
                                         <label>Benefit Title</label>

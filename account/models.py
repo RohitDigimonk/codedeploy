@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 import django
+from agileproject import settings
 # from manage_user_profile.models import ArUserProfile
 
 # Create your models here.
@@ -134,3 +135,17 @@ class ArUserStoryScoringPoints(models.Model):
 
     def __str__(self):
         return str(self.Score_key)
+
+class ArHelpContect(models.Model):
+    Page_name = models.CharField(max_length = 50)
+    Page_slug = models.CharField(max_length = 250, unique=True, null = True, blank = True,help_text="Copy URL after the "+settings.BASE_URL+" and past")
+    Topic = models.CharField(max_length = 50)
+    Description = models.TextField(default="Description")
+    Information = models.TextField(default="Information.")
+    Linke_1 = models.URLField(null = True, blank = True, default="http://203.190.153.20/")
+    Linke_2 = models.URLField(null = True, blank = True, default="http://203.190.153.20/")
+    Linke_3 = models.URLField(null = True, blank = True, default="http://203.190.153.20/")
+    create_dt = models.DateTimeField(default=django.utils.timezone.now)
+
+    def __str__(self):
+        return str(self.Topic)
