@@ -26,7 +26,7 @@
   width: 100%;
   height: 100%;
   z-index: 99999999999;
-  background: url(http://203.190.153.20/media/img/demo/loader3.gif) center no-repeat rgba(0,0,0,0.5);
+  background: url(http://3.17.177.133/media/img/demo/loader3.gif) center no-repeat rgba(0,0,0,0.5);
 }
    </style>
 </head>
@@ -39,23 +39,23 @@
             <div class="paper_menu">
                <div id="dl-menu" class="xv-menuwrapper responsive-menu">
                   <ul class="dl-menu align-items-center">
-                     <li class="parent"><a class="{{home_active}}" href="http://203.190.153.20/">Home</a></li>
-                     <li class="parent"><a class="{{whyar_active}}" href="http://203.190.153.20/ar-whyar">Why Agile Ready</a>
+                     <li class="parent"><a class="{{home_active}}" href="http://3.17.177.133/">Home</a></li>
+                     <li class="parent"><a class="{{whyar_active}}" href="http://3.17.177.133/ar-whyar">Why Agile Ready</a>
                      </li>
 
-                     <li class="parent"><a class="{{company_active}}" href="http://203.190.153.20/ar-company">Company</a></li>
-                     <li class="parent"><a class="{{subscription_active}}" href="http://203.190.153.20/subscription">Subscriptions</a></li>
+                     <li class="parent"><a class="{{company_active}}" href="http://3.17.177.133/ar-company">Company</a></li>
+                     <li class="parent"><a class="{{subscription_active}}" href="http://3.17.177.133/subscription">Subscriptions</a></li>
                         
                      </li>
-                     <li class="parent"><a class="{{usrating_active}}" href="http://203.190.153.20/ar-usrating">User Story Rating</a>
+                     <li class="parent"><a class="{{usrating_active}}" href="http://3.17.177.133/ar-usrating">User Story Rating</a>
                         
                      </li>
                      {% if user.username == ""  %}
                      <li> <a href="#" data-toggle="modal" class="btn btn-primary nav-btn" data-target="#modalLogin">Sign In </a></li>
                      <li><a href="#" class="btn btn-primary nav-btn" data-toggle="modal" data-target="#modalSignUp">Sign Up</a></li>
                      {% else %}
-                     <li><a href="http://203.190.153.20/dashboard" class="btn btn-primary nav-btn" >Go To Dashboard</a></li>
-                     <li><a href="http://203.190.153.20/dashboard/logout" class="btn btn-primary nav-btn" >Logout</a></li>
+                     <li><a href="http://3.17.177.133/dashboard" class="btn btn-primary nav-btn" >Go To Dashboard</a></li>
+                     <li><a href="http://3.17.177.133/dashboard/logout" class="btn btn-primary nav-btn" >Logout</a></li>
                      {% endif %}
                   </ul>
                </div>
@@ -168,7 +168,7 @@
       <div class="modal-dialog width-400" role="document">
          <div class="modal-content no-r "><a href="#" data-dismiss="modal" aria-label="Close" class="paper-nav-toggle active"><i></i></a>
             <div class="modal-body no-p">
-               <div class="text-center p-40 p-b-0"> <img src="http://203.190.153.20/media/img/dummy/u4.png" alt="">
+               <div class="text-center p-40 p-b-0"> <img src="http://3.17.177.133/media/img/dummy/u4.png" alt="">
                   <h2 class=" text-center">Login</h2>
                </div>
                <div class="light p-40">
@@ -183,7 +183,7 @@
 
                      </div>
                      <button type="submit" id="login_form_button" class="btn btn-primary btn-lg btn-block">Log In</button>
-                     <small class="forget-pass" ><a href="http://203.190.153.20/password_reset">Did you forget your Password ?</a></small>
+                     <small class="forget-pass" ><a href="http://3.17.177.133/password_reset">Did you forget your Password ?</a></small>
                   </form>
                </div>
             </div>
@@ -192,12 +192,12 @@
    </div>
    <div class="modal fade" id="modalSignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog modal-lg" role="document">
-         <div class="modal-content no-r "><a href="http://203.190.153.20/" data-dismiss="" aria-label="" class="paper-nav-toggle active"><i></i></a>
+         <div class="modal-content no-r "><a href="http://3.17.177.133/" data-dismiss="" aria-label="" class="paper-nav-toggle active"><i></i></a>
             <div class="modal-body no-p">
                <div class="row">
                   <div class="col-lg-12">
 
-                    <form action="http://203.190.153.20/account/register" method="POST" id="sign_up_data">
+                    <form action="http://3.17.177.133/account/register" method="POST" id="sign_up_data">
                   <div class="col-lg-12">
                      <div class="p-t-b-40">
                         <div class="p-10"  id="show_message_dome_when_registration_is_done">
@@ -272,10 +272,10 @@
 {% endif %}
 
 <script type="text/javascript">
-var base_url = 'http://203.190.153.20/';
+var base_url = 'http://3.17.177.133/';
 if(base_url == "")
 {
-  base_url = 'http://203.190.153.20/';
+  base_url = 'http://3.17.177.133/';
 }
 function myFunction() {
   var dots = document.getElementById("dots");
