@@ -2,11 +2,14 @@
 {% block content %}
 {% load static %}
             <div class="container-fluid text-white">
-               <div class="row p-t-b-10 ">
+               <div class="row p-t-b-8 ">
                   <div class="col">
                      <h1>Manage User Profile Permissions</h1>
                   </div>
                </div>
+                 <div class="row p-t-b-8">
+         <p class="user-nick"> {{user_name}}</p>
+  </div>
                <!-- <div class="row ">
                   <ul class="nav">
                      <li class="nav-item"> <a class="nav-link active s-12" href="#">Today</a></li>
@@ -43,7 +46,7 @@
          <form onsubmit="doSomething();" action="{{BASE_URL}}user-profile" method="POST">
           {% csrf_token %}
            <div class="row p-t-40">
-             <div class="col-md-8" style="display: flex;">
+             <div class="col-md-10" style="display: flex;">
                <label style="/* float:left; *//* width: 8em; */" class="control-label">Select Profile: &nbsp;</label>
 
 <!-- ----------------------------------- -->
@@ -94,7 +97,7 @@
              </div>
              
               
-             <div class="col-md-4">
+             <div class="col-md-2">
               <!-- <button type="submit" class="all-btn" style="float: right;">Submit</button> -->
               <button type="submit" name="submit" value="ok" style="width: auto; float:right;display: block;" class="btn-block btn btn-white all-btn">Submit</button>
              </div>

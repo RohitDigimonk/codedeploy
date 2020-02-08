@@ -17,11 +17,14 @@
 
 
 <div class="container-fluid text-white">
-               <div class="row p-t-b-10 ">
+               <div class="row p-t-b-8 ">
                   <div class="col">
                      <h1>User Story View</h1>
                   </div>
                </div>
+                 <div class="row p-t-b-8">
+         <p class="user-nick"> {{user_name}}</p>
+  </div>
             </div>
             </header>
 <div class="container-fluid">
@@ -159,8 +162,8 @@
                                 </div>
                                 <div class="form-group" style=" margin-top: -10px;">
                                   <div class="row">
-                                    <div class="col-md-7"><label>Acceptance Criteria Readability Score</label></div>
-                                    <div class="col-md-2">{{ar_user_story_form.ac_readability_score}}</div>
+                                    <div class="col-md-8"><label>Acceptance Criteria Readability Score</label></div>
+                                    <div class="col-md-4">{{ar_user_story_form.ac_readability_score}}</div>
                                   </div>
                                         
                                         
@@ -172,8 +175,8 @@
                                 <div class="form-group " style="margin-bottom: 0rem; margin-top: -10px;">
                                       
                           <div class="row">
-                            <div class="col-md-7"> <label>Conversations Readability Score</label></div>
-                            <div class="col-md-2">{{ar_user_story_form.convo_readability_score}}</div>
+                            <div class="col-md-8"> <label>Conversations Readability Score</label></div>
+                            <div class="col-md-4">{{ar_user_story_form.convo_readability_score}}</div>
                         </div>
                                        
                                          
@@ -206,7 +209,7 @@
                             </div>
                                 <div class="row">
                                   <div class="col-md-2 text-center">
-                                    <button type="reset" class="btn btn-block btn-white all-btn" onclick="goBack()">Reset</button>
+                                    <a href="{{BASE_URL}}user-story-view" class="btn-block btn btn-white all-btn" > Cancel</a>
                                   </div>
                                  <div class="col-md-2">
                                   

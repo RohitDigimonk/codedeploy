@@ -2,11 +2,15 @@
 {% block content %}
 {% load static %}
 <div class="container-fluid text-white">
-               <div class="row p-t-b-10 ">
+               <div class="row p-t-b-8 ">
                   <div class="col">
                      <h1>Edit Epic Capability</h1>
                   </div>
                </div>
+                                <div class="row p-t-b-8">
+         <p class="user-nick"> {{user_name}}</p>
+  </div>
+
             </div>
             </header>
          <div class="container-fluid">
@@ -92,7 +96,7 @@
                                 </div> -->
                                 <div class="row">
                                   <div class="col-md-2">
-                                    <button type="reset" class="btn-block btn btn-white all-btn" >Reset</button>
+                                    <a href="{{BASE_URL}}manage-epic-capabilities" class="btn-block btn btn-white all-btn" > Cancel</a>
                                   </div>
                                   <div class="col-md-2">
                                 <div class="form-group">

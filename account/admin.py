@@ -1,7 +1,10 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
+from django.contrib.auth.models import Group
 from .models import Ar_user,AR_organization,AR_organization_status,ArShowcolumns,csvFilesUplodaded,ArUserProfile,ArUserProfilePermission,Notification,ArUserStoryScoringPoints,ArHelpContect
 # Register your models here.
+
+
 
 class Ar_userAdmin(ImportExportModelAdmin):
     date_hierarchy = 'created_dt'
@@ -27,6 +30,7 @@ class ArShowcolumnsAdmin(ImportExportModelAdmin):
 class csvFilesUplodadedAdmin(ImportExportModelAdmin):
     search_fields = ['ORG_ID']
     list_display = ('attachments','csvUseFor','ORG_ID','created_by')
+    list_filter = ('csvUseFor',)
 
 
 class ArUserProfileAdmin(ImportExportModelAdmin):
@@ -56,6 +60,15 @@ class ArHelpContectAdmin(ImportExportModelAdmin):
     search_fields = ['Page_name','Topic']
     list_display = ('Page_name','Page_slug','Topic','Description','Information','Linke_1','Linke_2','Linke_3','create_dt')
     list_filter = ('Page_name', 'Page_slug','Topic')
+
+
+
+admin.site.site_header = 'Agileready admin console'
+admin.site.site_title = 'Agileready admin console'
+admin.site.index_title = 'Agileready administration'
+
+
+admin.site.unregister(Group)
 
 
 admin.site.register(ArUserProfilePermission,ArUserProfilePermissionAdmin)

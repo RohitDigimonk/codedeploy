@@ -28,4 +28,11 @@ urlpatterns = [
 
     path('update-table-structure/<str:columnnames>/', views.update_table_structure, name='update_table_structure'),
     path('update-table-structure/<str:columnnames>/', views.update_table_structure, name='update_table_structure'),
+
+    path('get-criteria-data', views.get_criteria_data, name='get_criteria_data'),
+    path('get-criteria-data/', views.get_criteria_data, name='get_criteria_data'),
+
+    path('get-conversations-data', views.get_conversations_data, name='get_conversations_data'),
+    path('get-conversations-data/', views.get_conversations_data, name='get_conversations_data'),
+
 ]

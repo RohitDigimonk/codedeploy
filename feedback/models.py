@@ -12,8 +12,10 @@ class ArFeedback(models.Model):
     feedback_nature  = models.TextField(blank=True)
     feedback_information = models.TextField()
     attachments = models.FileField(upload_to='feedback/')
-    created_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='created_by_feedback')
+    created_by = models.ForeignKey(Ar_user, on_delete=models.SET_NULL,related_name='created_by_feedback',null=True )
     created_dt = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
         return str(self.page_name)
+    class Meta:
+        verbose_name_plural = "Ar feedback"
 ###########################

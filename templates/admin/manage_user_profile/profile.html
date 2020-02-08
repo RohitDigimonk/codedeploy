@@ -2,11 +2,14 @@
 {% block content %}
 {% load static %}
             <div class="container-fluid text-white">
-               <div class="row p-t-b-10 ">
+               <div class="row p-t-b-8 ">
                   <div class="col">
                      <h1>Manage User Profile Permissions</h1>
                   </div>
                </div>
+                 <div class="row p-t-b-8">
+         <p class="user-nick"> {{user_name}}</p>
+  </div>
                <!-- <div class="row ">
                   <ul class="nav">
                      <li class="nav-item"> <a class="nav-link active s-12" href="#">Today</a></li>
@@ -40,11 +43,11 @@
          {% endif %}
        </div>
 
-                <div  class="col-md-8">
+
+                <div  class="col-md-10">
 
             <form onsubmit="doSomething();" class="form-inline" action="#" method="POST">
                                       {% csrf_token %}
-                                      <!----------------------------------->
                   <div class="form-group has-feedback">
                   <div class="input-group">
 
@@ -53,30 +56,12 @@
                </div>
                </div>
 
-<!-- --------------------------------------------- -->
-                                    <!-- <div class="row"> -->
-<!--                                       <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Profile Key<span style="color: red;"> *</span></label>
-                                      </div>
-                                    </div>
-                                      <div class="col-md-6">
-                                        <div class="">
-
-                                        {{ar_user_profile_form.profile_key}}
-                                   
-                                </div>
- 
-                              </div>
-                            
-
-                                  <div class="col-md-3">
-                                <div class="form-group">
-                                    <button type="submit" class="btn-block btn btn-white all-btn">Submit</button>
-                               </div>
-                             </div> -->
-                             <!-- </div> -->
                         </form></div>
+
+
+                    <div class="col-md-2">
+                                    <a href="{{BASE_URL}}user-profile" class="btn-block btn btn-white all-btn" > Back</a>
+                                  </div>
              
            </div>
                            <hr>
@@ -138,7 +123,11 @@
                 <td align="left" valign="top">
                 <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                    <tbody><tr>
-                    <td align="center" valign="top"><a href="{{BASE_URL}}user-profile/edit-user-profile/{{ar_user_data.id}}"><i class="icon-pencil"></i></a></td>
+
+                    <td align="center" valign="top"><a href="#" data-toggle="modal" data-target="#modal-profile" class="edit_profile" data-profile_id="{{ar_user_data.id}}"><i class="icon-pencil"></i></a></td>
+
+
+                    <!-- <td align="center" valign="top"><a href="{{BASE_URL}}user-profile/edit-user-profile/{{ar_user_data.id}}"><i class="icon-pencil"></i></a></td> -->
                     <td align="center" valign="top">
 <!--  -->
                       <a href="javascript:;" onclick="remove_product('{{BASE_URL}}user-profile/delete-user-profile/{{ar_user_data.id}}','Do you want to removed user profile.','User profile removed successfully','User profile not removed.');"><i class="icon-delete"></i></a>
@@ -234,47 +223,14 @@
             <div class="modal-content" >
               <div class="modal-header">
 
-                <h4 class="modal-title">Add Profile</h4>
+                <h4 class="modal-title">Update Profile</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" style="font-size: 32px; color: #dc3545;">×</span></button>
                 
               </div>
-              <div class="modal-body">
-                <div class="paper">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="container-fluid">
-                                   
-                     <div>
-                                    <form onsubmit="doSomething();" action="{{BASE_URL}}user-profile/add-profile" method="POST">
-                                      {% csrf_token %}
-                                    <div class="row">
-                                      <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Profile Key<span style="color: red;"> *</span></label>
-                                      </div></div>
-                                      <div class="col-md-8">
-                                        <div class="form-group">
+         <div class="modal-body">
 
-                                        {{ar_user_profile_form.profile_key}}
-                                   
-                                </div>
- 
-                              </div>
-                            </div>
-                                <div class="row">
-                                  <div class="col-md-6 offset-md-3">
-                                <div class="form-group">
-                                    <button type="submit" class="btn-block btn btn-white all-btn">Submit</button>
-                               </div>
-                             </div>
-                             </div>
-                        </form></div>
-             </div>
-          </div>
-                            </div>
-                        </div>
-                    </div>
+         </div>
                             </div>
                         
                         </div>
@@ -377,5 +333,33 @@ $(document).ready(function() {
     $('.attach p').text(this.files.length + " file(s) selected");
   });
 });
+</script>
+
+<script >
+  $(document).on("click",".edit_profile",function(){
+var id = $(this).data("profile_id");
+
+$.ajax({
+  method:"GET",
+  url :"{{BASE_URL}}user-profile/edit-user-profile/"+id,
+  dataType:"html",
+  success:function(data)
+  {
+   
+    
+     $("#modal-profile .modal-body").html(data);
+// //    $("#modal-default #id_Team_member_list").addClass("form-control");
+//    $('select').select2({
+//     placeholder: "Please select team Members"
+// });
+     // $("#modal-default").modal("show");
+     $('#modal-profile select').select2({
+    placeholder: "Please select Profile Key"
+});
+
+  }
+});
+});
+
 </script>
 {% endblock %}

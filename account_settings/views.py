@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from agileproject import settings
 from django.http import JsonResponse
 from django.contrib.auth.models import User,auth
-from account.models import Ar_user,ArUserProfile,AR_organization
+from account.models import Ar_user,ArUserProfile,AR_organization,Notification
 from django.contrib import messages
 import hashlib
 import django

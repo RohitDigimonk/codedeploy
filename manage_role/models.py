@@ -16,4 +16,6 @@ class ArRole(models.Model):
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
         return str(self.role_id)
+    class Meta:
+        verbose_name_plural = "Ar role"
 ###########################

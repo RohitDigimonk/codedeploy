@@ -11,6 +11,8 @@ urlpatterns = [
 
     path('get_user_story', views.get_user_story, name='get_user_story'),
 
+    path('get_team', views.get_team, name='get_team'),
+
     path('edit-iteration/<int:id>', views.edit_iteration, name='edit_iteration'),
     path('edit-iteration/<int:id>/', views.edit_iteration, name='edit_iteration'),
 

@@ -1,6 +1,6 @@
 *.pyc
 agilereadyenv/
 **/manage_epic_capability/migrations/
-agileproject/settings.py
+*/agileproject/settings.py
 agileproject/__init__.py
-templates/registration/*.html
+templates/registration/*.html/*

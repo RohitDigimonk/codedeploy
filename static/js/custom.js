@@ -45,7 +45,7 @@ console.log($(this).data("page"));
         {
         	 $(this).addClass('active');
         	 $("#page_name").html('Manage Products')
-        	 $('#show_col').css('display', 'none');
+        	 // $('#show_col').css('display', 'none');
         	 $("#feed").html('<input type="text" class="form-control" readonly="" name="feedback_page" value="Manage Products">');
 
         	 for_enver = true;
@@ -82,7 +82,7 @@ console.log($(this).data("page"));
 	        {
 	        	 $(this).addClass('active');
 	        	 $("#page_name").html('Manage Backlog');
-	        	 $('#show_col').css('display', 'none');
+	        	 // $('#show_col').css('display', 'none');
 	        	 $("#feed").html('<input type="text" value="Manage Backlog" class="form-control" readonly="" name="feedback_page">');
 	        	 for_enver = true;
 	        }
@@ -92,7 +92,7 @@ console.log($(this).data("page"));
 	        {
 	        	 $(this).addClass('active');
 	        	 $("#page_name").html('Manage Iteration');
-	        	 $('#show_col').css('display', 'none');
+	        	 // $('#show_col').css('display', 'none');
 	        	 $("#feed").html('<input type="text" value="Manage Iteration" class="form-control" readonly="" name="feedback_page">');
 	        	 for_enver = true;
 	        }

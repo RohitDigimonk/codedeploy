@@ -1,24 +1,27 @@
 import spacy
+import re
 # import en_core_web_sm
 from textstat.textstat import textstatistics, easy_word_set, legacy_round
 
 
 def break_sentences(text):
     nlp = spacy.load('en')
+    # nlp = spacy.load('en_core_web_sm')
     doc = nlp(text)
     return doc.sents
 
 # Returns Number of Words in the text
 def word_count(text):
-    sentences = break_sentences(text)
-    words = 0
-    words_1 = 0
-    get_word = ""
-    for sentence in sentences:
-        words += len([token for token in sentence])
-        for token in sentence:
-            words_1 += 1
-            get_word += str(token)+" => "+str(words_1)+" || "
+    words = len(text.split())
+    # sentences = break_sentences(text)
+    # words = 0
+    # words_1 = 0
+    # get_word = ""
+    # for sentence in sentences:
+    #     words += len([token for token in sentence])
+    #     for token in sentence:
+    #         words_1 += 1
+    #         get_word += str(token)+" => "+str(words_1)+" || "
     return words
 
 # Returns the number of sentences in the text
@@ -34,6 +37,7 @@ def avg_sentence_length(text):
     words = word_count(text)
     sentences = sentence_count(text)
     average_sentence_length = float(words / sentences)
+    average_sentence_length = round(average_sentence_length, 2)
     return average_sentence_length
 
 
@@ -49,10 +53,23 @@ def syllables_count(word):
 # Returns the average number of syllables per
 # word in the text
 def avg_syllables_per_word(text):
-    syllable = syllables_count(text)
+    word = text.lower()
     words = word_count(text)
-    ASPW = float(syllable) / float(words)
-    return legacy_round(ASPW, 1)
+    count = 0
+    vowels = "aeiou"
+    if word[0] in vowels:
+        count += 1
+    for index in range(1, len(word)):
+        if word[index] in vowels and word[index - 1] not in vowels:
+            count += 1
+    if count == 0:
+        count += 1
+    syllables_data = count / words
+    # syllable = syllables_count(text)
+    # words = word_count(text)
+    # ASPW = float(syllable) / float(words)
+    return legacy_round(syllables_data, 2)
+
 
 
 # Return total Difficult Words in a text
@@ -103,3 +120,32 @@ def flesch_reading_ease(text):
     FRE = 206.835 - float(1.015 * avg_sentence_length(text)) -\
           float(84.6 * avg_syllables_per_word(text))
     return legacy_round(FRE, 2)
+
+def flesch_grade_level(text):
+    """
+        Implements Flesch Formula:
+        Reading Ease score = 206.835 - (1.015 × ASL) - (84.6 × ASW)
+        Here,
+          ASL = average sentence length (number of words
+                divided by number of sentences)
+          ASW = average word length in syllables (number of syllables
+                divided by number of words)
+    """
+    FGL = float(0.39 * avg_sentence_length(text)) + float(11.8 * avg_syllables_per_word(text)) - 15.59
+    return legacy_round(FGL, 2)
+
+
+def coleman_liau_index(text):
+    characters = len(re.sub("[^a-zA-Z]", "", text))
+    sentences = sentence_count(text)
+    words = word_count(text)
+    CLI = float(5.89 * (characters/words)) - float(0.3 * (sentences/words)) - 15.8
+    return legacy_round(CLI, 2)
+
+
+def automated_readability_index(text):
+    characters = len(re.sub("[^a-zA-Z]", "", text))
+    sentences = sentence_count(text)
+    words = word_count(text)
+    ARI = float(4.71 * (characters/words)) + float(0.5 * (words/sentences)) - 21.43
+    return legacy_round(ARI, 2)

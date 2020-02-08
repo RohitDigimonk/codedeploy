@@ -2,11 +2,14 @@
 {% block content %}
 {% load static %}
   <div class="container-fluid text-white">
-               <div class="row p-t-b-10 ">
+               <div class="row p-t-b-8 ">
                   <div class="col">
                      <h1>Account Setting</h1>
                   </div>
                </div>
+                 <div class="row p-t-b-8">
+         <p class="user-nick"> {{user_name}}</p>
+  </div>
             </div>
          </header>
 <div class="container-fluid">
@@ -36,7 +39,7 @@
               <div class="login-form-card">
                                   <div class="login-form-content">
 
-                                    <form action="#"  onsubmit="doSomething();" method="POST">
+                                    <form action="#"   method="POST">
                                       {% csrf_token %}
                                      <!-- start login -->
                                      <div class="row">
@@ -198,7 +201,7 @@
             <div class="col-md-12">
               <div class="container-fluid">
                                    <!--  <div class="login-form-content"> -->
-                <form id="change_password_form"  onsubmit="doSomething();" action="javascript:(0);">
+                <form id="change_password_form"   action="javascript:(0);">
                   <div class="row">
                                         <div class="col-md-12">
                     <div class="form-group">

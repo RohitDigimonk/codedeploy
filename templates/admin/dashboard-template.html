@@ -20,6 +20,7 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/css/bootstrap-select.css" />
+    <link rel="stylesheet" href='{% static "style.css" %}'>
 
 
     <style type="text/css">
@@ -141,7 +142,7 @@ thead input {
 }
 .alert {
     padding: 15px;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
     border: 1px solid transparent;
     border-radius: 4px;
     font-size: 20px;
@@ -188,17 +189,17 @@ thead input {
                     </ul></li>
                     <li class="nmanage_environment_menu"><a href="{{BASE_URL}}dashboard " data-page="nmanage_environment"><i class="fa fa-cog"></i><span>Manage Environment</span> <i class="icon icon-angle-left pull-right"></i></a>
                     <ul class="treeview-menu ">
-                        <li><a href="{{BASE_URL}}manage-epic-capabilities" data-page="manage_epic_capability"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Epic Capability</a></li>
-                        <li><a href="{{BASE_URL}}manage-feature" data-page="manage_features"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Features </a></li>
-                        <li><a href="{{BASE_URL}}manage-products" data-page="manage_products"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Products</a></li>
-                        <li><a href="{{BASE_URL}}manage-team" data-page="manage_team"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Teams</a></li>
-                        <li><a href="{{BASE_URL}}manage-team-member" data-page="manage_team_member"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Team Members</a></li>
-                        <li ><a href="{{BASE_URL}}manage-backlog" data-page="manage_backlogs"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Backlogs</a></li>
-                        <li><a href="{{BASE_URL}}manage-iteration" data-page="manage_iterations"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Iterations</a></li>
-                        <li><a href="{{BASE_URL}}manage-role" data-page="manage_roles"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Roles</a></li>
-                        <li><a href="{{BASE_URL}}manage-goals" data-page="manage_goals"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Goals</a></li>
-                        <li><a href="{{BASE_URL}}manage-benefits" data-page="manage_benefits"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Benefits</a></li>
-                        <li><a href="{{BASE_URL}}user-story-points" data-page="manage_user_story_point"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage User Story Points</a></li>
+                      <li><a href="{{BASE_URL}}manage-team-member" data-page="manage_team_member"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Team Members</a></li>
+                      <li><a href="{{BASE_URL}}manage-team" data-page="manage_team"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Teams</a></li>
+                      <li><a href="{{BASE_URL}}manage-products" data-page="manage_products"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Products</a></li>
+                      <li ><a href="{{BASE_URL}}manage-backlog" data-page="manage_backlogs"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Backlogs</a></li>
+                      <li><a href="{{BASE_URL}}manage-epic-capabilities" data-page="manage_epic_capability"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Epic Capability</a></li>
+                      <li><a href="{{BASE_URL}}manage-feature" data-page="manage_features"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Features </a></li>
+                      <li><a href="{{BASE_URL}}manage-role" data-page="manage_roles"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Roles</a></li>
+                      <li><a href="{{BASE_URL}}manage-goals" data-page="manage_goals"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Goals</a></li>
+                      <li><a href="{{BASE_URL}}manage-benefits" data-page="manage_benefits"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Benefits</a></li>
+                      <li><a href="{{BASE_URL}}user-story-points" data-page="manage_user_story_point"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage User Story Points</a></li>
+                      <li><a href="{{BASE_URL}}manage-iteration" data-page="manage_iterations"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Iterations</a></li>
                     </ul>
                     </li>
                     <li class="data_exchange_menu"><a href="{{BASE_URL}}dashboard " data-page="data_exchange"><i class="fa fa-cog"></i><span>Data Exchange</span> <i class="icon icon-angle-left pull-right"></i></a>
@@ -250,7 +251,9 @@ thead input {
                         <a class="dropdown-item" href="{{BASE_URL}}dashboard/logout"><i class="icon-power-off"></i> Logout</a></div>
                   </li>
                </ul>
+
             </div>
+
 
          {% block content %}
 	     {% endblock %}
@@ -380,6 +383,58 @@ thead input {
   </div>
 </div>
 
+
+
+
+<!-- Modal to save CSV files start -->
+
+<div id="myModalImportCSV" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="margin-top:60px;">
+      <div class="modal-header">
+    <h4 class="modal-title" style="width: 100%;">Import Data From CSV</h4>
+        <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button>
+      </div>
+      <div class="modal-body "> 
+    
+      <div class="row" >
+        <div class="col-md-12" id="show_csv_process">
+          <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+          
+          <form onsubmit="doSomething();" action="{{BASE_URL}}dashboard/add-csv-files"  method="POST"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="modal_name" id="csv_for" value="">
+            <input type="hidden" name="return_url" id="redirect_to" value="">
+           <label>Select CSV File</label>
+           <div class="input-group mb-3">
+
+     <input type="file" name="attachments" class="form-control">
+     <br>
+  <div class="input-group-append" >
+    <button type="submit" class="btn btn-danger ">Submit</button>
+  </div>
+</div>
+</form>
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+        </div>
+        
+      </div>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+     
+      </div>
+    </div>
+
+  </div>
+</div>
+     
+<!-- Modal to save CSV files end-->
         <!--------------------Help Message Modal Ends---------------->
 
 
@@ -392,11 +447,38 @@ thead input {
 <script src='{% static "js/custom.js" %}'></script>
 <script src='{% static "js/editor.js" %}'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/js/bootstrap-select.js"></script>
+<script src='{% static "circlos.js" %}'></script>
 <script type="text/javascript">
   
   var base_url = '{{BASE_URL}}';
 </script>
+<script>
+     $(document).ready(function(){
+      // init
+         $(".cdev").circlos();
+
+
+     });
+    </script>
+
+
+<!-- ADD CODE FOR IMPORT CSV FILE  DATA START -->
 <script type="text/javascript">
+  
+  function set_data(csv_for,redirect_to)
+  {
+     $("#csv_for").val(csv_for);
+     $("#redirect_to").val(redirect_to);
+  }
+</script>
+<!-- ADD CODE FOR IMPORT CSV FILE  DATA END -->
+
+
+
+
+
+<script type="text/javascript">
+
 
            // $(".alert-dismissible").fadeTo(5000, 500).slideUp(500, function(){
          // $(".alert-dismissible").alert('close');
@@ -459,7 +541,7 @@ $(document).ready(function() {
     // } );
  
     // DataTable
-    $('#example').DataTable();
+   $('#example').DataTable();
     // var table = $('table').DataTable();
  
     // Apply the search
@@ -606,6 +688,58 @@ $(document).on("change","#id_CE_ID", function(){
     }
   })
 });
+// -----------++++++++++++++Acceptance Criteria+++++++++++=-------------------------
+var token = '{{csrf_token}}';
+  $(document).on("keyup","#id_acceptance_criteria", function(){
+  var id=$(this).val();
+  var geturl = window.location.href;
+  var url_in_array = geturl.split("/");
+  var set_url = url_in_array[2];
+  $.ajax({
+    method:"POST",
+    headers: { "X-CSRFToken": token },
+    url: "http://"+set_url+"/user-story-view/get-criteria-data",
+    data:{'check':id},
+    dataType:"json",
+    success:function(data)
+    {
+      console.log(data);
+      if (id != ""){
+      $('#id_ac_readability_score').val(data.data);  
+      }
+      else{
+        $('#id_ac_readability_score').val(0);
+      }
+    }
+  })
+});
+
+// -----------++++++++++++++Conversations+++++++++++=-------------------------
+var token = '{{csrf_token}}';
+  $(document).on("keyup","#id_conversation", function(){
+  var id=$(this).val();
+  var geturl = window.location.href;
+  var url_in_array = geturl.split("/");
+  var set_url = url_in_array[2];
+  $.ajax({
+    method:"POST",
+    headers: { "X-CSRFToken": token },
+    url: "http://"+set_url+"/user-story-view/get-conversations-data",
+    data:{'check':id},
+    dataType:"json",
+    success:function(data)
+    {
+      console.log(data);
+      if (id != ""){
+      $('#id_convo_readability_score').val(data.data);  
+      }
+      else{
+        $('#id_convo_readability_score').val(0);
+      }
+    }
+  })
+});
+
 
 // --------------+++++++++++++++++++++++++=-----------------------------
 var token = '{{csrf_token}}';
@@ -1003,6 +1137,18 @@ $('#change_password_form').on('submit', function(e){
 </script>
 
 
+<!-- <script type="text/javascript">
+  $(document).ready(function() {
+    var table = $('.dataTable').DataTable( {       
+        scrollX:        true,
+        scrollCollapse: true,
+        paging:         true,       
+        fixedColumns: {
+            leftColumns: 2                  
+        }
+    } );
+} );
+</script> -->
 {% block script %}
       {% endblock %}
 </body>

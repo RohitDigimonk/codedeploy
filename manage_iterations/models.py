@@ -10,17 +10,18 @@ import django
 
 class ArIterations(models.Model):
     IterationName  = models.CharField(max_length=50,blank=True)
-    owner  = models.CharField(max_length=50,blank=True)
+    # owner  = models.CharField(max_length=50,blank=True)
+    owner  = models.ForeignKey(Ar_user,  default="",null=True , on_delete=models.SET_NULL)
     IterationId    = models.TextField(max_length=50)
-    StartDate      = models.DateTimeField()
-    EndDate        = models.DateTimeField()
+    StartDate      = models.DateField()
+    EndDate        = models.DateField()
     Description    = models.TextField()
     Product        = models.ForeignKey(AR_product,default="",null=True , on_delete=models.SET_NULL,related_name='productArIterations')
     Backlog        = models.ForeignKey(AR_BACKLOG,default="",null=True , on_delete=models.SET_NULL,related_name='backlogArIterations')
     UserStory = models.ManyToManyField(AR_USER_STORY, default="", blank=True,related_name='userstoryArIterations')
     Team           = models.ForeignKey(AR_team,default="",null=True , on_delete=models.SET_NULL,related_name='teamArIterations')
-    IterationScore = models.IntegerField(blank=True)
-    IterationSize = models.IntegerField(blank=True)
+    IterationScore = models.FloatField(blank=True, null=True)
+    IterationSize = models.IntegerField(blank=True, null=True)
     ORG_ID         = models.ForeignKey(AR_organization,default="",null=True , on_delete=models.SET_NULL,related_name='teamArIterations')
     create_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='create_by_iterations')
     create_dt = models.DateTimeField(default=django.utils.timezone.now)
@@ -28,3 +29,5 @@ class ArIterations(models.Model):
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
         return str(self.IterationName)
+    class Meta:
+        verbose_name_plural = "Ar iterations"

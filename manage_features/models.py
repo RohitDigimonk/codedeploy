@@ -10,12 +10,14 @@ from user_story_view.models import AR_USER_STORY
 class AR_FEATURE(models.Model):
     Feature_key = models.CharField(max_length=50, default="", blank=True)
     Feature_desc = models.TextField(default="", blank=True)
-    CE_ID  = models.ForeignKey(AR_EPIC_CAPABILITY, default="", null=True, on_delete='models.SET_NULL')
-    ORG_ID   = models.ForeignKey(AR_organization,default="",null=True , on_delete='models.SET_NULL')
+    CE_ID  = models.ForeignKey(AR_EPIC_CAPABILITY, default="", null=True, on_delete=models.SET_NULL)
+    ORG_ID   = models.ForeignKey(AR_organization,default="",null=True , on_delete=models.SET_NULL)
     User_story = models.ManyToManyField(AR_USER_STORY, default="",blank=True)
-    create_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='create_by_feature')
+    create_by = models.ForeignKey(Ar_user, on_delete=models.SET_NULL,related_name='create_by_feature',null=True)
     create_dt = models.DateTimeField(default=django.utils.timezone.now)
-    update_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='update_by_feature')
+    update_by = models.ForeignKey(Ar_user, on_delete=models.SET_NULL,related_name='update_by_feature',null=True)
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
         return str(self.Feature_key)
+    class Meta:
+        verbose_name_plural = "Ar feature"

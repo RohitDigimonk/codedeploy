@@ -20,6 +20,8 @@ class AR_organization_status(models.Model):
 
     def __str__(self):
         return str(self.status_key)
+    class Meta:
+        verbose_name_plural = "Ar organization status"
 
 
 class AR_organization(models.Model):
@@ -36,33 +38,39 @@ class AR_organization(models.Model):
 
     def __str__(self):
         return str(self.organization_name)
+    class Meta:
+        verbose_name_plural = "Ar organization"
 
 ###############################################################
 class ArUserProfile(models.Model):
     profile_key = models.CharField(max_length=50,blank=True)
-    ORG_ID = models.ForeignKey(AR_organization, on_delete='models.SET_NULL',  default="",null=True ,  related_name='userprofile_by_organization')
-    create_by = models.ForeignKey(User, on_delete='models.SET_NULL',related_name='create_by_userprofile')
+    ORG_ID = models.ForeignKey(AR_organization, on_delete=models.SET_NULL,  default="",null=True ,  related_name='userprofile_by_organization')
+    create_by = models.ForeignKey(User, on_delete=models.SET_NULL,related_name='create_by_userprofile',null=True )
     create_dt = models.DateTimeField(default=django.utils.timezone.now)
-    update_by = models.ForeignKey(User, on_delete='models.SET_NULL',related_name='update_by_userprofile')
+    update_by = models.ForeignKey(User, on_delete=models.SET_NULL,related_name='update_by_userprofile',null=True )
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
         return str(self.profile_key)
+    class Meta:
+        verbose_name_plural = "Ar user profile"
 
 
 class ArUserProfilePermission(models.Model):
-    profile_key = models.ForeignKey(ArUserProfile, on_delete='models.SET_NULL',   default="",null=True , related_name='userprofilepermission_by_userprofile')
-    ORG_ID = models.ForeignKey(AR_organization, on_delete='models.SET_NULL',  default="",null=True , related_name='userprofilepermission_by_organization')
+    profile_key = models.ForeignKey(ArUserProfile, on_delete=models.SET_NULL,   default="",null=True , related_name='userprofilepermission_by_userprofile')
+    ORG_ID = models.ForeignKey(AR_organization, on_delete=models.SET_NULL,  default="",null=True , related_name='userprofilepermission_by_organization')
     ##################################################################
     activites = models.CharField(max_length=80)
     editor = models.BooleanField(default=False)
     viewer = models.BooleanField(default=False)
     ##############################################################
-    create_by = models.ForeignKey(User, on_delete='models.SET_NULL',related_name='create_by_userprofilepermission')
+    create_by = models.ForeignKey(User, on_delete=models.SET_NULL,related_name='create_by_userprofilepermission',null=True )
     create_dt = models.DateTimeField(default=django.utils.timezone.now)
-    update_by = models.ForeignKey(User, on_delete='models.SET_NULL',related_name='update_by_userprofilepermission')
+    update_by = models.ForeignKey(User, on_delete=models.SET_NULL,related_name='update_by_userprofilepermission',null=True )
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
         return str(self.profile_key)
+    class Meta:
+        verbose_name_plural = "Ar user profile permission"
 
 ###############################################################
 
@@ -81,7 +89,7 @@ class Ar_user(models.Model):
     subscription_level = models.CharField(max_length=50, default="Free trial")
     active_user = models.IntegerField(default=0)
     user_to_invite = models.IntegerField(default=0)
-    status = models.CharField(max_length=50, default="Not Active")
+    status = models.CharField(max_length=50, default="Active")
     # profile_permission = models.ForeignKey(ArUserProfile, on_delete=models.SET_NULL, null=True,  blank=True, related_name='user_favourite')
     profile_permission = models.ManyToManyField(ArUserProfile,blank=True, related_name='user_favourite')
     login_status = models.BooleanField(default=False)
@@ -95,24 +103,29 @@ class Ar_user(models.Model):
 
     def __str__(self):
         return str(self.user_name)
+    class Meta:
+        verbose_name_plural = "Ar user"
 
 class ArShowcolumns(models.Model):
     Table_name = models.CharField(max_length=50)
     user = models.ForeignKey(Ar_user,on_delete=models.CASCADE)
     ORG = models.ForeignKey(AR_organization,  default="",null=True , on_delete=models.SET_NULL, blank=True)
     columnName = models.TextField()
-
-
     def _str__(self):
         return str(self.Table_name)
+    class Meta:
+        verbose_name_plural = "Ar show columns"
+
 class csvFilesUplodaded(models.Model):
     attachments = models.FileField(upload_to='csvfileuplodaded/')
     csvUseFor = models.CharField(max_length=50)
     ORG_ID = models.ForeignKey(AR_organization, on_delete=models.SET_DEFAULT,  default="",null=True )
-    created_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL', related_name='create_by_csvFilesUplodaded')
+    created_by = models.ForeignKey(Ar_user, on_delete=models.SET_NULL, related_name='create_by_csvFilesUplodaded',null=True )
     updated_dt = models.DateTimeField(default=django.utils.timezone.now)
     created_dt = models.DateTimeField(default=django.utils.timezone.now)
-    updated_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL', related_name='update_by_csvFilesUplodaded')
+    updated_by = models.ForeignKey(Ar_user, on_delete=models.SET_NULL, related_name='update_by_csvFilesUplodaded',null=True )
+    class Meta:
+        verbose_name_plural = "CSV files uploaded"
 
 
 
@@ -122,6 +135,8 @@ class Notification(models.Model):
     notification_desc = models.TextField()
     def _str__(self):
         return str(self.notification_desc)
+    class Meta:
+        verbose_name_plural = "Notification"
 
 
 class ArUserStoryScoringPoints(models.Model):
@@ -132,9 +147,10 @@ class ArUserStoryScoringPoints(models.Model):
     Score_two = models.IntegerField(default=0)
     Score_three = models.IntegerField(default=0)
     Last_Update = models.DateTimeField(default=django.utils.timezone.now)
-
     def __str__(self):
         return str(self.Score_key)
+    class Meta:
+        verbose_name_plural = "Ar user story scoring points"
 
 class ArHelpContect(models.Model):
     Page_name = models.CharField(max_length = 50)
@@ -149,3 +165,5 @@ class ArHelpContect(models.Model):
 
     def __str__(self):
         return str(self.Topic)
+    class Meta:
+        verbose_name_plural = "Ar help contect"

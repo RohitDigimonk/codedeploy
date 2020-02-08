@@ -25,12 +25,12 @@ def index(request):
                 org_ins = get_object_or_404(AR_organization, id=request.session['org_id'])
                 activity = request.POST.getlist('activity[]')
                 if ArUserProfilePermission.objects.filter(profile_key=list_ins).exists():
-                    msg = get_object_or_404(Notification, page_name="Manage User Profile",
+                    msg = get_object_or_404(Notification, page_name="Manage User Profile Permissions",
                                             notification_key="Update")
                     msg_data = msg.notification_desc
                     messages.info(request, msg_data)
                 else:
-                    msg = get_object_or_404(Notification, page_name="Manage User Profile",
+                    msg = get_object_or_404(Notification, page_name="Manage User Profile Permissions",
                                             notification_key="Add")
                     msg_data = msg.notification_desc
                     messages.info(request, msg_data)
@@ -136,7 +136,7 @@ def edit_user_profile(request,id):
                 messages.error(request, ar_user_profile_form.errors)
         else:
             ar_user_profile_form = ArUserProfileForm(instance=ar_user_profile_form)
-        return render(request, 'admin/manage_user_profile/profile.html',{'ar_user_data':ar_user_data,'ar_user_profile_form':ar_user_profile_form,'ar_user_profile':ar_user_profile,'date':datetime.now(),'user_profile_id':user_profile_id,'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
+        return render(request, 'admin/manage_user_profile/edit_profile.html',{'backlog_edit':"value",'ar_user_data':ar_user_data,'ar_user_profile_form':ar_user_profile_form,'ar_user_profile':ar_user_profile,'date':datetime.now(),'user_profile_id':user_profile_id,'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
     else:
         msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
         error_data = msg.notification_desc

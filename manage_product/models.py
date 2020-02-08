@@ -15,11 +15,12 @@ class AR_team(models.Model):
     create_dt = models.DateTimeField(default=django.utils.timezone.now)
     update_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='update_by_team')
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
-
     class Meta:
         unique_together = ('Team_name', 'ORG_id',)
+        verbose_name_plural = "Ar team"
     def __str__(self):
         return str(self.Team_name)
+
 
 class AR_product(models.Model):
     Product_name = models.CharField(max_length=50)
@@ -39,6 +40,8 @@ class AR_product(models.Model):
 
     def __str__(self):
         return self.Product_name
+    class Meta:
+        verbose_name_plural = "Ar product"
 
 
 

@@ -18242,18 +18242,18 @@ input[type=checkbox], input[type=radio] {
 	display:inline-block;
 	width:25px;
 	height:2px;
-	color:#c52241;
+	color:#ffffff;
 	font:bold 14px/.4 Helvetica;
 	text-transform:uppercase;
 	text-indent:-55px;
-	background:#c52241;
+	background:#ffffff;
 	transition:all .2s ease-out
 }
 .paper-nav-toggle i::after, .paper-nav-toggle i::before {
 	content:'';
 	width:25px;
 	height:2px;
-	background:#c52241;
+	background:#ffffff;
 	position:absolute;
 	left:0;
 	transition:all .2s ease-out
@@ -18267,7 +18267,8 @@ input[type=checkbox], input[type=radio] {
 }
 .paper-nav-toggle.left {
 	left:0;
-	right:auto
+	right:auto;
+	background: #c52241;
 }
 .paper-nav-toggle i::before {
 	top:-7px
@@ -22220,4 +22221,8 @@ border: 1px solid #ccc;
 }
 #invoiceCard table{
 	width: 100%;
+}
+.user-nick{
+	position: absolute;
+	right: 30px;
 }

@@ -6,11 +6,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" integrity="sha256-yMjaV542P+q1RnH6XByCPDfUFhmOafWbeLPmqKh11zo=" crossorigin="anonymous" />
     {% endblock %}
 <div class="container-fluid text-white">
-               <div class="row p-t-b-10 ">
+               <div class="row p-t-b-8 ">
                   <div class="col">
                      <h1>Manage Iteration</h1>
                   </div>
                </div>
+                                <div class="row p-t-b-8">
+         <p class="user-nick"> {{user_name}}</p>
+  </div>
+
             </div>
             </header>
 
@@ -111,13 +115,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                     <label>Iteration Score</label>
-                                    {{IterationForm.IterationScore}}
+                                    <!-- {{IterationForm.IterationScore}} -->
+                                    <input class="form-control login-frm-input" type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_score">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                     <label>Iteration Size</label>
-                                    {{IterationForm.IterationSize}}
+                                    <!-- {{IterationForm.IterationSize}} -->
+                                    <input class="form-control login-frm-input" type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_size">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -134,7 +140,7 @@
 
                                 
                                   <div class="col-md-2">
-                                    <button type="reset" class="btn-block btn btn-white all-btn" onclick="goBack()">Reset</button>
+                                    <a href="{{BASE_URL}}manage-iteration" class="btn-block btn btn-white all-btn" > Cancel</a>
                                   </div>
                                   <div class="col-md-2">
                                 <div class="form-group">
@@ -175,8 +181,11 @@ function doSomething() {
 
 $(function () {
              
-$('#id_StartDate').datetimepicker();
+$('#id_StartDate').datetimepicker({
+                format: 'MM/DD/YYYY'
+              });
 $('#id_EndDate').datetimepicker({
+            format: 'MM/DD/YYYY',
             useCurrent: false //Important! See issue #1075
         });
 
@@ -280,10 +289,21 @@ function get_user_story(backlog_id)
          
       }
      });
+     // ------------------------------------------------
+      $.ajax({
+      method:"POST",
+      url:"{{BASE_URL}}iteration-view/get_team",
+      data:{"get_backlog_id":get_backlog_id},
+      dataType:"html",
+      success:function(data){
+          $("#id_Team").html(data);
+      }
+     });
   }
   else
   {
      $("#id_UserStory").html('');
+     $("#id_Team").html('');
      
   }
 } 
