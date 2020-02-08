@@ -101,6 +101,7 @@ WSGI_APPLICATION = 'agileproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -172,7 +173,7 @@ STATICFILES_DIRS = [
     STATIC_DIR
 ]
 
-BASE_URL = 'http://3.17.177.133/'
+BASE_URL = 'http://3.132.212.51/'
 
 MEDIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

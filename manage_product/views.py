@@ -180,7 +180,7 @@ def edit_product(request,id):
             return redirect(settings.BASE_URL + "manage-products")
         else:
             product_form = ProductForm(request.user, request.session['org_id'],instance=product_info)
-        return render(request, 'admin/manage_product/edit_project.html',{'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL, 'product_form': product_form})
+        return render(request, 'admin/manage_product/edit_project.html',{'team_id': id,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL, 'product_form': product_form})
     else:
         msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
         error_data = msg.notification_desc

@@ -24,8 +24,9 @@ def read_csv_file_for_iteration(request,file_id):
     if csvFilesUplodaded.objects.filter(id=file_id).exists():
         get_files = get_object_or_404(csvFilesUplodaded, pk=file_id)
         if get_files.ORG_ID.id != request.session['org_id']:
-            message = "This CSV file is not related to your organization."
-            messages.error(request, message)
+            msg = get_object_or_404(Notification, page_name="Import_file", notification_key="Not_related")
+            msg_data = msg.notification_desc
+            messages.error(request, msg_data)
             # print(message)
         else:
             msg_data_2 = ""
@@ -171,7 +172,11 @@ def read_csv_file_for_iteration(request,file_id):
                     msg_data = msg.notification_desc
                     messages.error(request, "'"+allready_exists + "' , " + msg_data)
             except:
-                messages.error(request, "Something was wrong maybe yours.CSV file is not proper please check your CSV file formate.")
+                msg = get_object_or_404(Notification, page_name="Import_file", notification_key="Invalid_file")
+                msg_data = msg.notification_desc
+                messages.error(request, msg_data)
+
+                # messages.error(request, "Something was wrong maybe yours.CSV file is not proper please check your CSV file formate.")
     messages.info(request, msg_data_2)
     return HttpResponse("True")
 
@@ -182,8 +187,9 @@ def read_csv_file_for_user_story(request,file_id):
     if csvFilesUplodaded.objects.filter(id=file_id).exists():
         get_files = get_object_or_404(csvFilesUplodaded, pk=file_id)
         if get_files.ORG_ID.id != request.session['org_id']:
-            message = "This CSV file is not related to your organization."
-            messages.error(request, message)
+            msg = get_object_or_404(Notification, page_name="Import_file", notification_key="Not_related")
+            msg_data = msg.notification_desc
+            messages.error(request, msg_data)
         else:
             msg_data_2 = ""
             csv_file = get_files.attachments
@@ -332,7 +338,11 @@ def read_csv_file_for_user_story(request,file_id):
                     msg_data = msg.notification_desc
                     messages.error(request, "'"+allready_exists + "' , " + msg_data)
             except:
-                messages.error(request,"Something was wrong maybe yours.CSV file is not proper please check your CSV file formate.")
+                msg = get_object_or_404(Notification, page_name="Import_file", notification_key="Invalid_file")
+                msg_data = msg.notification_desc
+                messages.error(request, msg_data)
+
+                # messages.error(request,"Something was wrong maybe yours.CSV file is not proper please check your CSV file formate.")
     messages.info(request, msg_data_2)
     return HttpResponse(True)
 
@@ -343,7 +353,11 @@ def read_csv_files(request,file_id):
     if csvFilesUplodaded.objects.filter(id=file_id).exists():
         get_files = get_object_or_404(csvFilesUplodaded,pk=file_id)
         if get_files.ORG_ID.id != request.session['org_id']:
-            message = "This CSV file is not related to your organization."
+            msg = get_object_or_404(Notification, page_name="Import_file", notification_key="Not_related")
+            message = msg.notification_desc
+            # messages.error(request, msg_data)
+
+            # message = "This CSV file is not related to your organization."
         else:
             msg_data_2 = ""
             csv_file = get_files.attachments
@@ -497,7 +511,11 @@ def read_csv_files(request,file_id):
                     messages.error(request, "'"+already_exists+"' "+msg_data)
                 messages.info(request, msg_data_2)
             except:
-                messages.error(request,"Something was wrong maybe yours.CSV file is not proper please check your CSV file formate.")
+                msg = get_object_or_404(Notification, page_name="Import_file", notification_key="Invalid_file")
+                msg_data = msg.notification_desc
+                messages.error(request, msg_data)
+
+                # messages.error(request,"Something was wrong maybe yours.CSV file is not proper please check your CSV file formate.")
             return HttpResponse(get_names)
     else:
         message = "Data not found"
@@ -513,7 +531,11 @@ def add_csv_files(request):
         csv_file = request.FILES.get('attachments', False)
         # let's check if it is a csv file
         if not csv_file.name.endswith('.csv'):
-            messages.error(request, 'THIS IS NOT A CSV FILE')
+            msg = get_object_or_404(Notification, page_name="Import_file", notification_key="Invalid_file")
+            msg_data = msg.notification_desc
+            messages.error(request, msg_data)
+
+            # messages.error(request, 'THIS IS NOT A CSV FILE')
             set_statue = urlsafe_base64_encode(force_bytes("error"))
         else:
             created_by_ins = get_object_or_404(Ar_user, pk=request.session['user_id'])
@@ -523,10 +545,12 @@ def add_csv_files(request):
                 data.save()
                 return_url_set = return_url.split("-")
                 return_url_set_string = ''
-                messages.info(request, "CSV Uploded successfully !")
+                msg = get_object_or_404(Notification, page_name="Import_file", notification_key="upload")
+                msg_data = msg.notification_desc
+                messages.info(request, msg_data)
+                # messages.info(request, "CSV Uploded successfully !")
                 set_statue = urlsafe_base64_encode(force_bytes("done"))
                 csv_id = urlsafe_base64_encode(force_bytes(data.id))
-
                 if table_name == "Ar User Story":
                     read_csv_file_for_user_story(request,data.id)
                 if table_name == "Ar Iteration":
@@ -536,7 +560,11 @@ def add_csv_files(request):
                 return redirect(settings.BASE_URL + return_url)
                 # return redirect(settings.BASE_URL + 'user-story-view/' + set_statue + "/" + set_statue+"/"+csv_id)
             except IntegrityError:
-                messages.error(request, "Some thing was wrong !")
+                msg = get_object_or_404(Notification, page_name="Import_file", notification_key="Invalid_file")
+                msg_data = msg.notification_desc
+                messages.error(request, msg_data)
+
+                # messages.error(request, "Some thing was wrong !")
                 set_statue = urlsafe_base64_encode(force_bytes("error"))
     # return redirect(settings.BASE_URL + 'user-story-view/'+set_statue+"/"+set_statue)
     return redirect(settings.BASE_URL + return_url)
@@ -567,7 +595,7 @@ def index(request):
     user_storyes_data = AR_USER_STORY.objects.filter(ORG_id=org_ins)
     itearations = ArIterations.objects.filter(ORG_ID=org_ins).count()
     itearations_data = ArIterations.objects.filter(ORG_ID=org_ins)
-    return render(request,"admin/dashboard/index.html",{'user_storyes_data':user_storyes_data,'backlog_data':backlog_data,
+    return render(request,"admin/dashboard/index.html",{'itearations_data':itearations_data,'user_storyes_data':user_storyes_data,'backlog_data':backlog_data,
                                                         'product_data':product_data,'team_data':team_data,'date':datetime.now(),'itearations':itearations,
                                                         'user_storyes':user_storyes,'team':team,'product':product,'backlog':backlog,'user_name':request.session['user_name'],
                                                         "BASE_URL":settings.BASE_URL})

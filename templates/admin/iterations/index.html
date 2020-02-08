@@ -132,7 +132,7 @@
 
 
               {% if v == 'UserStory'  %}  
-               <td align="left" valign="top" >{{data.UserStory.all|join:" | " }}</td>
+               <td align="left" valign="top" >{{data.UserStory.all|join:" |<br>" }}</td>
               {% endif %}
                 
                 {% if v == 'Team' %}  
@@ -200,7 +200,7 @@
                <td align="left" valign="top" >{{data.StartDate}}</td>
                <td align="left" valign="top" >{{data.EndDate}}</td>
                <td align="left" valign="top" >{{data.Description}}</td>
-               <td align="left" valign="top" >{{data.UserStory.all|join:" | "}}</td>
+               <td align="left" valign="top" >{{data.UserStory.all|join:" |<br>"}}</td>
                <td align="left" valign="top" >{{data.Team}}</td>
               <td align="left" valign="top">
                  <div class="col-md-1 mb20">

@@ -19,6 +19,21 @@ def team_add(pk, id):
                         team_data_get = team_data_get + " | " + str(team_data)
                 else:
                     team_data_get = str(team_data)
+        return (team_data_get)\
+
+@register.simple_tag
+def team_edit(id):
+    team_data_get = ""
+    product_data = AR_product.objects.filter(pk=id)
+    for data in product_data:
+        for val in data.backlog_by_product.all():
+            for team_data in val.team_list.all():
+                team_name = team_data_get.split(" | ")
+                if team_data_get != "":
+                    if str(team_data) not in team_name:
+                        team_data_get = team_data_get + " | " + str(team_data)
+                else:
+                    team_data_get = str(team_data)
         return (team_data_get)
 
 

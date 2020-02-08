@@ -143,7 +143,7 @@
               {% if v == 'Children_backlog_list' %}
 
               <td align="left" class="backpa" valign="top">
-              {{ data.backlog_by_product.all|join:" | " }}
+              {{ data.backlog_by_product.all|join:" |<br>" }}
               <!-- {{ data.Children_backlog_list}} -->
             </td> 
               {% endif %}
@@ -223,7 +223,7 @@
  <!-- {{data.Team_parent.all|join:" | " }} -->
 
 </td>
-             <td align="left" class="backpa"  style="width: 52px;" valign="top">{{data.backlog_by_product.all|join:" | " }}</td>
+             <td align="left" class="backpa"  style="width: 52px;" valign="top">{{data.backlog_by_product.all|join:" |<br>" }}</td>
              <td align="left" class="usid" valign="top" >{{data.Product_name}}</td>
               <td align="left" class="usid"  valign="top">{{data.Product_description}}</td>
               <td align="left" class="usid"  valign="top">{{data.Business_unit}}</td>

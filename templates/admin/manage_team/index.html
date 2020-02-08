@@ -90,7 +90,7 @@
           <td align="left" valign="top">{{forloop.counter}}</td>
                 <td align="left" valign="top" class="">{{ team.Team_name }}</td>
                 <td align="left" valign="top" class="sorting_1">{{ team.Team_description }}</td>
-                <td align="left" valign="top">{{team.Team_member_list.all|join:", " }}
+                <td align="left" valign="top">{{team.Team_member_list.all|join:" |<br>" }}
                 </td>
 
                 <!-- {{team.Team_member_list.all.count}} -->

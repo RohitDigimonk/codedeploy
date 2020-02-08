@@ -107,7 +107,7 @@
 
        {% for v in get_show_column %}
            {% if  v == 'team_list'  %}  
-                              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.team_list.all|join:" | " }}</th>
+                              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.team_list.all|join:" |<br>" }}</th>
                               {% endif %}
                               {% if v == 'product_parent'  %}  
                               <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.product_parent}}</th>
@@ -117,7 +117,7 @@
                               <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.title}}</th>
                               {% endif %}
                               {% if v == 'children_us_list' %}  
-                              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.story_by_backlog.all|join:" | " }}</th>
+                              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.story_by_backlog.all|join:" |<br>" }}</th>
                               {% endif %}
                               {% if v == 'owner' %}  
                               <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.owner}}</th>
@@ -168,10 +168,10 @@
 
 {% else %}
 
-<th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.team_list.all|join:" | " }}</th>
+<th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.team_list.all|join:" |<br>" }}</th>
  <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.product_parent}}</th>
  <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.title}}</th>
- <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.story_by_backlog.all|join:" | " }}</th>
+ <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.story_by_backlog.all|join:" |<br>" }}</th>
 <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.owner}}</th>
 <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
     <div class="col-md-1 mb20">

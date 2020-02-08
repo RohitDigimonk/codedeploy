@@ -76,11 +76,11 @@
  {% if user_data.user_type == 'Root' %}
                   All Permissions Alow
                   {% else %}
-                  {{ user_data.profile_permission.all|join:" ,<br>" }}
+                  {{ user_data.profile_permission.all|join:" |<br>" }}
                   {% endif %}
                 </td>
                 <td align="left" valign="top">{{user_data.user_type}}</td>
-                <td align="left" valign="top">{{user_data.user_data.all|join:" ,<br>" }}</td>
+                <td align="left" valign="top">{{user_data.user_data.all|join:" |<br>" }}</td>
                 <td align="left" valign="top">
                    {% if user_data.user_type == 'Root' %}
                   Not Edit

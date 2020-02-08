@@ -1,5 +1,6 @@
 {% extends 'admin/dashboard-template.html' %}
 {% block content %}
+{% load team_data %}
 {% load static %}
 <div class="container-fluid text-white">
                <div class="row p-t-b-8 ">
@@ -71,7 +72,8 @@
                                 <div class="form-group">
                                          <div class="table-responsive">
                                         <label>Teams Working on this Product</label>
-                                        {{product_form.Team_parent}}
+                                        <!-- {{product_form.Team_parent}} -->
+                                        <input class="form-control login-frm-input" type="text" readonly="" value ="{% team_edit team_id %}" aid="login" name="login">
       
                                 </div>
                               </div>
