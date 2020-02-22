@@ -1,5 +1,6 @@
 {% extends 'admin/dashboard-template.html' %}
 {% block content %}
+{% load team_data %}
 {% load static %}
 {% block cssstyle %}
 
@@ -92,10 +93,14 @@
                 <td align="left" valign="top" class="sorting_1">{{ team.Team_description }}</td>
                 <td align="left" valign="top">{{team.Team_member_list.all|join:" |<br>" }}
                 </td>
+                
+                
 
                 <!-- {{team.Team_member_list.all.count}} -->
-                <td align="left" valign="top">List of backlogs</td>
-                <td align="left" valign="top">List Of product</td>
+                <td align="left" valign="top">{{team.backlog_team.all|join:" |<br>" }}
+            <!--     List of backlogs -->
+            </td>
+                <td align="left" valign="top">{% product_add team.id%}</td>
                 <td align="left" valign="top">
                 {% if check_edit_permission %}
                 <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">

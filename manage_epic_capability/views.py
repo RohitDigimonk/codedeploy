@@ -11,6 +11,7 @@ from manage_features.models import AR_FEATURE
 from django.contrib import messages
 from datetime import datetime
 from manage_product import views as product_view
+from django.db.models import Q
 
 # Create your views here.
 @login_required
@@ -26,7 +27,7 @@ def get_capanility(request,id):
 def index(request):
     if product_view.check_permition(request, 'Manage Epic Capability', 0):
         org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
-        ar_epic_capability = AR_EPIC_CAPABILITY.objects.filter(ORG_ID=org_ins).order_by("-id")
+        ar_epic_capability = AR_EPIC_CAPABILITY.objects.filter(ORG_ID=org_ins).order_by("-id").filter(~Q(Cepic_key = 'None'))
         msg = get_object_or_404(Notification, page_name="Manage Epic Capability", notification_key="Not_Remove")
         Not_Remove_msg = msg.notification_desc
         msg = get_object_or_404(Notification, page_name="Manage Epic Capability", notification_key="Remove Request")

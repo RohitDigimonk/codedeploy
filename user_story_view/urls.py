@@ -6,6 +6,7 @@ urlpatterns = [
     # path('/<str:set_statue>/<str:set_statue_2>', views.index, name='index'),
     # path('/<str:set_statue>/<str:set_statue_2>/<str:csv_id>', views.index, name='index'),
 
+    # path('test_data', views.test_data, name='test_data'),
     path('add-new', views.add_user_story_view, name='add_user_story_view'),
     path('get_file_data', views.get_file_data, name='get_file_data'),
 

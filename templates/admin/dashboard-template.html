@@ -1,1170 +1,894 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- Mirrored from xvelopers.com/demos/html/paper-1.8.2/dashboard3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 10:27:27 GMT -->
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href='{% static "img/basic/favicon.png" %}' type="image/x-icon">
-<title>Agile | DashBoard</title>
-<link rel="stylesheet" href='{% static "css/panel.css" %}'>
-<!-- <link rel="stylesheet" href='{% static "css/dtable.css" %}'> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/css/bootstrap-select.css" />
-    <link rel="stylesheet" href='{% static "style.css" %}'>
-
-
-    <style type="text/css">
-    .navbar {
-    position: relative;
-    min-height: 67px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    height: 93px !important;
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="icon" href='{% static "img/basic/favicon.png" %}' type="image/x-icon">
+      <title>Agile | DashBoard</title>
+      <link rel="stylesheet" href='{% static "css/panel.css" %}'>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/css/bootstrap-select.css" />
+      <link rel="stylesheet" href='{% static "style.css" %}'>
+      <style type="text/css">
+         .navbar {
+         position: relative;
+         min-height: 67px;
+         margin-bottom: 20px;
+         border: 1px solid transparent;
+         height: 93px !important;
+         }
+         :not(.input-group) > .bootstrap-select.form-control:not([class*="col-"]) {
+         width: 30%;
+         }
+         a.dropdown-item.selected.active:hover {
+         background: #c52241!important;
+         }
+         li.disabled.selected.active:hover  {
+         background: #c52241;
+         color: #fff!important;
+         }
+         .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+         color: #fff!important;
+         }
+         div#example_paginate {
+         position: absolute!important;
+         right: 14px!important;
+         bottom: 22px!important;
+         }
+         div#example_filter {
+         right: 14px!important;
+         top: 0px!important;
+		     position: absolute;
+         }
+         button.btn-success.add-data {
+         margin-bottom: 10px;
+         }
+         .profile-sear #example_filter {
+         margin-top: -33px!important;
+         }
+         .swal-text {
+         text-align: center;
+         }
+         #example_wrapper {
+         margin-bottom: 70px!important;
+         }
+         .dataTables_length{
+         float: left;
+         }
+         #reset_story {
+    margin-top: -12px;
 }
-
-:not(.input-group) > .bootstrap-select.form-control:not([class*="col-"]) {
-    width: 30%;
-}
-/*--------------------------------*/
-a.dropdown-item.selected.active:hover {
-    background: #c52241!important;
-}
-li.disabled.selected.active:hover  {
-    background: #c52241;
-    color: #fff!important;
-}
-.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
-    color: #fff!important;
-/*    text-decoration: none;
-    background-color: #337ab7;
-    outline: 0;*/
-}
-/*----------------------------------*/
-div#example_paginate {
-    position: absolute!important;
-    right: 14px!important;
-    bottom: 22px!important;
-}
-
-div#example_filter {
-    /*position: absolute!important;*/
-    right: 14px!important;
-    top: 0px!important;
-}
-button.btn-success.add-data {
-    margin-bottom: 10px;
-}
-
-/*div#example_filter input[type="search"] {
-    width: 75%!important;
-
-}*/
-
-.profile-sear #example_filter {
-    margin-top: -33px!important;
-}
-/*div#example12_filter {
-    position: absolute;
-    right: 14px;
-
-}*/
-
-.swal-text {
-    text-align: center;
-}
-
-#example_wrapper {
-    margin-bottom: 70px!important;
-}
-
-
-/*#example_wrapper {
-    margin-bottom: 50px!important;
-}
-
-   #example_wrapper{
-    margin-left: -27px;
-    margin-bottom: 50px;
-  }*/
-   .dataTables_length{
-      float: left;
-   }
-
-   .dataTables_filter input{
-    border: 1px solid #e1e8ee;
-    box-shadow: none;
-    border-radius: 3px;
-    transition: all .2s ease-in-out;
-    min-height: 3rem;
-    padding: 0 .85rem;
-    font-weight: 300;
-   }
-   .dataTables_length select{
-    border: 1px solid #e1e8ee;
-    box-shadow: none;
-    border-radius: 3px;
-    transition: all .2s ease-in-out;
-    min-height: 3rem;
-    padding: 0 .85rem;
-    font-weight: 300;
- }
-   .dataTables_filter{
-      float: right;
-   }
-   .dataTables_info{
-      float:left;
-   }
-   /*.paginate_button{
-    font-family: 'Montserrat', sans-serif;
-      float: right;
-      border-radius: 5px;
-      padding: 10px;
-      border:1px solid #e0dfdf;
-   }*/
-   .table th, .table td {
-    font-weight: normal;
-    white-space: nowrap;}
-
-
-thead input {
-        width: 100%;
-        padding: 3px;
-        box-sizing: border-box;
-    }
-
-
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
-.se-pre-con {
-   display: none;
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 99999999999;
-  background: url({{BASE_URL}}media/img/demo/loader3.gif) center no-repeat rgba(0,0,0,0.5);
-}
-.alert {
-    padding: 15px;
-    /*margin-bottom: 20px;*/
-    border: 1px solid transparent;
-    border-radius: 4px;
-    font-size: 20px;
-}
-.select2-container {
-    width: 100% !important;
-}
- .table td {
-    font-weight: normal;
-    white-space: normal;
-}
-</style>
-
-{% block cssstyle %}
-    {% endblock %}
-</head>
-<body>
-<div class="se-pre-con" ></div>
-<div id="app" class="paper-loading"><a href="#" data-toggle="offcanvas" class="paper-nav-toggle fixed left"><i></i></a>
-   <aside class="main-sidebar fixed offcanvas scroll">
-      <section class="sidebar">
-    <div class="jquery-accordion-menu-header text-center"><a href="{{BASE_URL}}dashboard"><img src='{% static "img/basic/logo.png" %}'></a></div>
-     <ul class="sidebar-menu scroll sp-menu">
-
-     <li class="treeview dashboard_menu" ><a href="{{BASE_URL}}dashboard" data-page="dashboard"><span>Dashboard</span><i class="icon icon-angle-left pull-right"></i></a>
-                  <ul class="treeview-menu ">
-                     <li ><a class="" data-page="product_view" href="{{BASE_URL}}products-view"><i class="fa fa-cog"></i>Product View</a></li>
-                     <li><a href="{{BASE_URL}}backlog-view" data-page="backlog_view"><i class="fa fa-cog"></i>Backlog View </a></li>
-                     <li><a href="{{BASE_URL}}user-story-view" data-page="user_story_view" ><i class="fa fa-cog"></i>User Story View</a></li>
-                     <li><a href="{{BASE_URL}}iteration-view" data-page="iteration_view" ><i class="fa fa-cog"></i>Iteration View</a></li>
-                  </ul>
-                </li>
-
-            <li class="treeview manage_account_menu"><a href="{{BASE_URL}}dashboard" data-page="manage_account"> <span>Manage Account</span><i class="icon icon-angle-left pull-right"></i></a>
-
-
-
-      <ul class="treeview-menu ">
-                        <li  class="manage_users_menu"><a href="{{BASE_URL}}dashboard" data-page="manage_user"><i class="fa fa-cog"></i><span>Manage Users</span> <i class="icon icon-angle-left pull-right"></i></a>
-                          <ul class="treeview-menu">
-                                <li><a href="{{BASE_URL}}user-profile" data-page="manage_user_profile"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage User Profile</a></li>
-                                <li><a href="{{BASE_URL}}invite-user" data-page="invite_new_user"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Invite New User</a>
-                                </li>
-                    </ul></li>
-                    <li class="nmanage_environment_menu"><a href="{{BASE_URL}}dashboard " data-page="nmanage_environment"><i class="fa fa-cog"></i><span>Manage Environment</span> <i class="icon icon-angle-left pull-right"></i></a>
-                    <ul class="treeview-menu ">
-                      <li><a href="{{BASE_URL}}manage-team-member" data-page="manage_team_member"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Team Members</a></li>
-                      <li><a href="{{BASE_URL}}manage-team" data-page="manage_team"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Teams</a></li>
-                      <li><a href="{{BASE_URL}}manage-products" data-page="manage_products"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Products</a></li>
-                      <li ><a href="{{BASE_URL}}manage-backlog" data-page="manage_backlogs"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Backlogs</a></li>
-                      <li><a href="{{BASE_URL}}manage-epic-capabilities" data-page="manage_epic_capability"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Epic Capability</a></li>
-                      <li><a href="{{BASE_URL}}manage-feature" data-page="manage_features"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Features </a></li>
-                      <li><a href="{{BASE_URL}}manage-role" data-page="manage_roles"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Roles</a></li>
-                      <li><a href="{{BASE_URL}}manage-goals" data-page="manage_goals"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Goals</a></li>
-                      <li><a href="{{BASE_URL}}manage-benefits" data-page="manage_benefits"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Benefits</a></li>
-                      <li><a href="{{BASE_URL}}user-story-points" data-page="manage_user_story_point"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage User Story Points</a></li>
-                      <li><a href="{{BASE_URL}}manage-iteration" data-page="manage_iterations"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Iterations</a></li>
-                    </ul>
-                    </li>
-                    <li class="data_exchange_menu"><a href="{{BASE_URL}}dashboard " data-page="data_exchange"><i class="fa fa-cog"></i><span>Data Exchange</span> <i class="icon icon-angle-left pull-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_import_data"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Import Data</a></li>
-                        <li><a href="{{BASE_URL}}dashboard" data-page="manage_export_data"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Export Data</a></li>
-                    </ul>
-                    </li>
-                  </ul>
-
-
-            </li>
-
-         </ul>
-
-
-
-      </section>
-   </aside>
-   <div class="page offcanvas-page">
-      <div class="pos-f-t">
-         <div class="collapse" id="navbarToggleExternalContent">
-            <div class="bg-dark p-4">
-               <div class="search-bar">
-                  <input class="transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text" placeholder="start typing...">
-               </div>
-               <a href="#" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a></div>
-         </div>
-      </div>
-      <div>
-         <header class="blue accent-3 relative">
-            <div class="navbar navbar-expand navbar-dark d-flex justify-content-end bd-navbar" style="float: right;">
-               <ul class="navbar-nav p-t-10">
-                  <li class="nav-item liwht">
-                     <a href="javascript(0);" class="nav-item nav-link get_help_conte"  data-toggle="modal" data-target="#help1" title="Help"><i class="icon-help"></i></a>
+         .dataTables_filter input{
+         border: 1px solid #e1e8ee;
+         box-shadow: none;
+         border-radius: 3px;
+         transition: all .2s ease-in-out;
+         min-height: 3rem;
+         padding: 0 .85rem;
+         font-weight: 300;
+         }
+         .dataTables_length select{
+         border: 1px solid #e1e8ee;
+         box-shadow: none;
+         border-radius: 3px;
+         transition: all .2s ease-in-out;
+         min-height: 3rem;
+         padding: 0 .85rem;
+         font-weight: 300;
+         }
+         .dataTables_filter{
+         float: right;
+         }
+         .dataTables_info{
+         float:left;
+         }
+         .table th, .table td {
+         font-weight: normal;
+         white-space: nowrap;}
+         thead input {
+         width: 100%;
+         padding: 3px;
+         box-sizing: border-box;
+         }
+         .js #loader { display: block; position: absolute; left: 100px; top: 0; }
+         .se-pre-con {
+         display: none;
+         position: fixed;
+         left: 0px;
+         top: 0px;
+         width: 100%;
+         height: 100%;
+         z-index: 99999999999;
+         background: url({{BASE_URL}}media/img/demo/loader3.gif) center no-repeat rgba(0,0,0,0.5);
+         }
+         .alert {
+         padding: 15px;
+         border: 1px solid transparent;
+         border-radius: 4px;
+         font-size: 20px;
+         }
+         .select2-container {
+         width: 100% !important;
+         }
+         .table td {
+         font-weight: normal;
+         white-space: normal;
+         }
+      </style>
+      {% block cssstyle %}
+      {% endblock %}
+   </head>
+   <body>
+      <div class="se-pre-con" ></div>
+      <div id="app" class="paper-loading">
+         <a href="#" data-toggle="offcanvas" class="paper-nav-toggle fixed left"><i></i></a>
+         <aside class="main-sidebar fixed offcanvas scroll">
+            <section class="sidebar">
+               <div class="jquery-accordion-menu-header text-center"><a href="{{BASE_URL}}dashboard"><img src='{% static "img/basic/logo.png" %}'></a></div>
+               <ul class="sidebar-menu scroll sp-menu">
+                  <li class="treeview dashboard_menu" >
+                     <a href="{{BASE_URL}}dashboard" data-page="dashboard"><span>Dashboard</span><i class="icon icon-angle-left pull-right"></i></a>
+                     <ul class="treeview-menu ">
+                        <li ><a class="" data-page="product_view" href="{{BASE_URL}}products-view"><i class="fa fa-cog"></i>Product View</a></li>
+                        <li><a href="{{BASE_URL}}backlog-view" data-page="backlog_view"><i class="fa fa-cog"></i>Backlog View </a></li>
+                        <li><a href="{{BASE_URL}}user-story-view" data-page="user_story_view" ><i class="fa fa-cog"></i>User Story View</a></li>
+                        <li><a href="{{BASE_URL}}iteration-view" data-page="iteration_view" ><i class="fa fa-cog"></i>Iteration View</a></li>
+                     </ul>
                   </li>
-                <li class="nav-item liwht"><a href="" class="nav-item nav-link" title="Feedback" data-toggle="modal" data-target="#feedback1"><i class="icon-list"></i></a>
-                </li>
-                  <li class="nav-item dropdown">
-                     <a class="nav-item nav-link  mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-user-circle" style="font-size: 25px; color: #fff;"></i></a>
-                     <div class="dropdown-menu dropdown-menu-right b-0 shadow1">
-                      <a class="dropdown-item" href=""><i class="icon-user-circle"></i> {{user_name}}</a>
-                      <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{BASE_URL}}dashboard"><i class="icon-dashboard"></i>Dashboard</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{BASE_URL}}account-settings"><i class="icon-cog"></i> Account Settings</a>
-
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{BASE_URL}}dashboard/logout"><i class="icon-power-off"></i> Logout</a></div>
+                  <li class="treeview manage_account_menu">
+                     <a href="{{BASE_URL}}dashboard" data-page="manage_account"> <span>Manage Account</span><i class="icon icon-angle-left pull-right"></i></a>
+                     <ul class="treeview-menu ">
+                        <li  class="manage_users_menu">
+                           <a href="{{BASE_URL}}dashboard" data-page="manage_user"><i class="fa fa-cog"></i><span>Manage Users</span> <i class="icon icon-angle-left pull-right"></i></a>
+                           <ul class="treeview-menu">
+                              <li><a href="{{BASE_URL}}user-profile" data-page="manage_user_profile"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage User Profile</a></li>
+                              <li><a href="{{BASE_URL}}invite-user" data-page="invite_new_user"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Invite New User</a>
+                              </li>
+                           </ul>
+                        </li>
+                        <li class="nmanage_environment_menu">
+                           <a href="{{BASE_URL}}dashboard " data-page="nmanage_environment"><i class="fa fa-cog"></i><span>Manage Environment</span> <i class="icon icon-angle-left pull-right"></i></a>
+                           <ul class="treeview-menu ">
+                              <li><a href="{{BASE_URL}}manage-team-member" data-page="manage_team_member"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Team Members</a></li>
+                              <li><a href="{{BASE_URL}}manage-team" data-page="manage_team"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Teams</a></li>
+                              <li><a href="{{BASE_URL}}manage-products" data-page="manage_products"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Products</a></li>
+                              <li ><a href="{{BASE_URL}}manage-backlog" data-page="manage_backlogs"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Backlogs</a></li>
+                              <li><a href="{{BASE_URL}}manage-epic-capabilities" data-page="manage_epic_capability"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Epic Capability</a></li>
+                              <li><a href="{{BASE_URL}}manage-feature" data-page="manage_features"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Features </a></li>
+                              <li><a href="{{BASE_URL}}manage-role" data-page="manage_roles"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Roles</a></li>
+                              <li><a href="{{BASE_URL}}manage-goals" data-page="manage_goals"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Goals</a></li>
+                              <li><a href="{{BASE_URL}}manage-benefits" data-page="manage_benefits"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Benefits</a></li>
+                              <li><a href="{{BASE_URL}}user-story-points" data-page="manage_user_story_point"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage User Story Points</a></li>
+                              <li><a href="{{BASE_URL}}manage-iteration" data-page="manage_iterations"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Iterations</a></li>
+                           </ul>
+                        </li>
+                        <li class="data_exchange_menu">
+                           <a href="{{BASE_URL}}dashboard " data-page="data_exchange"><i class="fa fa-cog"></i><span>Data Exchange</span> <i class="icon icon-angle-left pull-right"></i></a>
+                           <ul class="treeview-menu">
+                              <li><a href="{{BASE_URL}}data-exchange/import-data" data-page="manage_import_data"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Import Data</a></li>
+                              <li><a href="{{BASE_URL}}data-exchange/export-data" data-page="manage_export_data"><i class="fa fa-cog"></i><i class="fa fa-cog"></i>Manage Export Data</a></li>
+                           </ul>
+                        </li>
+                     </ul>
                   </li>
                </ul>
-
-            </div>
-
-
-         {% block content %}
-	     {% endblock %}
-      </div>
-   </div>
-
-</div>
-        <!------------FeedBack messege Modal Popup Start------->
-<div class="modal fade in sp-map" id="feedback1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-          <h4 class="modal-title">We value your Feedback</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true" style="font-size: 32px;">×</span>
-          </button>
-
-      </div>
-      <div class="modal-body">
-
-        <div class="paper">
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="container-fluid">
-
-                                   <!--  <div class="login-form-content"> -->
-                <form action="{{BASE_URL}}feedback"  onsubmit="doSomething();" method="POST" enctype="multipart/form-data">
-                                      {% csrf_token %}
-                  
-          <div class="row">
-             <div class="col-md-5">
-               <label>User Name:</label>
-             </div>
-             <div class="col-md-7 p-t-10">
-              <input type="text" readonly="" name="user_name" class="form-control" value="{{user_name}}" name="">
-                 
-             </div>
-          </div>
-
-          <div class="row">
-             <div class="col-md-5">
-               <label>Date/Time:</label>
-             </div>
-             <div class="col-md-7 p-t-10">
-              <input type="text" readonly="" name="date" class="form-control" value="{{date}}" name="">
-                 
-             </div>
-          </div>
-
-           <div class="row">
-             <div class="col-md-5">
-               <label>Page Name:</label>
-             </div>
-             <div id="feed" class="col-md-7 p-t-10">
-             	<input type="text" class="form-control" readonly="" name="feedback_page" value="Account Settings">'
-                 
-             </div>
-          </div>
-
-          <div class="row">
-             <div class="col-md-5">
-               <label>Feedback Nature:</label>
-             </div>
-             <div class="col-md-7 p-t-10">
-                 <select name="feed_nature" class="form-control" >
-                    <option value="Irritating Bug">Irritating Bug</option>
-                    <option value="Tolerance for a while Bug" >Tolerance for a while Bug</option>
-                    <option value="Fix It Now Bug!">Fix It Now Bug!</option>
-                    <option value="Suggestion">Suggestion</option>
-                    <option value="Complaint">Complaint</option>
-                    <option value="Other">Other</option>
-                 </select>
-             </div>
-          </div>
-          <div class="row">
-             <div class="col-md-12">
-                <label>Feedback Information:</label>
-                <textarea name="feedinformation" class="form-control" style="height: 150px!important;"></textarea>
-             </div>
-             <div class="col-md-12">
-               <label>Attachments:</label>
-               <div class="attach">
-
-                    <!-- <form action="upload.php" method="POST"> -->
-
-                        <input name="feedback_file" type="file" multiple>
-                        <p><i class="icon-upload"></i><br>Drag your files here or Click here</p>
-                    <!-- </form> -->
-               </div>
-             </div>
-             <div class="col-md-12 p-t-b-20">
-               <span>Fix It Now Bugs will get immediate attention.Please give the Agile Ready Team 24 to 72  hours to provide and initial response to all  other  feedback.</span>
-             </div>
-                  <div class="col-md-4 offset-md-4">
-                        <button type="submit" class="btn-block btn btn-white all-btn" >Submit</button>
-                    </div>
-          </div>
-                 </div>
+            </section>
+         </aside>
+         <div class="page offcanvas-page">
+            <div class="pos-f-t">
+               <div class="collapse" id="navbarToggleExternalContent">
+                  <div class="bg-dark p-4">
+                     <div class="search-bar">
+                        <input class="transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text" placeholder="start typing...">
+                     </div>
+                     <a href="#" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
                   </div>
-                </form>
-              </div>
+               </div>
             </div>
-          </div>
-        </div>
+            <div>
+               <header class="blue accent-3 relative">
+               <div class="navbar navbar-expand navbar-dark d-flex justify-content-end bd-navbar" style="float: right;">
+                  <ul class="navbar-nav p-t-10">
+                     <li class="nav-item liwht">
+                        <a href="javascript(0);" class="nav-item nav-link get_help_conte"  data-toggle="modal" data-target="#help1" title="Help"><i class="icon-help"></i></a>
+                     </li>
+                     <li class="nav-item liwht"><a href="" class="nav-item nav-link" title="Feedback" data-toggle="modal" data-target="#feedback1"><i class="icon-list"></i></a>
+                     </li>
+                     <li class="nav-item dropdown">
+                        <a class="nav-item nav-link  mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-user-circle" style="font-size: 25px; color: #fff;"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right b-0 shadow1">
+                           <a class="dropdown-item" href=""><i class="icon-user-circle"></i> {{user_name}}</a>
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item" href="{{BASE_URL}}dashboard"><i class="icon-dashboard"></i>Dashboard</a>
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item" href="{{BASE_URL}}account-settings"><i class="icon-cog"></i> Account Settings</a>
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item" href="{{BASE_URL}}dashboard/logout"><i class="icon-power-off"></i> Logout</a>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               {% block content %}
+               {% endblock %}
+            </div>
+         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-        <!--------------------FeedBack Message Modal Ends---------------->
-                <!------------Help messege Modal Popup Start------->
-<div class="modal fade in sp-map" id="help1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-          <h4 class="modal-title">Help</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <!------------FeedBack messege Modal Popup Start------->
+      <div class="modal fade in sp-map" id="feedback1">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title">We value your Feedback</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" style="font-size: 32px;">×</span>
-          </button>
-
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <div class="paper">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="container-fluid">
+                              <form action="{{BASE_URL}}feedback"  onsubmit="doSomething();" method="POST" enctype="multipart/form-data">
+                                 {% csrf_token %}
+                                 <div class="row">
+                                    <div class="col-md-5">
+                                       <label>User Name:</label>
+                                    </div>
+                                    <div class="col-md-7 p-t-10">
+                                       <input type="text" readonly="" name="user_name" class="form-control" value="{{user_name}}" name="">
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-5">
+                                       <label>Date/Time:</label>
+                                    </div>
+                                    <div class="col-md-7 p-t-10">
+                                       <input type="text" readonly="" name="date" class="form-control" value="{{date}}" name="">
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-5">
+                                       <label>Page Name:</label>
+                                    </div>
+                                    <div id="feed" class="col-md-7 p-t-10">
+                                       <input type="text" class="form-control" readonly="" name="feedback_page" value="Account Settings">'
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-5">
+                                       <label>Feedback Nature:</label>
+                                    </div>
+                                    <div class="col-md-7 p-t-10">
+                                       <select name="feed_nature" class="form-control" >
+                                          <option value="Irritating Bug">Irritating Bug</option>
+                                          <option value="Tolerance for a while Bug" >Tolerance for a while Bug</option>
+                                          <option value="Fix It Now Bug!">Fix It Now Bug!</option>
+                                          <option value="Suggestion">Suggestion</option>
+                                          <option value="Complaint">Complaint</option>
+                                          <option value="Other">Other</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-12">
+                                       <label>Feedback Information:</label>
+                                       <textarea name="feedinformation" class="form-control" style="height: 150px!important;"></textarea>
+                                    </div>
+                                    <div class="col-md-12">
+                                       <label>Attachments:</label>
+                                       <div class="attach">
+                                          <input name="feedback_file" type="file" multiple>
+                                          <p><i class="icon-upload"></i><br>Drag your files here or Click here</p>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-12 p-t-b-20">
+                                       <span>Fix It Now Bugs will get immediate attention.Please give the Agile Ready Team 24 to 72  hours to provide and initial response to all  other  feedback.</span>
+                                    </div>
+                                    <div class="col-md-4 offset-md-4">
+                                       <button type="submit" class="btn-block btn btn-white all-btn" >Submit</button>
+                                    </div>
+                                 </div>
+                           </div>
+                        </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
-      <div class="modal-body">
-        
       </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<!-- Modal to save CSV files start -->
-
-<div id="myModalImportCSV" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-
-    <!-- Modal content-->
-    <div class="modal-content" style="margin-top:60px;">
-      <div class="modal-header">
-    <h4 class="modal-title" style="width: 100%;">Import Data From CSV</h4>
-        <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button>
       </div>
-      <div class="modal-body "> 
-    
-      <div class="row" >
-        <div class="col-md-12" id="show_csv_process">
-          <div class="col-md-2">&nbsp;</div>
-        <div class="col-md-8">
-          
-          <form onsubmit="doSomething();" action="{{BASE_URL}}dashboard/add-csv-files"  method="POST"  enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="hidden" name="modal_name" id="csv_for" value="">
-            <input type="hidden" name="return_url" id="redirect_to" value="">
-           <label>Select CSV File</label>
-           <div class="input-group mb-3">
-
-     <input type="file" name="attachments" class="form-control">
-     <br>
-  <div class="input-group-append" >
-    <button type="submit" class="btn btn-danger ">Submit</button>
-  </div>
-</div>
-</form>
-        </div>
-        <div class="col-md-2">&nbsp;</div>
-        </div>
-        
+      <!--------------------FeedBack Message Modal Ends---------------->
+      <!------------Help messege Modal Popup Start------->
+      <div class="modal fade in sp-map" id="help1">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title">Help</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="font-size: 32px;">×</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+               </div>
+            </div>
+         </div>
       </div>
-
-    </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-     
+      <!-- Modal to save CSV files start -->
+      <div id="myModalImportCSV" class="modal fade" role="dialog">
+         <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content" style="margin-top:60px;">
+               <div class="modal-header">
+                  <h4 class="modal-title" style="width: 100%;">Import Data From CSV</h4>
+                  <button type="button" class="close" data-dismiss="modal" style="margin: 0; padding: 0 !important; color: #000 !important;">&times;</button>
+               </div>
+               <div class="modal-body ">
+                  <div class="row" >
+                     <div class="col-md-12" id="show_csv_process">
+                        <div class="col-md-2">&nbsp;</div>
+                        <div class="col-md-8">
+                           <form onsubmit="doSomething();" action="{{BASE_URL}}dashboard/add-csv-files"  method="POST"  enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <input type="hidden" name="modal_name" id="csv_for" value="">
+                              <input type="hidden" name="return_url" id="redirect_to" value="">
+                              <label>Select CSV File</label>
+                              <div class="input-group mb-3">
+                                 <input type="file" name="attachments" class="form-control">
+                                 <br>
+                                 <div class="input-group-append mt-15" >
+                                    <button type="submit" class="btn btn-danger ">Submit</button>
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                        <div class="col-md-2">&nbsp;</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
       </div>
-    </div>
-
-  </div>
-</div>
-     
-<!-- Modal to save CSV files end-->
-        <!--------------------Help Message Modal Ends---------------->
-
-
-<script src='{% static "js/app.js" %}'></script>
-<!-- <script src="{% static "js/sidebar-accordian.js" %}"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-
-<script src='{% static "js/custom.js" %}'></script>
-<script src='{% static "js/editor.js" %}'></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/js/bootstrap-select.js"></script>
-<script src='{% static "circlos.js" %}'></script>
-<script type="text/javascript">
-  
-  var base_url = '{{BASE_URL}}';
-</script>
-<script>
-     $(document).ready(function(){
-      // init
-         $(".cdev").circlos();
-
-
-     });
-    </script>
-
-
-<!-- ADD CODE FOR IMPORT CSV FILE  DATA START -->
-<script type="text/javascript">
-  
-  function set_data(csv_for,redirect_to)
-  {
-     $("#csv_for").val(csv_for);
-     $("#redirect_to").val(redirect_to);
-  }
-</script>
-<!-- ADD CODE FOR IMPORT CSV FILE  DATA END -->
-
-
-
-
-
-<script type="text/javascript">
-
-
-           // $(".alert-dismissible").fadeTo(5000, 500).slideUp(500, function(){
-         // $(".alert-dismissible").alert('close');
-         // });
-
-
-   $('.count').each(function () {
-    $(this).prop('Counter',0).animate({
-        Counter: $(this).text()
-    }, {
-        duration: 4000,
-        easing: 'swing',
-        step: function (now) {
-            $(this).text(Math.ceil(now));
-        }
-    });
-});
-</script>
-<!--<script type="text/javascript">-->
-<!--$(document).ready(function() {-->
-<!--    $('#example4').DataTable();-->
-<!--} );-->
-<!--</script>-->
-<script type="text/javascript">
-   $(document).ready(function(){
-  $('.attach input').change(function () {
-    $('.attach p').text(this.files.length + " file(s) selected");
-  });
-});
-
-
-
- function remove_product(urls,message,done,fail)
- {
-   swal({
-      title: message,
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-       window.location.href = urls;           
-        // swal(done, {
-        //   icon: "success",
-        // });
-      } else {
-        swal(fail);
-      }
-    });
- }  
-
-
-// datatables JS START========================================
-$(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    // $('table thead th').each( function () {
-    //     var title = $(this).text();
-    //     $(this).html( '<input type="text" placeholder="'+title+'" />' );
-    // } );
- 
-    // DataTable
-   $('#example').DataTable();
-    // var table = $('table').DataTable();
- 
-    // Apply the search
-    // table.columns().every( function () {
-    //     var that = this;
- 
-    //     $( 'input', this.footer() ).on( 'keyup change clear', function () {
-    //         if ( that.search() !== this.value ) {
-    //             that
-    //                 .search( this.value )
-    //                 .draw();
-    //         }
-    //     } );
-    // } );
-
-
-
-
-} );
-// datatables JS END========================================
-
- 
-var token = '{{csrf_token}}';
-$(document).on("change","#id_CE_ID", function(){
-  var id=$(this).val();
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  // console.log(url_in_array);
-  // console.log(set_url+"/manage-feature/get-data");
-  // console.log(id);
-  // console.log(geturl);
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/manage-feature/get-data",
-    data:{'check':id},
-    dataType:"json",
-    success:function(data)
-    {
-      console.log(data);
-      $("#feature_list").html('');
-      for(var i=0; i<data.check_project.length; i++)
-      {
-        $("#feature_list").append('<tr>  <td align="left" valign="top">'+data.check_project[i].Feature_key+'</td><td align="left" valign="top">'+data.check_project[i].Feature_desc+'</td><td align="left" valign="top"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0"><tr><td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td><td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td></tr></table></td> </tr>');
-      }
-    }
-  })
-
-});
-
-
-
-</script>
-
-
-<!-- =-------------------------------- -->
-<script>
-  $(document).on("click","#reset_story", function(){
-  var id=$(this).val();
-      $('#id_story_tri_part_text').attr("readonly", false);
-      $('#fillinput').val("");
-      $('#rol').val("");
-      $('#gol').val("");
-      $('#ben').val("");
-      $('#id_readiness_quality_score').val("");
-      $('#id_story_tri_part_text').val("");
-      
-  // var id1 = $("#rol").val();
-  // var id2 = $("#gol").val();
-  // var id3 = $("#ben").val();
-  // var id4 = $("#id_story_tri_part_text").val();
-});
-  </script>
-<script>
-  var token = '{{csrf_token}}';
-  $(document).on("change",".role_goal_benefits", function(){
-  var id=$(this).val();
-  var id1 = $("#rol").val();
-  var id2 = $("#gol").val();
-  var id3 = $("#ben").val();
-  var id4 = $("#id_story_tri_part_text").val();
-  if (id1 != "")
-  {
-    id1_data = "As a " + id1 + " "
-    id1_num = 25
-  }
-  else{
-    id1_data = ""
-    id1_num = 0
-  }
-    if (id2 != "")
-  {
-    id2_data = "I want to " + id2 + " "
-    id2_num = 25
-  }
-  else{
-    id2_data = ""
-    id2_num = 0
-  }
-    if (id3 != "")
-  {
-    id3_data = "so that " + id3
-    id3_num = 15
-  }
-  else{
-    id3_data = ""
-    id3_num = 0
-  }
-  // if (id4 == "")
-  // {
-  // $("#id_readiness_quality_score").val(id1_num+id2_num+id3_num +10);
-  // }
-    $('#id_story_tri_part_text').attr("readonly", true); 
-    $('#id_story_tri_part_text').val("");
-  
-
-  $("#fillinput").val(id1_data+id2_data+id3_data);
-   var id1 = $("#fillinput").val();
- 
-
-  //--------------------------------------------------------------------------------- 
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/user-story-view/get-data",
-    data:{'check':id1},
-    dataType:"json",
-    success:function(data)
-    {
-      console.log(data);
-      var id1=data.check_project;
-            // console.log(id1);
-            if(id != ""){
-        $("#id_readiness_quality_score").val(id1);
+      <!-- Modal to save CSV files end-->
+      <!--------------------Help Message Modal Ends---------------->
+      <script src='{% static "js/app.js" %}'></script>
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+      <script src='{% static "js/custom.js" %}'></script>
+      <script src='{% static "js/editor.js" %}'></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/js/bootstrap-select.js"></script>
+      <script src='{% static "circlos.js" %}'></script>
+      <script type="text/javascript">
+         var base_url = '{{BASE_URL}}';
+      </script>
+      <script>
+         $(document).ready(function(){
+             $(".cdev").circlos();
+         });
+      </script>
+      <!-- ADD CODE FOR IMPORT CSV FILE  DATA START -->
+      <script type="text/javascript">
+         function set_data(csv_for,redirect_to)
+         {
+            $("#csv_for").val(csv_for);
+            $("#redirect_to").val(redirect_to);
+         }
+      </script>
+      <script type="text/javascript">
+         $('.count').each(function () {
+         $(this).prop('Counter',0).animate({
+         Counter: $(this).text()
+         }, {
+         duration: 4000,
+         easing: 'swing',
+         step: function (now) {
+          $(this).text(Math.ceil(now));
+         }
+         });
+         });
+      </script>
+      <script type="text/javascript">
+         $(document).ready(function(){
+         $('.attach input').change(function () {
+          $('.attach p').text(this.files.length + " file(s) selected");
+         });
+         });
+         function remove_product(urls,message,done,fail)
+         {
+         swal({
+            title: message,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+             window.location.href = urls;           
+            } else {
+              swal(fail);
             }
-            else{
-             $("#id_readiness_quality_score").val(0); 
+          });
+         }  
+         // datatables JS START========================================
+         $(document).ready(function() {
+         $('#example').DataTable();
+         } );
+         // datatables JS END========================================
+         var token = '{{csrf_token}}';
+         $(document).on("change","#id_CE_ID", function(){
+         var id=$(this).val();
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+          method:"POST",
+          headers: { "X-CSRFToken": token },
+          url: "http://"+set_url+"/manage-feature/get-data",
+          data:{'check':id},
+          dataType:"json",
+          success:function(data)
+          {
+            $("#feature_list").html('');
+            for(var i=0; i<data.check_project.length; i++)
+            {
+              $("#feature_list").append('<tr>  <td align="left" valign="top">'+data.check_project[i].Feature_key+'</td><td align="left" valign="top">'+data.check_project[i].Feature_desc+'</td><td align="left" valign="top"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0"><tr><td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td><td align="center" valign="top"><a href=""><i class="icon-delete"></i><a></td></tr></table></td> </tr>');
             }
-
-    }
-  })
-});
-// -----------++++++++++++++Acceptance Criteria+++++++++++=-------------------------
-var token = '{{csrf_token}}';
-  $(document).on("keyup","#id_acceptance_criteria", function(){
-  var id=$(this).val();
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/user-story-view/get-criteria-data",
-    data:{'check':id},
-    dataType:"json",
-    success:function(data)
-    {
-      console.log(data);
-      if (id != ""){
-      $('#id_ac_readability_score').val(data.data);  
-      }
-      else{
-        $('#id_ac_readability_score').val(0);
-      }
-    }
-  })
-});
-
-// -----------++++++++++++++Conversations+++++++++++=-------------------------
-var token = '{{csrf_token}}';
-  $(document).on("keyup","#id_conversation", function(){
-  var id=$(this).val();
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/user-story-view/get-conversations-data",
-    data:{'check':id},
-    dataType:"json",
-    success:function(data)
-    {
-      console.log(data);
-      if (id != ""){
-      $('#id_convo_readability_score').val(data.data);  
-      }
-      else{
-        $('#id_convo_readability_score').val(0);
-      }
-    }
-  })
-});
-
-
-// --------------+++++++++++++++++++++++++=-----------------------------
-var token = '{{csrf_token}}';
-  $(document).on("blur","#id_story_tri_part_text", function(){
-  var id=$(this).val();
-  
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/user-story-view/get-data",
-    data:{'check':id},
-    dataType:"json",
-    success:function(data)
-    {
-      console.log(data);
-      var id1=data.check_project;
-            // console.log(id1);
-            if(id != ""){
-        $("#id_readiness_quality_score").val(id1);
-            }
-            else{
-             $("#id_readiness_quality_score").val(0); 
-            }
-
-      // if (data=="")
-      // {
-      // $("#id_Use_in").val("");
-        
-      // }
-      // else {
-      // var rolval=[];
-      // for(var i=0; i<data.check_project.length; i++)
-      // {
-      //   rolval.push(" " + data.check_project[i].title + " ");
-      // }
-      //   $("#id_Use_in").val(rolval);
-      // }
-    }
-  })
-
-  // $("#id_readiness_quality_score").val(id1_num+id2_num+id3_num);
-});
-
-  </script>
-
-<script >
-$(document).on("click","#reset_edit_story", function(){
-    $('#id_story_tri_part_text').attr("readonly", false); 
-  });
-</script>
-
-<!-- =-------------------------------- -->
-
-
-{% for backlog_edit in backlog_edit %}
-<!-- {% if backlog_edit != "" %} -->
-<script>
-  $(document).ready(function(){
-    $('#modal-default').modal('show')
-  });
-  </script>
-  <!-- {% endif %} -->
-{% endfor %}
-
-{% for member_edit in member_edit %}
-<!-- {% if backlog_edit != "" %} -->
-<script>
-  $(document).ready(function(){
-    $('#modal-team').modal('show')
-  });
-  </script>
-
-  <!-- {% endif %} -->
-    {% endfor %}
-
-{% for point in point %}
-<!-- {% if backlog_edit != "" %} -->
-<script>
-  $(document).ready(function(){
-    $('#modal-point').modal('show')
-  });
-  </script>
-
-  <!-- {% endif %} -->
-    {% endfor %}
-
-<script>
-$(document).on("change","#id_autoscoring_on", function(){
-  var val=$(this).is(":checked")
-  if (val == false){
-  $('#id_readiness_quality_score').attr("readonly", false); 
-  }
-  else{
-  $('#id_readiness_quality_score').attr("readonly", true);   
-  }
-  console.log(val);
-  });
-  </script>
-
-
-<script>
-
-  // ---------------------------------Benefits in Use---------------------------------
-var token = '{{csrf_token}}';
-$(document).on("keyup","#id_Benefits_title", function(){
-  var id=$(this).val();
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/manage-benefits/get-data",
-    data:{'check':id},
-    dataType:"json",
-    success:function(data)
-    {
-      console.log(data);
-      if (data=="")
-      {
-      $("#id_Use_in").val("");
-        
-      }
-      else {
-      var rolval=[];
-      for(var i=0; i<data.check_project.length; i++)
-      {
-        rolval.push(" " + data.check_project[i].title + " ");
-      }
-        $("#id_Use_in").val(rolval);
-      }
-    }
-  })
-
-});
-// ---------------------------------Gole in Use---------------------------------
-var token = '{{csrf_token}}';
-$(document).on("keyup","#id_Goal_title", function(){
-  var id=$(this).val();
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/manage-goals/get-data",
-    data:{'check':id},
-    dataType:"json",
-    success:function(data)
-    {
-      console.log(data);
-      if (data=="")
-      {
-      $("#id_Use_in").val("");
-        
-      }
-      else {
-      var rolval=[];
-      for(var i=0; i<data.check_project.length; i++)
-      {
-        rolval.push(" " + data.check_project[i].title + " ");
-      }
-        $("#id_Use_in").val(rolval);
-      }
-    }
-  })
-
-});
-
-// ---------------------------------Role in Use---------------------------------
-var token = '{{csrf_token}}';
-$(document).on("keyup","#id_title", function(){
-  var id=$(this).val();
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/manage-role/get-data",
-    data:{'check':id},
-    dataType:"json",
-    success:function(data)
-    {
-      console.log(data);
-      if (data=="")
-      {
-      $("#id_use").val("");
-        
-      }
-      else {
-      var rolval=[];
-      for(var i=0; i<data.check_project.length; i++)
-      {
-        rolval.push(" " + data.check_project[i].title + " ");
-      }
-        $("#id_use").val(rolval);
-      }
-    }
-  })
-
-});
-
-
-
-  // manage user profile function for index page
-
-var token = '{{csrf_token}}';
-$(document).on("change","#profile_key_id", function(){
-  var id=$(this).val();
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/user-profile/get-data",
-    data:{'check':id},
-    dataType:"json",
-    success:function(data)
-    {
-      $(".checkbox").prop('checked',false);
-      // console.log(data);
-      // $("#feature_list").html('');
-      for(var i=0; i<data.check_project.length; i++)
-      {
-        if(data.check_project[i].editor == true)
-        {
-        $("#editor"+i+"").prop('checked', true);  
-        }
-        else{
-         $("#editor"+i+"").prop('checked', false); 
-        }
-
-        if(data.check_project[i].viewer == true)
-        {
-        $("#viewer"+i+"").prop('checked', true);  
-        }
-        else{
-         $("#viewer"+i+"").prop('checked', false); 
-        }
-      }
-    }
-  })
-
-});
-
-
-
-
-  //--------------------------- check old password is valid or not START---------------------- 
-  var token = '{{csrf_token}}';
-$(document).on("keyup","#pass_reset", function(){
-  var id=$(this).val();
-  var geturl = window.location.href;
-  var url_in_array = geturl.split("/");
-  var set_url = url_in_array[2];
-  $.ajax({
-    method:"POST",
-    headers: { "X-CSRFToken": token },
-    url: "http://"+set_url+"/account-settings/get-data",
-    data:{'check':id},
-    dataType:"json",
-    success:function(data)
-    {
-      // console.log(data);
-        $("#new_pass").prop('disabled', true);
-        $("#conf_pass").prop('disabled', true);
-        $('#changepassword').prop('disabled', true);
-        $("#new_pass").val('');
-        $("#conf_pass").val('');
-        if(data.check_project == 0)
-        {
-        $("#new_pass").prop('disabled', false);
-        $("#conf_pass").prop('disabled', false);
-        $('#changepassword').prop('disabled', false);  
-        }
-    }
-  })
-
-});
-  //------------------------------- check old password is valid or not End----------------------
-  //------------------- Check New password and confirm Pass match or not Start------------------
-
-
-$('#change_password_form').on('submit', function(e){  
-           e.preventDefault();  
-           var npwd = $("#new_pass").val();
-           var cpwd = $("#conf_pass").val();
-           if(npwd != cpwd)  
-           {  
-            swal({
-                      title: "Sorry !",
-                      text: "New Password and Confirm Password does not match !",
-                      icon: "error",
-                      button: "Ok !",
-                    }); 
-          $('#changepassword').prop('disabled', false);
-           }  
-           else  
-           { 
-            var token = '{{csrf_token}}';
-            var geturl = window.location.href;
-            var url_in_array = geturl.split("/");
-            var set_url = url_in_array[2]; 
-            $.ajax({  
-
-                    method:"POST",
-                    headers: { "X-CSRFToken": token },
-                    url: "http://"+set_url+"/account-settings/pass-change",
-                    data:{'newpwd':npwd},
-                    dataType:"json",
-
-               // method:"POST",
-               //   url:BASE_URL+"update_user_password",
-               //   data:{"newpwd":npwd},
-               //   dataType:"html",
-                 success:function(data){
-                  console.log(data)
-                 if(data.check_project == 1){
-                   swal({
-                      title: "Successfully !",
-                      text: "New Password Updated !",
-                      icon: "success",
-                      button: "Ok !",
-
-                    });
-                $("#new_pass").prop('disabled', true);
-                $("#conf_pass").prop('disabled', true);
-                $('#changepassword').prop('disabled', true);
-                $("#pass_reset").val('');
-                $("#new_pass").val('');
-                $("#conf_pass").val(''); 
-                $('#changepassword').prop('disabled', false);
-                $('#modal-default1').modal('hide');
-                $('.modal-backdrop').hide();
-
-
-                // data-dismiss="modal"
-                // window.location.reload;
-                 }
-                 }  
-            });  
+          }
+         })
+         });
+      </script>
+      <!-- =-------------------------------- -->
+      <script>
+         $(document).on("click","#reset_story", function(){
+         var id=$(this).val();
+             $('#id_story_tri_part_text').attr("readonly", false);
+             $('#fillinput').val("");
+             $('#rol').val("");
+             $('#gol').val("");
+             $('#ben').val("");
+             $('#id_readiness_quality_score').val("");
+             $('#id_story_tri_part_text').val("");
+         });
+      </script>
+      <script>
+         var token = '{{csrf_token}}';
+         $(document).on("change",".role_goal_benefits", function(){
+         var id=$(this).val();
+         var id1 = $("#rol").val();
+         var id2 = $("#gol").val();
+         var id3 = $("#ben").val();
+         var id4 = $("#id_story_tri_part_text").val();
+         if (id1 != "")
+         {
+           id1_data = "As a " + id1 + " "
+           id1_num = 25
+         }
+         else{
+           id1_data = ""
+           id1_num = 0
+         }
+           if (id2 != "")
+         {
+           id2_data = "I want to " + id2 + " "
+           id2_num = 25
+         }
+         else{
+           id2_data = ""
+           id2_num = 0
+         }
+           if (id3 != "")
+         {
+           id3_data = "so that " + id3
+           id3_num = 15
+         }
+         else{
+           id3_data = ""
+           id3_num = 0
+         }
+           $('#id_story_tri_part_text').attr("readonly", true); 
+           $('#id_story_tri_part_text').val("");
+         $("#fillinput").val(id1_data+id2_data+id3_data);
+          var id1 = $("#fillinput").val();
+         //--------------------------------------------------------------------------------- 
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+           method:"POST",
+           headers: { "X-CSRFToken": token },
+           url: "http://"+set_url+"/user-story-view/get-data",
+           data:{'check':id1},
+           dataType:"json",
+           success:function(data)
+           {
+             var id1=data.check_project;
+                   if(id != ""){
+               $("#id_readiness_quality_score").val(id1);
+                   }
+                   else{
+                    $("#id_readiness_quality_score").val(0); 
+                   }
            }
-        });  
-//------------------- Check New password and confirm Pass match or not END--------------------
-        
-
-</script>
-<!-- 
-<script type="text/javascript"> 
-        $(document).ready(function () { 
-            $("#modal-default1").click(function () { 
-                location.reload(); 
-            }); 
-        }); 
-    </script>
- -->
-
-<script >
-  
-    // datatables JS START========================================
-  $(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    $('#example12 thead tr').clone(true).appendTo( '#example12 thead' );
-    $('#example12 thead tr:eq(1) th').each( function (i) {
-        var title = $(this).text();
-        $(this).html( '<input type="text" style="font-size:15px;" placeholder="Search '+title+'" />' );
-        $( 'input', this ).on( 'keyup change', function () {
-            if ( table.column(i).search() !== this.value ) {
-                table
-                    .column(i)
-                    .search( this.value )
-                    .draw();
-
-            }
-        } );
-    } );
-    var table = $('#example12').DataTable( {
-    } );
-    // $(".sorting_asc").css('visibility', 'hidden');
-} );
-// datatables JS END========================================
-
-
-</script>
-
-<script type="text/javascript">
- function doSomething() {
-    $(".se-pre-con").css("display","block");
-}
-</script>
-
-
-<!-- <script type="text/javascript">
-  $(document).ready(function() {
-    var table = $('.dataTable').DataTable( {       
-        scrollX:        true,
-        scrollCollapse: true,
-        paging:         true,       
-        fixedColumns: {
-            leftColumns: 2                  
-        }
-    } );
-} );
-</script> -->
-{% block script %}
+         })
+         });
+         // -----------++++++++++++++Acceptance Criteria+++++++++++=-------------------------
+         var token = '{{csrf_token}}';
+         $(document).on("keyup","#id_acceptance_criteria", function(){
+         var id=$(this).val();
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+           method:"POST",
+           headers: { "X-CSRFToken": token },
+           url: "http://"+set_url+"/user-story-view/get-criteria-data",
+           data:{'check':id},
+           dataType:"json",
+           success:function(data)
+           {
+             if (id != ""){
+             $('#id_ac_readability_score').val(data.data);  
+             }
+             else{
+               $('#id_ac_readability_score').val(0);
+             }
+           }
+         })
+         });
+         // -----------++++++++++++++Conversations+++++++++++=-------------------------
+         var token = '{{csrf_token}}';
+         $(document).on("keyup","#id_conversation", function(){
+         var id=$(this).val();
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+           method:"POST",
+           headers: { "X-CSRFToken": token },
+           url: "http://"+set_url+"/user-story-view/get-conversations-data",
+           data:{'check':id},
+           dataType:"json",
+           success:function(data)
+           {
+             if (id != ""){
+             $('#id_convo_readability_score').val(data.data);  
+             }
+             else{
+               $('#id_convo_readability_score').val(0);
+             }
+           }
+         })
+         });
+         // --------------+++++++++++++++++++++++++=-----------------------------
+         var token = '{{csrf_token}}';
+         $(document).on("blur","#id_story_tri_part_text", function(){
+         var id=$(this).val();
+         var id2 = $("#fillinput").val();
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+           method:"POST",
+           headers: { "X-CSRFToken": token },
+           url: "http://"+set_url+"/user-story-view/get-data",
+           data:{'check':id},
+           dataType:"json",
+           success:function(data)
+           {
+             console.log(data);
+             console.log(id2);
+             var id1=data.check_project;
+                   if(id != ""){
+               $("#id_readiness_quality_score").val(id1);
+                   }
+                   if(id == "" && id2 == ""){
+                    $("#id_readiness_quality_score").val(0); 
+                   }
+           }
+         })
+         });
+      </script>
+      <script >
+         $(document).on("click","#reset_edit_story", function(){
+             $('#id_story_tri_part_text').attr("readonly", false); 
+           });
+      </script>
+      <!-- =-------------------------------- -->
+      {% for backlog_edit in backlog_edit %}
+      <script>
+         $(document).ready(function(){
+           $('#modal-default').modal('show')
+         });
+      </script>
+      {% endfor %}
+      {% for member_edit in member_edit %}
+      <script>
+         $(document).ready(function(){
+           $('#modal-team').modal('show')
+         });
+      </script>
+      {% endfor %}
+      {% for point in point %}
+      <script>
+         $(document).ready(function(){
+           $('#modal-point').modal('show')
+         });
+      </script>
+      {% endfor %}
+      <script>
+         $(document).on("change","#id_autoscoring_on", function(){
+           var val=$(this).is(":checked")
+           if (val == false){
+           $('#id_readiness_quality_score').attr("readonly", false); 
+           }
+           else{
+           $('#id_readiness_quality_score').attr("readonly", true);   
+           }
+           });
+      </script>
+      <script>
+         // ---------------------------------Benefits in Use---------------------------------
+         var token = '{{csrf_token}}';
+         $(document).on("keyup","#id_Benefits_title", function(){
+         var id=$(this).val();
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+           method:"POST",
+           headers: { "X-CSRFToken": token },
+           url: "http://"+set_url+"/manage-benefits/get-data",
+           data:{'check':id},
+           dataType:"json",
+           success:function(data)
+           {
+            console.log(data);
+             if (data=="")
+             {
+             $("#modal-edit #id_Use_in").val("");
+             $("#modal-default1 #id_Use_in").val("");
+             }
+             else {
+             var rolval=[];
+             for(var i=0; i<data.check_project.length; i++)
+             {
+               rolval.push(" " + data.check_project[i].title + " ");
+             }
+               $("#modal-edit #id_Use_in").val(rolval);
+               $("#modal-default1 #id_Use_in").val(rolval);
+             }
+           }
+         })
+         });
+         // ---------------------------------Gole in Use---------------------------------
+         var token = '{{csrf_token}}';
+         $(document).on("keyup","#id_Goal_title", function(){
+         var id=$(this).val();
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+           method:"POST",
+           headers: { "X-CSRFToken": token },
+           url: "http://"+set_url+"/manage-goals/get-data",
+           data:{'check':id},
+           dataType:"json",
+           success:function(data)
+           {
+             if (data=="")
+             {
+             $("#modal-default1 #id_Use_in").val("");
+             $("#modal-edit #id_Use_in").val("");
+             }
+             else {
+             var rolval=[];
+             for(var i=0; i<data.check_project.length; i++)
+             {
+               rolval.push(" " + data.check_project[i].title + " ");
+             }
+               $("#modal-default1 #id_Use_in").val(rolval);
+               $("#modal-edit #id_Use_in").val(rolval);
+             }
+           }
+         })
+         });
+         // ---------------------------------Role in Use---------------------------------
+         var token = '{{csrf_token}}';
+         $(document).on("keyup","#id_title", function(){
+         var id=$(this).val();
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+           method:"POST",
+           headers: { "X-CSRFToken": token },
+           url: "http://"+set_url+"/manage-role/get-data",
+           data:{'check':id},
+           dataType:"json",
+           success:function(data)
+           {
+             console.log(data);
+             if (data=="")
+             {
+             $("#role_edit #id_use").val("");
+             $("#modal-default1 #id_use").val("");
+             }
+             else {
+             var rolval=[];
+             for(var i=0; i<data.check_project.length; i++)
+             {
+               rolval.push(" " + data.check_project[i].title + " ");
+             }
+               $("#role_edit #id_use").val(rolval);
+               $("#modal-default1 #id_use").val(rolval);
+             }
+           }
+         })
+         });
+         // manage user profile function for index page
+         var token = '{{csrf_token}}';
+         $(document).on("change","#profile_key_id", function(){
+         var id=$(this).val();
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+           method:"POST",
+           headers: { "X-CSRFToken": token },
+           url: "http://"+set_url+"/user-profile/get-data",
+           data:{'check':id},
+           dataType:"json",
+           success:function(data)
+           {
+             $(".checkbox").prop('checked',false);
+             for(var i=0; i<data.check_project.length; i++)
+             {
+               if(data.check_project[i].editor == true)
+               {
+               $("#editor"+i+"").prop('checked', true);  
+               }
+               else{
+                $("#editor"+i+"").prop('checked', false); 
+               }
+         
+               if(data.check_project[i].viewer == true)
+               {
+               $("#viewer"+i+"").prop('checked', true);  
+               }
+               else{
+                $("#viewer"+i+"").prop('checked', false); 
+               }
+             }
+           }
+         })
+         });
+         //--------------------------- check old password is valid or not START---------------------- 
+         var token = '{{csrf_token}}';
+         $(document).on("keyup","#pass_reset", function(){
+         var id=$(this).val();
+         var geturl = window.location.href;
+         var url_in_array = geturl.split("/");
+         var set_url = url_in_array[2];
+         $.ajax({
+           method:"POST",
+           headers: { "X-CSRFToken": token },
+           url: "http://"+set_url+"/account-settings/get-data",
+           data:{'check':id},
+           dataType:"json",
+           success:function(data)
+           {
+               $("#new_pass").prop('disabled', true);
+               $("#conf_pass").prop('disabled', true);
+               $('#changepassword').prop('disabled', true);
+               $("#new_pass").val('');
+               $("#conf_pass").val('');
+               if(data.check_project == 0)
+               {
+               $("#new_pass").prop('disabled', false);
+               $("#conf_pass").prop('disabled', false);
+               $('#changepassword').prop('disabled', false);  
+               }
+           }
+         })
+         
+         });
+         //------------------------------- check old password is valid or not End----------------------
+         //------------------- Check New password and confirm Pass match or not Start------------------
+         $('#change_password_form').on('submit', function(e){  
+                  e.preventDefault();  
+                  var npwd = $("#new_pass").val();
+                  var cpwd = $("#conf_pass").val();
+                  if(npwd != cpwd)  
+                  {  
+                   swal({
+                             title: "Sorry !",
+                             text: "New Password and Confirm Password does not match !",
+                             icon: "error",
+                             button: "Ok !",
+                           }); 
+                 $('#changepassword').prop('disabled', false);
+                  }  
+                  else  
+                  { 
+                   var token = '{{csrf_token}}';
+                   var geturl = window.location.href;
+                   var url_in_array = geturl.split("/");
+                   var set_url = url_in_array[2]; 
+                   $.ajax({  
+                           method:"POST",
+                           headers: { "X-CSRFToken": token },
+                           url: "http://"+set_url+"/account-settings/pass-change",
+                           data:{'newpwd':npwd},
+                           dataType:"json",
+                        success:function(data){
+                        if(data.check_project == 1){
+                          swal({
+                             title: "Successfully !",
+                             text: "New Password Updated !",
+                             icon: "success",
+                             button: "Ok !",
+         
+                           });
+                       $("#new_pass").prop('disabled', true);
+                       $("#conf_pass").prop('disabled', true);
+                       $('#changepassword').prop('disabled', true);
+                       $("#pass_reset").val('');
+                       $("#new_pass").val('');
+                       $("#conf_pass").val(''); 
+                       $('#changepassword').prop('disabled', false);
+                       $('#modal-default1').modal('hide');
+                       $('.modal-backdrop').hide();
+                        }
+                        }  
+                   });  
+                  }
+               });  
+         //------------------- Check New password and confirm Pass match or not END--------------------
+      </script>
+      <script >
+         // datatables JS START========================================
+         $(document).ready(function() {
+         // Setup - add a text input to each footer cell
+         $('#example12 thead tr').clone(true).appendTo( '#example12 thead' );
+         $('#example12 thead tr:eq(1) th').each( function (i) {
+             var title = $(this).text();
+             $(this).html( '<input type="text" style="font-size:15px;" placeholder="Search '+title+'" />' );
+             $( 'input', this ).on( 'keyup change', function () {
+                 if ( table.column(i).search() !== this.value ) {
+                     table
+                         .column(i)
+                         .search( this.value )
+                         .draw();
+         
+                 }
+             } );
+         } );
+         var table = $('#example12').DataTable( {
+         } );
+         } );
+         // datatables JS END========================================
+      </script>
+      <script type="text/javascript">
+         function doSomething() {
+            $(".se-pre-con").css("display","block");
+         }
+      </script>
+      {% block script %}
       {% endblock %}
-</body>
-<!-- Mirrored from xvelopers.com/demos/html/paper-1.8.2/dashboard3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 10:27:28 GMT -->
+   </body>
 </html>

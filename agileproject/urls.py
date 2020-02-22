@@ -105,4 +105,6 @@ urlpatterns = [
     path('manage-benefits', include('manage_benefits.urls')),
     path('manage-benefits/', include('manage_benefits.urls')),
 
+    path('data-exchange/', include('data_import_export.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

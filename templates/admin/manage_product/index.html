@@ -78,6 +78,7 @@
                 </div> -->
 
                 </div>
+              </div>
 
             <div class="table-responsive">
             <!-- <div class="table-responsive hdinpt"> -->
@@ -161,7 +162,11 @@
               {% endif %}
 
               {% if v == 'Product_size' %}
-              <td align="left" class="backpa"  valign="top">{{ data.Product_size  }}</td> 
+              <td align="left" class="backpa"  valign="top">
+{% size data.ORG_ID data.id%}
+
+                <!-- {{ data.Product_size  }} -->
+              </td> 
               {% endif %}
 
 

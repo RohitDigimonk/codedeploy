@@ -1658,7 +1658,7 @@ border-radius:.25rem;
 }
 .btn.focus, .btn:focus {
 	outline:0;
-	box-shadow:0 0 0 3px rgba(3,169,244,.25)
+	
 }
 .btn.disabled, .btn:disabled {
 	opacity:.65
@@ -1679,9 +1679,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 	background-color:#038fce;
 	border-color:#0286c2
 }
-.btn-primary.focus, .btn-primary:focus {
-	box-shadow:0 0 0 3px rgba(3,169,244,.5)
-}
+
 .btn-primary.disabled, .btn-primary:disabled {
 	background-color:#ef606c;
 	border-color:#ef606c
@@ -17539,8 +17537,8 @@ input[type=checkbox], input[type=radio] {
 	border-color:transparent;
 	color:#fff
 }
-.btn-primary:focus, .btn-primary:hover {
-	box-shadow:0 3px 9px 0 rgba(0,0,0,.26);
+.btn-primary:hover {
+	
 	opacity:.8;
 	color:#fff;
 	background:#0e0f1d;
@@ -17549,7 +17547,7 @@ input[type=checkbox], input[type=radio] {
 	border-color:transparent;
 	color:#fff
 }
-.btn-danger:focus, .btn-danger:hover {
+.btn-danger:hover {
 	box-shadow:0 3px 9px 0 rgba(0,0,0,.26);
 	opacity:.8;
 	color:#fff;
@@ -17559,7 +17557,7 @@ input[type=checkbox], input[type=radio] {
 	border-color:transparent;
 	color:#fff
 }
-.btn-warning:focus, .btn-warning:hover {
+.btn-warning:hover {
 	box-shadow:0 3px 9px 0 rgba(0,0,0,.26);
 	opacity:.8;
 	color:#fff;
@@ -17569,13 +17567,13 @@ input[type=checkbox], input[type=radio] {
 	border-color:transparent;
 	color:#fff
 }
-.btn-success:focus, .btn-success:hover {
+.btn-success:hover {
 	box-shadow:0 3px 9px 0 rgba(0,0,0,.26);
 	opacity:.8;
 	color:#fff;
 	background:#7dc855
 }
-.badge-success, .badge-warning {
+.badge-warning {
 	color:#fff
 }
 .btn-social {

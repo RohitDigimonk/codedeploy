@@ -28,10 +28,11 @@ class Ar_User_Story_Form(forms.ModelForm):
         model = AR_USER_STORY
         fields = ['title','owner', 'story_tri_part_text', 'acceptance_criteria', 'ac_readability_score','conversation', 'convo_readability_score', 'attachments','autoscoring_on', 'archive_indicator','readiness_quality_score', 'story_points', 'user_story_status','UST_ID','ar_user','backlog_parent']
 
-    def __init__(self, org_info,user_id, *args, **kwargs):
+    def __init__(self, user_id,org_info, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # filter(ORG_ID=org_info)
-        org_instance =get_object_or_404(AR_organization, pk=org_info)
+        # org_instance =get_object_or_404(AR_organization, pk=org_info)
+
         # self.fields['backlog_parent'] = forms.ModelChoiceField(queryset=AR_BACKLOG.objects.filter(ORG_ID__in=Subquery(org_info.values("id"))), widget=forms.Select(attrs={"class": "form-control"}))
         self.fields['story_points'] = forms.ModelChoiceField(required=False, empty_label="Please select user story point or None", queryset=ArUserStoryPoints.objects.filter(ORG_ID=org_info), widget=forms.Select(attrs={"class": "form-control"}))
         self.fields['ar_user'] = forms.ModelChoiceField(empty_label="Please select team member author or None",queryset=Ar_user.objects.filter(~Q(user_name="")).filter(org_id=org_info),widget=forms.Select(attrs={"class": "form-control", 'name': 'ar_user'}))

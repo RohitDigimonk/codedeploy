@@ -9,30 +9,31 @@ https://github.com/jamalhassouni
    }
   .cdev {
   position: relative;
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
   margin:0 auto;
 }
  
 .cdev div {
   position: absolute;
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
 }
  
 .cdev div span {
   position: absolute;
   font-family: Arial;
-  font-size: 25px;
-  line-height: 75px;
-  height: 75px;
-  width: 75px;
-  left: 12.5px;
-  top: 12.5px;
+  font-size: 11px;
+  line-height: 60px;
+  height: 54px;
+  width: 54px;
+  left: 8px;
+  top: 8px;
   text-align: center;
   border-radius: 50%;
   background-color: white;
+  
 }
  
 .cdev .background { background-color: #b3cef6; }
@@ -50,9 +51,12 @@ https://github.com/jamalhassouni
  
 .cdev .right {
   clip: rect(0 50px 100px 0);
-  transform: rotate(180deg);
+  transform: rotate(225deg);
   opacity: 0;
   background-color: #4b86db;
+}
+.slimScrollBar {
+    width: 10px !important;
 }
  
 @keyframes
@@ -63,3 +67,63 @@ toggle {  0% {
  opacity: 1;
 }
 }  
+
+/*===========================sunil new csss start=========================*/
+
+.vertical-align th, .vertical-align td {
+    vertical-align: middle !important;
+}
+
+.form-group.has-feedback .input-group span.input-group-addon {
+    background: transparent;
+    border: 0px;
+}
+.btn:focus{
+    box-shadow: none;
+    outline: 0px !important;
+}
+.modal-header .close span {
+    color: #000;
+}
+a.document_name {
+    white-space: normal;
+    word-break: break-all;
+}
+button#reset_edit_story {
+    margin-top: -12px;
+}
+input#attachments-clear_id {
+    position: relative;
+    left: initial;
+}
+button:focus{box-shadow:none !important; outline: 0px !important;}
+.sidebar-collapse a.paper-nav-toggle.fixed.left {
+    background: transparent;
+}
+.paper-nav-toggle.left {
+    top: 20px;
+    left: -4px;
+}
+.paper-nav-toggle.left {
+    top: 20px;
+}
+
+th:focus, td:focus {
+    outline: none;
+}
+.mt-15 {
+    padding-top: 15px;
+}
+
+.mt-15 button {
+    border-radius: 4px !important;
+}
+
+.login-form-card {
+    position: relative;
+}
+.sp-map .modal-header .close span {
+    color: #fff;
+	text-shadow:none;
+	font-size:21px !important;
+}

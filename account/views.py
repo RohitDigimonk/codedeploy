@@ -15,7 +15,116 @@ from agileproject.tokens import account_activation_token
 import email.message
 from django.template.loader import render_to_string
 # Create your views here.
+from data_import_export.models import import_files_data
+from data_import_export.views import read_csv_file
+# import all module start
+from manage_product.models import AR_team,AR_product
+from manage_backlogs.models import AR_BACKLOG
+from user_story_view.models import AR_USER_STORY
+from manage_epic_capability.models import AR_EPIC_CAPABILITY
+from manage_features.models import AR_FEATURE
+from user_story_points.models import ArUserStoryPoints
+# import all module end
 
+
+def set_default_value_for_org(org_id,user_id):
+    org_id = org_id
+    user_id = user_id
+    get_user_instant = Ar_user.objects.get(id=user_id)
+    org_ins = AR_organization.objects.get(id=org_id)
+    default = 'None'
+
+    # Nonne for Team start
+    res = AR_team.objects.filter(Team_name=default).filter(ORG_id=org_ins).exists()
+    if AR_team.objects.filter(Team_name=default).filter(ORG_id=org_ins).exists():
+        print("already")
+    else:
+        add_team = AR_team(Team_name=default, Team_description=default, ORG_id=org_ins, create_by=get_user_instant,
+                           update_by=get_user_instant)
+        add_team.save()
+    # Nonne for Team END
+
+    # AR_product for Team start
+    if AR_product.objects.filter(Product_name=default).filter(ORG_ID=org_ins).exists():
+        print("already")
+    else:
+        add_team = AR_product(Product_name=default, Product_description=default, ORG_ID=org_ins,
+                              create_by=get_user_instant,
+                              update_by=get_user_instant)
+        add_team.save()
+    # AR_product for Team end
+
+    # AR_BACKLOG for Team start
+    if AR_BACKLOG.objects.filter(title=default).filter(ORG_ID=org_ins).exists():
+        print("already")
+    else:
+        add_team = AR_BACKLOG(title=default, ORG_ID=org_ins, created_by=get_user_instant, updated_by=get_user_instant,
+                              backlog_score=0, Backlog_size=0)
+        add_team.save()
+    # AR_BACKLOG for Team end
+
+    # AR_USER_STORY for Team start
+    if AR_USER_STORY.objects.filter(title=default).filter(ORG_id=org_ins).exists():
+        print("already")
+    else:
+        add_team = AR_USER_STORY(title=default, ORG_id=org_ins, created_by=get_user_instant,
+                                 updated_by=get_user_instant, ac_readability_score=0, convo_readability_score=0,
+                                 readiness_quality_score=0)
+        add_team.save()
+    # AR_USER_STORY for Team end
+
+    # AR_EPIC_CAPABILITY for Team start
+    if AR_EPIC_CAPABILITY.objects.filter(Cepic_key=default).filter(ORG_ID=org_ins).exists():
+        print("already")
+    else:
+        add_team = AR_EPIC_CAPABILITY(Cepic_key=default, Cepic_desc=default, ORG_ID=org_ins,
+                                      created_by=get_user_instant, update_by=get_user_instant)
+        add_team.save()
+    # AR_EPIC_CAPABILITY for Team end
+
+    # AR_FEATURE for Team start
+    if AR_FEATURE.objects.filter(Feature_key=default).filter(ORG_ID=org_ins).exists():
+        print("already")
+    else:
+        add_team = AR_FEATURE(Feature_key=default, Feature_desc=default, ORG_ID=org_ins, create_by=get_user_instant,
+                              update_by=get_user_instant)
+        add_team.save()
+    # AR_FEATURE for Team end
+
+    # AR_FEATURE for Team start
+    if ArUserStoryPoints.objects.filter(Point_Key=default).filter(ORG_ID=org_ins).exists():
+        print("already")
+    else:
+        add_team = ArUserStoryPoints(Point_Key=default, Point_Description=default, Point_score=0, ORG_ID=org_ins,
+                                     create_by=get_user_instant, update_by=get_user_instant)
+        add_team.save()
+    # AR_FEATURE for Team end
+    return True
+
+def set_dummy_data(org_id,user_id):
+    default = "Test"
+    if import_files_data.objects.filter(dommy_set=1).exists():
+        get_data =  import_files_data.objects.filter(dommy_set=1).order_by("priority")
+        set_list = []
+        for item in get_data:
+            set_list.append(item.id)
+        read_csv_file(set_list, org_id, user_id)
+    else:
+        print("sdjfdhbv")
+    return True
+
+
+def test_mail(org_id,user_id):
+    default = "Test"
+    # if import_files_data.objects.filter(dommy_set=1).exists():
+    #     get_data =  import_files_data.objects.filter(dommy_set=1).order_by("priority")
+    #     set_list = []
+    #     for item in get_data:
+    #         set_list.append(item.id)
+    #     read_csv_file(set_list, org_id, user_id)
+    # else:
+    #     print("sdjfdhbv")
+    return HttpResponse(default)
 
 
 @csrf_exempt
@@ -29,27 +138,7 @@ def get_help_content(request):
     return render(request, 'admin/dashboard/help_content.html', {'get_help_content': get_help_content,"BASE_URL":settings.BASE_URL})
 
 
-def test_mail(request):
-    logo_image = settings.BASE_URL + 'static/img/basic/logo.png'
-    user_email = "deepaksinghpatel052@gmail.com"
-    password = "test password"
-    varification_link = settings.BASE_URL
-    data_content = {"BASE_URL": settings.BASE_URL, "yourname": "deepak patel", "user_email": user_email, "password": password,
-                    "logo_image": logo_image, "varification_link": varification_link}
-    email_content = render_to_string('email_template/email_send_for_create_new_account.html', data_content)
-    msg = email.message.Message()
-    msg['Subject'] = 'Account Create successfully'
-    msg['From'] = settings.EMAIL_HOST_USER
-    msg['To'] = user_email
-    password = settings.EMAIL_HOST_PASSWORD
-    msg.add_header('Content-Type', 'text/html')
-    msg.set_payload(email_content)
-    s = smtplib.SMTP(settings.EMAIL_HOST + ':' + str(settings.EMAIL_PORT))
-    s.starttls()
-    # Login Credentials for sending the mail
-    s.login(msg['From'], password)
-    s.sendmail(msg['From'], [msg['To']], msg.as_string())
-    return HttpResponse(logo_image)
+
 
 
 def account_activate(request,uidb64,token):
@@ -93,6 +182,11 @@ def index(request):
     s.login(msg['From'], password)
     s.sendmail(msg['From'], [msg['To']], msg.as_string())
     return HttpResponse("test")
+
+
+
+
+
 
 @csrf_exempt
 def register(request):
@@ -142,8 +236,14 @@ def register(request):
                         ar_org.save()
                     org_ins = get_object_or_404(AR_organization, organization_name=organization)
 
+
+
                     Ar_users = Ar_user(status = "Active", user_id=user.id,user_name=yourname,country=country, city=city,state=state,zip=zip_code,phone=number,org_id=org_ins)
                     Ar_users.save()
+
+                    data_res = set_default_value_for_org(org_ins.id, Ar_users.id)
+                    data_res = set_dummy_data(org_ins.id, Ar_users.id)
+
                     uid = urlsafe_base64_encode(force_bytes(get_user_instant.id))
                     token = account_activation_token.make_token(get_user_instant)
                     varification_link = settings.BASE_URL + "account/activate/" + uid + "/" + token

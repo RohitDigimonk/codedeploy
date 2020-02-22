@@ -116,14 +116,14 @@
                             <div class="form-group">
                                     <label>Iteration Score</label>
                                     <!-- {{IterationForm.IterationScore}} -->
-                                    <input class="form-control login-frm-input" type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_score">
+                                    <input class="form-control login-frm-input" id="id_IterationScore" type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_score">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                     <label>Iteration Size</label>
                                     <!-- {{IterationForm.IterationSize}} -->
-                                    <input class="form-control login-frm-input" type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_size">
+                                    <input class="form-control login-frm-input" id="id_IterationSize" type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_size">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -277,7 +277,7 @@ function get_user_story(backlog_id)
 {
   var selected_user_storyes = $("#selected_user_storyes").val();
   var get_backlog_id = backlog_id;
-   
+   var selected_selected_team  = $("#id_Team").val();
   if(get_backlog_id)
   {
      $.ajax({
@@ -294,7 +294,7 @@ function get_user_story(backlog_id)
       $.ajax({
       method:"POST",
       url:"{{BASE_URL}}iteration-view/get_team",
-      data:{"get_backlog_id":get_backlog_id},
+      data:{"get_backlog_id":get_backlog_id,"selected_selected_team":selected_selected_team},
       dataType:"html",
       success:function(data){
           $("#id_Team").html(data);

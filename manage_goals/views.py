@@ -11,6 +11,7 @@ from django.http import HttpResponse,JsonResponse
 from user_story_view.models import AR_USER_STORY
 from datetime import datetime
 from agileproject.serializers import ArUserStoryViewSerializer
+from user_story_view.user_story_score.readiness_quality_score import quelity_score
 # Create your views here.
 
 
@@ -25,6 +26,11 @@ def index(request):
             ArManageGoalsForm_get = ArManageGoalsForm(request.POST)
             if ArManageGoalsForm_get.is_valid():
                 Goal_title = ArManageGoalsForm_get.cleaned_data.get('Goal_title')
+                use = ArManageGoalsForm_get.cleaned_data.get('Use_in')
+                if use != "":
+                    data = use.split(" , ")
+                else:
+                    data = 0
                 if ArManageGoals.objects.filter(Goal_title=Goal_title).filter(ORG_ID=org_ins).exists():
                     msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Exists")
                     msg_data = msg.notification_desc
@@ -39,6 +45,15 @@ def index(request):
                         ManageGoals.save()
                         create_goal_id = "AR_GOAL_"+str(ManageGoals.id)
                         ArManageGoals.objects.filter(id=ManageGoals.id).update(Goal_id=create_goal_id)
+                        # ###########-----------------------------------------
+                        if data != 0:
+                            for val in data:
+                                story_data = AR_USER_STORY.objects.get(title=str(val))
+                                STP = story_data.story_tri_part_text
+                                data = quelity_score(STP)
+                                AR_USER_STORY.objects.filter(title=val).update(readiness_quality_score=data[0])
+                        # ###########-----------------------------------------
+
                         msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Add")
                         msg_data = msg.notification_desc
                         messages.info(request, msg_data)
@@ -62,12 +77,24 @@ def index(request):
 @login_required
 def edit(request,id):
     ArManageGoals_info = get_object_or_404(ArManageGoals, pk=id)
+
+    use_old = ArManageGoals_info.Use_in
+    if use_old != "":
+        data_old = use_old.split(" , ")
+    else:
+        data_old = 0
     ArManageGoalsForm_get = ArManageGoalsForm(instance=ArManageGoals_info)
+    
     org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
     if request.method == 'POST':
         ArManageGoalsForm_get = ArManageGoalsForm(request.POST,instance=ArManageGoals_info)
         if ArManageGoalsForm_get.is_valid():
             Goal_title = ArManageGoalsForm_get.cleaned_data.get('Goal_title')
+            use = ArManageGoalsForm_get.cleaned_data.get('Use_in')
+            if use != "":
+                data = use.split(" , ")
+            else:
+                data = 0
             if ArManageGoals.objects.filter(Goal_title=Goal_title).filter(ORG_ID=org_ins).filter(~Q(id=id)).exists():
                 msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Exists")
                 msg_data = msg.notification_desc
@@ -78,6 +105,29 @@ def edit(request,id):
                     ManageGoals = ArManageGoalsForm_get.save(commit=False)
                     ManageGoals.updated_by = ar_user_insta
                     ManageGoals.save()
+                    # ###########-----------------------------------------
+                    if data_old != 0:
+                        for val_old in data_old:
+                            # return HttpResponse(val_old)
+                            story_data = AR_USER_STORY.objects.filter(title=str(val_old))
+                            STP = story_data[0].story_tri_part_text
+                            title = story_data[0].title
+                            data_val = quelity_score(STP)
+                            # return HttpResponse(data_val)
+                            AR_USER_STORY.objects.filter(title=title).update(readiness_quality_score=data_val[0])
+                    # ###########-----------------------------------------
+                    # ###########-----------------------------------------
+                    if data != 0:
+                        for val in data:
+                            # return HttpResponse(val)
+                            story_data = AR_USER_STORY.objects.filter(title=str(val))
+                            STP = story_data[0].story_tri_part_text
+                            title = story_data[0].title
+                            data_get = quelity_score(STP)
+                            # return HttpResponse(data_get)
+                            AR_USER_STORY.objects.filter(title=title).update(readiness_quality_score=data_get[0])
+                    # ###########-----------------------------------------
+
                     msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Add")
                     msg_data = msg.notification_desc
                     messages.info(request, msg_data)
@@ -94,7 +144,20 @@ def remove_goal(request,id):
     if product_view.check_permition(request, 'Manage Goals', 1):
         try:
             ManageGoals = get_object_or_404(ArManageGoals, pk=id)
+            use = ArManageGoals.Use_in
+            if use != "":
+                data = use.split(" , ")
+            else:
+                data = 0
             ManageGoals.delete()
+            # ###########-----------------------------------------
+            if data != 0:
+                for val in data:
+                    story_data = AR_USER_STORY.objects.get(title=str(val))
+                    STP = story_data.story_tri_part_text
+                    data = quelity_score(STP)
+                    AR_USER_STORY.objects.filter(title=val).update(readiness_quality_score=data[0])
+            # ###########-----------------------------------------
             msg = get_object_or_404(Notification, page_name="Manage Goal", notification_key="Remove")
             msg_data = msg.notification_desc
             messages.info(request, msg_data)

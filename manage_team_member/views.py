@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.models import User,auth
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 from account.models import Ar_user,AR_organization,ArUserProfile,Notification
@@ -72,7 +73,11 @@ def edit_team_member(request,id):
 def delete_team_member(request,id):
     if product_view.check_permition(request, 'Manage Team Members', 1):
         try:
+            user_val = Ar_user.objects.get(pk=id)
+            user_id = user_val.user_id
             Ar_user.objects.get(pk=id).delete()
+            user = User.objects.filter(id=user_id)
+            user.delete()
             msg = get_object_or_404(Notification, page_name="Manage Team Members", notification_key="Remove")
             msg_data = msg.notification_desc
             messages.info(request, msg_data)

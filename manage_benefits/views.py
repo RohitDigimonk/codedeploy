@@ -10,6 +10,7 @@ from django.http import HttpResponse,JsonResponse
 from user_story_view.models import AR_USER_STORY
 from datetime import datetime
 from agileproject.serializers import ArUserStoryViewSerializer
+from user_story_view.user_story_score.readiness_quality_score import quelity_score
 # Create your views here.
 
 
@@ -23,6 +24,11 @@ def index(request):
             ArManageBenefitsForm_get = ArManageBenefitsForm(request.POST)
             if ArManageBenefitsForm_get.is_valid():
                 Benefit_title = ArManageBenefitsForm_get.cleaned_data.get('Benefits_title')
+                use = ArManageBenefitsForm_get.cleaned_data.get('Use_in')
+                if use != "":
+                    data = use.split(" , ")
+                else:
+                    data = 0
                 if ArManageBenefits.objects.filter(Benefits_title=Benefit_title).filter(ORG_ID=org_ins).exists():
                     msg = get_object_or_404(Notification, page_name="Manage Benefit", notification_key="Exists")
                     msg_data = msg.notification_desc
@@ -37,6 +43,16 @@ def index(request):
                         ManageBenefits.save()
                         create_benefite_id = "AR_BENEFITE_"+str(ManageBenefits.id)
                         ArManageBenefits.objects.filter(id=ManageBenefits.id).update(Benefits_id=create_benefite_id)
+                        # ###########-----------------------------------------
+                        if data != 0:
+                            for val in data:
+                                story_data = AR_USER_STORY.objects.get(title=str(val))
+                                STP = story_data.story_tri_part_text
+                                data = quelity_score(STP)
+                                AR_USER_STORY.objects.filter(title=val).update(readiness_quality_score=data[0])
+                        # ###########-----------------------------------------
+
+
                         msg = get_object_or_404(Notification, page_name="Manage Benefit", notification_key="Add")
                         msg_data = msg.notification_desc
                         messages.info(request, msg_data)
@@ -58,12 +74,23 @@ def index(request):
 
 def edit(request,id):
     ArManageBenefits_info = get_object_or_404(ArManageBenefits, pk=id)
+
+    use_old = ArManageBenefits_info.Use_in
+    if use_old != "":
+        data_old = use_old.split(" , ")
+    else:
+        data_old = 0
     ArManageBenefitsForm_get = ArManageBenefitsForm(instance=ArManageBenefits_info)
     org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
     if request.method == 'POST':
         ArManageBenefitsForm_get = ArManageBenefitsForm(request.POST,instance=ArManageBenefits_info)
         if ArManageBenefitsForm_get.is_valid():
             Benefits_title = ArManageBenefitsForm_get.cleaned_data.get('Benefits_title')
+            use = ArManageBenefitsForm_get.cleaned_data.get('Use_in')
+            if use != "":
+                data = use.split(" , ")
+            else:
+                data = 0
             if ArManageBenefits.objects.filter(Benefits_title=Benefits_title).filter(ORG_ID=org_ins).filter(~Q(id=id)).exists():
                 msg = get_object_or_404(Notification, page_name="Manage Benefit", notification_key="Exists")
                 msg_data = msg.notification_desc
@@ -74,6 +101,28 @@ def edit(request,id):
                     ManageBenefits = ArManageBenefitsForm_get.save(commit=False)
                     ManageBenefits.updated_by = ar_user_insta
                     ManageBenefits.save()
+                    # ###########-----------------------------------------
+                    if data_old != 0:
+                        for val_old in data_old:
+                            # return HttpResponse(val_old)
+                            story_data = AR_USER_STORY.objects.filter(title=str(val_old))
+                            STP = story_data[0].story_tri_part_text
+                            title = story_data[0].title
+                            data_val = quelity_score(STP)
+                            # return HttpResponse(data_val)
+                            AR_USER_STORY.objects.filter(title=title).update(readiness_quality_score=data_val[0])
+                    # ###########-----------------------------------------
+                    # ###########-----------------------------------------
+                    if data != 0:
+                        for val in data:
+                            # return HttpResponse(val)
+                            story_data = AR_USER_STORY.objects.filter(title=str(val))
+                            STP = story_data[0].story_tri_part_text
+                            title = story_data[0].title
+                            data_get = quelity_score(STP)
+                            # return HttpResponse(data_get)
+                            AR_USER_STORY.objects.filter(title=title).update(readiness_quality_score=data_get[0])
+                    # ###########-----------------------------------------
                     msg = get_object_or_404(Notification, page_name="Manage Benefit", notification_key="Update")
                     msg_data = msg.notification_desc
                     messages.info(request, msg_data)
@@ -89,7 +138,21 @@ def remove_benefit(request,id):
     if product_view.check_permition(request, 'Manage Benefits', 1):
         try:
             ManageBenefits = get_object_or_404(ArManageBenefits, pk=id)
+            use = ArManageBenefits.Use_in
+            if use != "":
+                data = use.split(" , ")
+            else:
+                data = 0
+            ManageGoals.delete()
             ManageBenefits.delete()
+            # ###########-----------------------------------------
+            if data != 0:
+                for val in data:
+                    story_data = AR_USER_STORY.objects.get(title=str(val))
+                    STP = story_data.story_tri_part_text
+                    data = quelity_score(STP)
+                    AR_USER_STORY.objects.filter(title=val).update(readiness_quality_score=data[0])
+            # ###########-----------------------------------------
             msg = get_object_or_404(Notification, page_name="Manage Benefit", notification_key="Remove")
             msg_data = msg.notification_desc
             messages.info(request, msg_data)

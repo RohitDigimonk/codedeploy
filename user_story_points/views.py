@@ -8,6 +8,7 @@ from manage_epic_capability.models import AR_EPIC_CAPABILITY
 from django.contrib import messages
 from manage_product import views as product_view
 from datetime import datetime
+from django.db.models import Q
 # Create your views here.
 def index(request):
     if product_view.check_permition(request, 'Manage User Story Points', 0):
@@ -15,7 +16,7 @@ def index(request):
         org_info = AR_organization.objects.filter(id=request.session['org_id'])
         ar_story_point_form = ArStoryPointForm(org_info)
         org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
-        story_point = ArUserStoryPoints.objects.filter(ORG_ID=org_ins).order_by("-id")
+        story_point = ArUserStoryPoints.objects.filter(ORG_ID=org_ins).order_by("-id").filter(~Q(Point_Key = 'None'))
         msg = get_object_or_404(Notification, page_name="Manage User Story Points", notification_key="Not_Remove")
         Not_Remove_msg = msg.notification_desc
         msg = get_object_or_404(Notification, page_name="Manage User Story Points", notification_key="Remove Request")

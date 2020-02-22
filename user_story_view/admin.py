@@ -15,7 +15,7 @@ class AR_US_TYPEAdmin(ImportExportModelAdmin):
 
 class AR_USER_STORYAdmin(ImportExportModelAdmin):
     search_fields = ['title']
-    list_display = ('title','owner','story_tri_part_text','acceptance_criteria','ac_readability_score','conversation','convo_readability_score','autoscoring_on','archive_indicator','readiness_quality_score')
+    list_display = ('title','owner','story_tri_part_text','acceptance_criteria','ac_readability_score','conversation','convo_readability_score','autoscoring_on','archive_indicator','readiness_quality_score','created_by','updated_by','ORG_id')
 
 
 admin.site.register(AR_US_STATUS,AR_US_STATUSAdmin)

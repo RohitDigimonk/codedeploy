@@ -10,6 +10,7 @@ from datetime import datetime
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
 from manage_product import views as product_view
+from django.db.models import Q
 # Create your views here.
 
 @login_required
@@ -18,7 +19,7 @@ def index(request):
         check_edit_permission = product_view.check_permition(request, 'Manage Teams', 1)
         org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
         if AR_team.objects.filter(ORG_id=org_ins).exists():
-            AR_team_get = AR_team.objects.filter(ORG_id=org_ins).order_by("-id")
+            AR_team_get = AR_team.objects.filter(ORG_id=org_ins).order_by("-id").filter(~Q(Team_name = 'None'))
         else:
             AR_team_get = {}
         user_objects = []

@@ -11,6 +11,7 @@ from manage_product import views as product_view
 from django.http import HttpResponse,JsonResponse
 from user_story_view.models import AR_USER_STORY
 from agileproject.serializers import ArUserStoryViewSerializer
+from user_story_view.user_story_score.readiness_quality_score import quelity_score
 
 
 # Create your views here.
@@ -29,6 +30,11 @@ def index(request):
             ArManageRolesForm_get = ArRoleForm(request.POST)
             if ArManageRolesForm_get.is_valid():
                 title = ArManageRolesForm_get.cleaned_data.get('title')
+                use = ArManageRolesForm_get.cleaned_data.get('use')
+                if use != "":
+                    data = use.split(" , ")
+                else:
+                    data = 0
                 if ArRole.objects.filter(title=title).filter(ORG_ID=org_ins).exists():
                     msg = get_object_or_404(Notification, page_name="Manage Role", notification_key="Exists")
                     msg_data = msg.notification_desc
@@ -43,6 +49,15 @@ def index(request):
                         ManageRole.save()
                         create_role_id = "AR_ROLE_"+str(ManageRole.id)
                         ArRole.objects.filter(id=ManageRole.id).update(role_id=create_role_id)
+                        # ###########-----------------------------------------
+                        if data != 0:
+                            for val in data:
+                                story_data = AR_USER_STORY.objects.get(title=str(val))
+                                STP = story_data.story_tri_part_text
+                                data = quelity_score(STP)
+                                AR_USER_STORY.objects.filter(title=val).update(readiness_quality_score=data[0])
+                        # ###########-----------------------------------------
+
                         msg = get_object_or_404(Notification, page_name="Manage Role", notification_key="Add")
                         msg_data = msg.notification_desc
                         messages.info(request, msg_data)
@@ -66,6 +81,15 @@ def index(request):
 def edit_role(request,id):
     if product_view.check_permition(request, 'Manage Roles', 1):
         org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
+
+        ArRole_info = get_object_or_404(ArRole, pk=id)
+
+        use_old = ArRole_info.use
+        if use_old != "":
+            data_old = use_old.split(" , ")
+        else:
+            data_old = 0
+
         Ar_Role = ArRole.objects.filter(ORG_ID=org_ins)
         role_form = ArRole.objects.get(id=id)
         role_id=role_form.id
@@ -73,14 +97,48 @@ def edit_role(request,id):
         if request.method == "POST":
             role_form = ArRoleForm( data=(request.POST or None),instance = role_form)
             if role_form.is_valid():
-                try:
-                    role_form.save()
-                    msg = get_object_or_404(Notification, page_name="Manage Role", notification_key="Update")
+                title = role_form.cleaned_data.get('title')
+                use = role_form.cleaned_data.get('use')
+                if use != "":
+                    data = use.split(" , ")
+                else:
+                    data = 0
+                if ArRole.objects.filter(title=title).filter(ORG_ID=org_ins).exists():
+                    msg = get_object_or_404(Notification, page_name="Manage Role", notification_key="Exists")
                     msg_data = msg.notification_desc
-                    messages.info(request, msg_data)
-                    return redirect(settings.BASE_URL + 'manage-role')
-                except:
-                    messages.error(request,  role_form.errors)
+                    messages.error(request, title +" , " + msg_data)
+                else:
+                    try:
+                        role_form.save()
+                        # ###########-----------------------------------------
+                        if data_old != 0:
+                            for val_old in data_old:
+                                # return HttpResponse(val_old)
+                                story_data = AR_USER_STORY.objects.filter(title=str(val_old))
+                                STP = story_data[0].story_tri_part_text
+                                title = story_data[0].title
+                                data_val = quelity_score(STP)
+                                # return HttpResponse(data_val)
+                                AR_USER_STORY.objects.filter(title=title).update(readiness_quality_score=data_val[0])
+                        # ###########-----------------------------------------
+                        # ###########-----------------------------------------
+                        if data != 0:
+                            for val in data:
+                                # return HttpResponse(val)
+                                story_data = AR_USER_STORY.objects.filter(title=str(val))
+                                STP = story_data[0].story_tri_part_text
+                                title = story_data[0].title
+                                data_get = quelity_score(STP)
+                                # return HttpResponse(data_get)
+                                AR_USER_STORY.objects.filter(title=title).update(readiness_quality_score=data_get[0])
+                        # ###########-----------------------------------------
+
+                        msg = get_object_or_404(Notification, page_name="Manage Role", notification_key="Update")
+                        msg_data = msg.notification_desc
+                        messages.info(request, msg_data)
+                        return redirect(settings.BASE_URL + 'manage-role')
+                    except:
+                        messages.error(request,  role_form.errors)
             else:
                 messages.error(request,  role_form.errors)
         else:
@@ -95,7 +153,20 @@ def remove_role(request,id):
     if product_view.check_permition(request, 'Manage Roles', 1):
         try:
             role = get_object_or_404(ArRole, pk=id)
+            use = role.use
+            if use != "":
+                data = use.split(" , ")
+            else:
+                data = 0
             role.delete()
+            # ###########-----------------------------------------
+            if data != 0:
+                for val in data:
+                    story_data = AR_USER_STORY.objects.get(title=str(val))
+                    STP = story_data.story_tri_part_text
+                    data = quelity_score(STP)
+                    AR_USER_STORY.objects.filter(title=val).update(readiness_quality_score=data[0])
+            # ###########-----------------------------------------
             msg = get_object_or_404(Notification, page_name="Manage Role", notification_key="Remove")
             msg_data = msg.notification_desc
             messages.info(request, msg_data)

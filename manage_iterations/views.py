@@ -7,7 +7,7 @@ from .forms import IterationForm
 from account.models import AR_organization, Ar_user, ArShowcolumns, Notification
 from manage_backlogs.models import AR_BACKLOG
 from .models import ArIterations
-from manage_product.models import AR_product
+from manage_product.models import AR_product,AR_team
 from user_story_view.models import AR_USER_STORY
 from django.contrib import messages
 from django.utils.dateparse import parse_date
@@ -37,13 +37,16 @@ def get_storyes_scores_and_size(request):
 @csrf_exempt
 @login_required
 def get_backlogs(request):
+    org_id = request.session['org_id']
+    org_ins = AR_organization.objects.get(id=org_id)
+    select_backlog_default = AR_BACKLOG.objects.filter(title='None').filter(ORG_ID=org_ins)
     product_id = request.POST["product_id"]
     instance_product = get_object_or_404(AR_product, pk=product_id)
     if AR_BACKLOG.objects.filter(product_parent=instance_product).exists():
         get_backlog = AR_BACKLOG.objects.filter(product_parent=instance_product)
     else:
         get_backlog = {}
-    return render(request, 'admin/iterations/get_backlog.html', {'date': datetime.now(), "backlog_data": get_backlog})
+    return render(request, 'admin/iterations/get_backlog.html', {'date': datetime.now(), "backlog_data": get_backlog,"select_backlog_default":select_backlog_default})
 
 
 @csrf_exempt
@@ -136,21 +139,42 @@ def update_table_structure(request, columnnames):
     return redirect(settings.BASE_URL + 'iteration-view')
 
 
+
 @login_required
 def edit_iteration(request, id):
     if product_view.check_permition(request, 'Manage Iterations', 1):
+        user_id = request.session['user_id']
         org_info = AR_organization.objects.filter(id=request.session['org_id'])
         IterationInfo = get_object_or_404(ArIterations, pk=id)
         if request.method == 'POST':
-            IterationForm_get = IterationForm(org_info, request.POST, instance=IterationInfo)
+            IterationForm_get = IterationForm(org_info,user_id,  request.POST, instance=IterationInfo)
             if IterationForm_get.is_valid():
                 IterationForm_get_commit = IterationForm_get.save(commit=False)
+                # #######################################33
+                UserStory = IterationForm_get.cleaned_data.get('UserStory')
+                # return HttpResponse (UserStory)
+                story_num = 0
+                if UserStory.count() != 0:
+                    for i in UserStory:
+                        story_data = AR_USER_STORY.objects.filter(title=i)
+                        story_num = story_num + story_data[0].readiness_quality_score
+
+                    story_num_value = story_num / UserStory.count()
+                    story_num_value = round(story_num_value, 2)
+
+                else:
+                    story_num_value = 0
+                    story_num_value = round(story_num_value, 2)
+                # #######################################33
+
+
                 StartDate = request.POST.get('StartDate')
                 StartDateSet = datetime.strptime(StartDate, "%m/%d/%Y")
                 EndDate = request.POST.get('EndDate')
                 EndDateSet = datetime.strptime(EndDate, "%m/%d/%Y")
                 IterationForm_get_commit.StartDate = StartDateSet
                 IterationForm_get_commit.EndDate = EndDateSet
+                IterationForm_get_commit.IterationScore = story_num_value
                 try:
                     IterationForm_get_commit.save()
                     IterationForm_get.save_m2m()
@@ -159,7 +183,7 @@ def edit_iteration(request, id):
                     messages.info(request, msg_data)
 
                 except:
-                    messages.error(request, IterationForm_get.errors)
+                    messages.error(request, IterationForm_get.ValidationError)
             else:
                 messages.error(request, IterationForm_get.errors)
             return redirect(settings.BASE_URL + "iteration-view")
@@ -288,23 +312,19 @@ def add_iteration(request):
 @csrf_exempt
 @login_required
 def get_team(request):
+    org_id = request.session['org_id']
+    org_ins = AR_organization.objects.get(id=org_id)
+    select_team_default = AR_team.objects.filter(Team_name='None').filter(ORG_id=org_ins)
+    # org_id = 4
     get_backlog_id = request.POST["get_backlog_id"]
-    # get_team = AR_BACKLOG.objects.get(id=get_backlog_id)
-    instance_team = get_object_or_404(AR_BACKLOG, pk=get_backlog_id)
+    selected_team = request.POST["selected_selected_team"]
+    # get_backlog_id = 70
+    # selected_team = ""
 
-    if ArIterations.objects.filter(Backlog=instance_team).exists():
-        get = ArIterations.objects.get(Backlog=instance_team)
-        get_team_name = get.Team
-        get_team_data = get.Team
-        print('get_team')
-        print(get_team_name)
-    else:
-        get_team_name = "Please select team or None"
-        get_team_data = ""
-    if AR_BACKLOG.objects.filter(id=get_backlog_id).exists():
-        get_team = AR_BACKLOG.objects.get(id=get_backlog_id)
-        get_team = get_team.team_list.all()
-    else:
-        get_team = {}
-    return render(request, 'admin/iterations/get_team.html', {'date': datetime.now(),'get_team_data':get_team_data,'get_team_name':get_team_name, "team_data": get_team})
+
+    backlog_ins = get_object_or_404(AR_BACKLOG, pk=get_backlog_id)
+    print("====depak===")
+    print(backlog_ins.title)
+    print(backlog_ins.team_list.all())
+    return render(request, 'admin/iterations/get_team.html', {'get_team':backlog_ins.team_list.all(),"select_team_default":select_team_default,"selected_team":selected_team})
 

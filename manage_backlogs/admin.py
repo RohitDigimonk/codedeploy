@@ -11,6 +11,9 @@ class AR_BACKLOGAdmin(ImportExportModelAdmin):
     search_fields = ['title']
     list_display = ('title','owner')
 
+
+
 admin.site.register(AR_BACKLOG_STATUS,AR_BACKLOG_STATUSAdmin)
 admin.site.register(AR_BACKLOG,AR_BACKLOGAdmin)
+
 

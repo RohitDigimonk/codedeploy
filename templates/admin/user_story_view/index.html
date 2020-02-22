@@ -81,14 +81,14 @@
 
   {% if get_show_column|length > 0 %}
         {% for v in get_show_column %}
-          <th align="left" class="{{v}}" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{ all_column_list|get_item:v  }}  </th>
+          <th align="left" class="{{v}}" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{ all_column_list|get_item:v  }}  </th>
           {% endfor %}
            
   {% else %}
 
 
            {% for k , v in all_column_list.items %}
-          <th align="left" class="{{v}}" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{v}}</th>
+          <th align="left" class="{{v}}" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{v}}</th>
           {% endfor %}    
             
         
@@ -100,15 +100,15 @@
 {% if get_show_column|length > 0 %}
        {% if k in get_show_column %}
   
-         <th align="left" class="{{v}}" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{v}}</th>  
+         <th align="left" class="{{v}}" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{v}}</th>  
           {% endif %}
     {% else %}
-<th align="left" class="{{v}}" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{v}}</th>  
+<th align="left" class="{{v}}" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="width: 52px;">{{v}}</th>  
     {% endif %}
 
           {% endfor %} -->
 
-   <th align="left" class="action" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="">Action</th>
+   <th align="left" class="action" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="">Action</th>
 </tr>
         </thead>
         <tbody>
@@ -133,28 +133,28 @@
 
 
                             {% if  v == 'backlog_parent' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.backlog_parent}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.backlog_parent}}</th> 
               {% endif %}
              {% if v == 'owner' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.owner}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.owner}}</th> 
               {% endif %}
 
               {% if v == 'title' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.title}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.title}}</th> 
               {% endif %}
              
              {% if v == 'story_tri_part_text' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
     word-break: break-all;">{{data.story_tri_part_text}}</th> 
               {% endif %}
 
              {% if v == 'acceptance_criteria' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
     word-break: break-all;">{{data.acceptance_criteria}}</th> 
               {% endif %}
               
               {% if v == 'ac_readability_score' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
 
               
                  <div class="col-md-1 mb20">
@@ -174,12 +174,12 @@
               {% endif %}
              
              {% if v ==  'conversation' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="white-space: normal;
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="white-space: normal;
     word-break: break-all;">{{data.conversation}}</th> 
               {% endif %}
 
                {% if v == 'convo_readability_score'  %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
 <div class="col-md-1 mb20">
    <div class="cdev" data-percent="{{data.convo_readability_score}}" data-duration="1000" data-color=",#d35400"></div>
 </div>
@@ -188,11 +188,11 @@
               {% endif %}
              
              {% if v == 'attachments' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
                 {% if data.attachments == 'None' %}
                  {{data.attachments}}
                 {% else %}
-                <a target="_blank" href="{{data.attachments.url}}"><img style="height: 36px; white-space: normal;
+                <a class="document_name" target="_blank" href="{{data.attachments.url}}"><img style="height: 36px; white-space: normal;
     word-break: break-all;" src='{% static "img/basic/images.png" %}'>{{data.attachments}}</a>
                
                 {% endif %}
@@ -200,18 +200,18 @@
               {% endif %}
 
               {% if v ==  'autoscoring_on'  %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.autoscoring_on}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.autoscoring_on}}</th> 
               {% endif %}
               
 
 
               {% if v == 'archive_indicator'  %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.archive_indicator}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.archive_indicator}}</th> 
               {% endif %}
               
 
               {% if v ==  'readiness_quality_score' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
                 
                     <div class="col-md-1 mb20">
    <div class="cdev" data-percent="{{data.readiness_quality_score}}" data-duration="1000" data-color=",#d35400"></div>
@@ -227,42 +227,42 @@
 
 
               {% if v == 'story_points' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.story_points}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.story_points}}</th> 
               {% endif %}
 
                {% if v == 'user_story_status'  %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.user_story_status}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.user_story_status}}</th> 
               {% endif %}
 
               {% if v ==  'ORG_id'  %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.ORG_id}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.ORG_id}}</th> 
               {% endif %}
 
 
                {% if v == 'UST_ID' %}  
 
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.UST_ID}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.UST_ID}}</th> 
               {% endif %}
 
                {% if v == 'ar_user' %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.ar_user}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.ar_user}}</th> 
               {% endif %}
 
               {% if v == 'created_by' %}  
 
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.created_by}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.created_by}}</th> 
               {% endif %}
 
               {% if v == 'created_dt'  %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.created_dt}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.created_dt}}</th> 
               {% endif %}
 
                 {% if v == 'updated_by'  %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.updated_by}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.updated_by}}</th> 
               {% endif %}
 
               {% if v == 'updated_dt'  %}  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.updated_dt}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.updated_dt}}</th> 
               {% endif %}
       
         {% endfor %}
@@ -270,72 +270,78 @@
 {% else %}
 
  
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.backlog_parent}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.backlog_parent}}</th> 
            
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.owner}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.owner}}</th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.title}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.title}}</th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
     word-break: break-all;">{{data.story_tri_part_text}}</th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
     word-break: break-all;">{{data.acceptance_criteria}}</th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
 
               
 
-                              <div class="progress">
-                         <div class="barOverflow">
-                            <div class="bar"></div>
-                         </div>
-                         <span>{{data.ac_readability_score}}</span>%
-                     </div>
-
+                 <div class="col-md-1 mb20">
+   <div class="cdev" data-percent="{{data.ac_readability_score}}" data-duration="1000" data-color=",#d35400"></div>
+</div>
 
 
 
             </th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style=" white-space: normal;
     word-break: break-all;">{{data.conversation}}</th> 
              
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.convo_readability_score}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
+<div class="col-md-1 mb20">
+   <div class="cdev" data-percent="{{data.convo_readability_score}}" data-duration="1000" data-color=",#d35400"></div>
+</div>
+
+</th> 
              
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
                 {% if data.attachments == 'None' %}
                  {{data.attachments}}
                 {% else %}
-                <a target="_blank" href="{{data.attachments.url}}"><img style=" white-space: normal;
+                <a class="document_name" target="_blank" href="{{data.attachments.url}}"><img style=" white-space: normal;
     word-break: break-all; height: 36px;" src='{% static "img/basic/images.png" %}'>{{data.attachments}}</a>
                
                 {% endif %}
                 </th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.autoscoring_on}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.autoscoring_on}}</th> 
              
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.archive_indicator}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.archive_indicator}}</th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.readiness_quality_score}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
+
+                    <div class="col-md-1 mb20">
+   <div class="cdev" data-percent="{{data.readiness_quality_score}}" data-duration="1000" data-color=",#d35400"></div>
+</div>
+      </th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.story_points}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.story_points}}</th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.user_story_status}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.user_story_status}}</th> 
              
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.ORG_id}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.ORG_id}}</th> 
              
 
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.UST_ID}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.UST_ID}}</th> 
               
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.ar_user}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.ar_user}}</th> 
              
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.created_by}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.created_by}}</th> 
            
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.created_dt}}</th> 
-                  <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.updated_by}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.created_dt}}</th> 
+                  <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.updated_by}}</th> 
            
-              <th align="left" class="usid sorting" valign="top" draggable="true" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.updated_dt}}</th> 
+              <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">{{data.updated_dt}}</th> 
               
 
 {% endif %}

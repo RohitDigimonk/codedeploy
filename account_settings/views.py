@@ -8,6 +8,7 @@ from account.models import Ar_user,ArUserProfile,AR_organization,Notification
 from django.contrib import messages
 import hashlib
 import django
+from datetime import datetime
 from django.db.models import Subquery
 # Create your views here.
 
@@ -44,7 +45,7 @@ def index(request):
                 msg_data = msg[0].notification_desc
                 messages.error(request, msg_data)
                 # messages.info(request, "Profile not updated !")
-        return render(request,"admin/account_settings/index.html",{'get_count_of_active_user':get_count_of_active_user,'get_count_of_invit_user':get_count_of_invit_user,'profile':profile,'user':user,"BASE_URL":settings.BASE_URL,'user_name':request.session['user_name']})
+        return render(request,"admin/account_settings/index.html",{'date':datetime.now(),'get_count_of_active_user':get_count_of_active_user,'get_count_of_invit_user':get_count_of_invit_user,'profile':profile,'user':user,"BASE_URL":settings.BASE_URL,'user_name':request.session['user_name']})
     else:
         return redirect(settings.BASE_URL)
 

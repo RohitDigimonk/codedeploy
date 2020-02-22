@@ -108,7 +108,7 @@ def read_csv_file_for_iteration(request,file_id):
                                     if AR_team.objects.filter(id=team_id).filter(ORG_id=org_ins).exists():
                                         set_team = get_object_or_404(AR_team, pk=team_id)
                                 except ValueError:
-                                    if AR_team.objects.filter(title=item[8]).filter(ORG_id=org_ins).exists():
+                                    if AR_team.objects.filter(Team_name=item[8]).filter(ORG_id=org_ins).exists():
                                         set_team = get_object_or_404(AR_team, title=item[8], ORG_id=org_ins)
                             print("team")
                             print(set_team)
@@ -148,12 +148,23 @@ def read_csv_file_for_iteration(request,file_id):
                             # =========UserStory Start
                             user_stury_set = None
 
-                            if item[7] != "":
-                                story_id_in_list = item[7].split("|")
-                                if AR_USER_STORY.objects.filter(id__in=story_id_in_list).filter(backlog_parent=backlog_set).filter(ORG_id=org_ins).exists():
-                                    user_stury_set = AR_USER_STORY.objects.filter(id__in=story_id_in_list).filter(backlog_parent=backlog_set).filter(ORG_id=org_ins)
-                                if AR_USER_STORY.objects.filter(title__in=story_id_in_list).filter(backlog_parent=backlog_set).filter(ORG_id=org_ins).exists():
-                                    user_stury_set = AR_USER_STORY.objects.filter(title__in=story_id_in_list).filter(backlog_parent=backlog_set).filter(ORG_id=org_ins)
+                            user_stury_set = None
+                            if backlog_set != None:
+                                if item[7] != "":
+                                    story_id_in_list = item[7].split("|")
+                                    try:
+                                        story_id = story_id_in_list[0]
+                                        if AR_USER_STORY.objects.filter(id__in=story_id_in_list).filter(
+                                                backlog_parent=backlog_set).filter(ORG_id=org_ins).exists():
+                                            user_stury_set = AR_USER_STORY.objects.filter(
+                                                id__in=story_id_in_list).filter(backlog_parent=backlog_set).filter(
+                                                ORG_id=org_ins)
+                                    except:
+                                        if AR_USER_STORY.objects.filter(title__in=story_id_in_list).filter(
+                                                backlog_parent=backlog_set).filter(ORG_id=org_ins).exists():
+                                            user_stury_set = AR_USER_STORY.objects.filter(
+                                                title__in=story_id_in_list).filter(backlog_parent=backlog_set).filter(
+                                                ORG_id=org_ins)
 
 
                                     # =========UserStory END
@@ -328,7 +339,31 @@ def read_csv_file_for_user_story(request,file_id):
                                 if Ar_user.objects.filter(user_name=item[14]).filter(org_id=org_ins).exists():
                                     owner = get_object_or_404(Ar_user, user_name=item[14], org_id=org_ins)
                         # =========owner End
-                        userStory = AR_USER_STORY(title=item[0],story_tri_part_text=item[1],acceptance_criteria=item[2],ac_readability_score=int(item[3]),conversation=item[4],backlog_parent=backog_perent_set,convo_readability_score=int(item[6]),autoscoring_on=autoscoring_on,archive_indicator=archive_indicator,readiness_quality_score=int(item[9]),story_points=story_points_set,user_story_status=user_story_status_set,ORG_id=org_ins,UST_ID=UST_ID_set,ar_user=ar_user_set,owner=owner,created_by=created_by_ins,updated_by=updateded_by_ins)
+
+                        # set string to int start
+                        ac_readability_score = 0
+                        if item[3] != "":
+                            try:
+                                ac_readability_score = int(item[3])
+                            except:
+                                ac_readability_score = 0
+
+                        convo_readability_score = 0
+                        if item[6] != "":
+                            try:
+                                convo_readability_score = int(item[6])
+                            except:
+                                convo_readability_score = 0
+
+                        readiness_quality_score = 0
+                        if item[9] != "":
+                            try:
+                                readiness_quality_score = int(item[9])
+                            except:
+                                readiness_quality_score = 0
+                        # set string to int start
+
+                        userStory = AR_USER_STORY(title=item[0],story_tri_part_text=item[1],acceptance_criteria=item[2],ac_readability_score=ac_readability_score,conversation=item[4],backlog_parent=backog_perent_set,convo_readability_score=convo_readability_score,autoscoring_on=autoscoring_on,archive_indicator=archive_indicator,readiness_quality_score=readiness_quality_score,story_points=story_points_set,user_story_status=user_story_status_set,ORG_id=org_ins,UST_ID=UST_ID_set,ar_user=ar_user_set,owner=owner,created_by=created_by_ins,updated_by=updateded_by_ins)
                         userStory.save()
                         msg = get_object_or_404(Notification, page_name="User Story View", notification_key="Add")
                         msg_data_2 = msg.notification_desc

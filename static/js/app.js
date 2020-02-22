@@ -21732,7 +21732,7 @@
 	    sidebarToggleSelector: "[data-toggle='offcanvas']",
 	    //Activate sidebar push menu
 	    sidebarPushMenu: true,
-	    navbarMenuSlimscrollWidth: "3px",
+	    navbarMenuSlimscrollWidth: "10px",
 	    sidebarSlimScroll: true,
 	    controlSidebarOptions: {
 	        //Which button should trigger the open/close event
@@ -21837,7 +21837,7 @@
 	            $this.slimscroll({
 	                height: attrData.height ? attrData.height+'px' : ($(window).height()) + "px",
 	                color: attrData.color ? attrData.color : "rgba(0,0,0,0.95)",
-	                size:  attrData.size ? attrData.size +'px' : "5px"
+	                size:  attrData.size ? attrData.size +'px' : "10px"
 	            });
 	        });
 	    }
@@ -40225,18 +40225,18 @@
 	};
 
 	var bn = moment.defineLocale('bn', {
-	    months : 'জানুয়ারী_ফেব্রুয়ারি_মার্চ_এপ্রিল_মে_জুন_জুলাই_আগস্ট_সেপ্টেম্বর_অক্টোবর_নভেম্বর_ডিসেম্বর'.split('_'),
+	    months : 'জানুয়ারী_ফেব্রুয়ারি_মার্চ_এপ্রিল_মে_জুন_জুলাই_আগস্ট_সেপ্টেম্বর_অক্টোবর_নভেম্বর_ডিসেম্বর'.split('_'),
 	    monthsShort : 'জানু_ফেব_মার্চ_এপ্র_মে_জুন_জুল_আগ_সেপ্ট_অক্টো_নভে_ডিসে'.split('_'),
 	    weekdays : 'রবিবার_সোমবার_মঙ্গলবার_বুধবার_বৃহস্পতিবার_শুক্রবার_শনিবার'.split('_'),
 	    weekdaysShort : 'রবি_সোম_মঙ্গল_বুধ_বৃহস্পতি_শুক্র_শনি'.split('_'),
 	    weekdaysMin : 'রবি_সোম_মঙ্গ_বুধ_বৃহঃ_শুক্র_শনি'.split('_'),
 	    longDateFormat : {
-	        LT : 'A h:mm সময়',
-	        LTS : 'A h:mm:ss সময়',
+	        LT : 'A h:mm সময়',
+	        LTS : 'A h:mm:ss সময়',
 	        L : 'DD/MM/YYYY',
 	        LL : 'D MMMM YYYY',
-	        LLL : 'D MMMM YYYY, A h:mm সময়',
-	        LLLL : 'dddd, D MMMM YYYY, A h:mm সময়'
+	        LLL : 'D MMMM YYYY, A h:mm সময়',
+	        LLLL : 'dddd, D MMMM YYYY, A h:mm সময়'
 	    },
 	    calendar : {
 	        sameDay : '[আজ] LT',
@@ -40249,7 +40249,7 @@
 	    relativeTime : {
 	        future : '%s পরে',
 	        past : '%s আগে',
-	        s : 'কয়েক সেকেন্ড',
+	        s : 'কয়েক সেকেন্ড',
 	        m : 'এক মিনিট',
 	        mm : '%d মিনিট',
 	        h : 'এক ঘন্টা',
@@ -44671,12 +44671,12 @@
 	};
 
 	var kn = moment.defineLocale('kn', {
-	    months : 'ಜನವರಿ_ಫೆಬ್ರವರಿ_ಮಾರ್ಚ್_ಏಪ್ರಿಲ್_ಮೇ_ಜೂನ್_ಜುಲೈ_ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬರ್_ಅಕ್ಟೋಬರ್_ನವೆಂಬರ್_ಡಿಸೆಂಬರ್'.split('_'),
-	    monthsShort : 'ಜನ_ಫೆಬ್ರ_ಮಾರ್ಚ್_ಏಪ್ರಿಲ್_ಮೇ_ಜೂನ್_ಜುಲೈ_ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬ_ಅಕ್ಟೋಬ_ನವೆಂಬ_ಡಿಸೆಂಬ'.split('_'),
+	    months : 'ಜನವರಿ_ಫೆಬ್ರವರಿ_ಮಾರ್ಚ್_ಏಪ್ರಿಲ್_ಮೇ_ಜೂನ್_ಜುಲೈ_ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬರ್_ಅಕ್ಟೋಬರ್_ನವೆಂಬರ್_ಡಿಸೆಂಬರ್'.split('_'),
+	    monthsShort : 'ಜನ_ಫೆಬ್ರ_ಮಾರ್ಚ್_ಏಪ್ರಿಲ್_ಮೇ_ಜೂನ್_ಜುಲೈ_ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬ_ಅಕ್ಟೋಬ_ನವೆಂಬ_ಡಿಸೆಂಬ'.split('_'),
 	    monthsParseExact: true,
-	    weekdays : 'ಭಾನುವಾರ_ಸೋಮವಾರ_ಮಂಗಳವಾರ_ಬುಧವಾರ_ಗುರುವಾರ_ಶುಕ್ರವಾರ_ಶನಿವಾರ'.split('_'),
-	    weekdaysShort : 'ಭಾನು_ಸೋಮ_ಮಂಗಳ_ಬುಧ_ಗುರು_ಶುಕ್ರ_ಶನಿ'.split('_'),
-	    weekdaysMin : 'ಭಾ_ಸೋ_ಮಂ_ಬು_ಗು_ಶು_ಶ'.split('_'),
+	    weekdays : 'ಭಾನುವಾರ_ಸೋಮವಾರ_ಮಂಗಳವಾರ_ಬುಧವಾರ_ಗುರುವಾರ_ಶುಕ್ರವಾರ_ಶನಿವಾರ'.split('_'),
+	    weekdaysShort : 'ಭಾನು_ಸೋಮ_ಮಂಗಳ_ಬುಧ_ಗುರು_ಶುಕ್ರ_ಶನಿ'.split('_'),
+	    weekdaysMin : 'ಭಾ_ಸೋ_ಮಂ_ಬು_ಗು_ಶು_ಶ'.split('_'),
 	    longDateFormat : {
 	        LT : 'A h:mm',
 	        LTS : 'A h:mm:ss',
@@ -44690,7 +44690,7 @@
 	        nextDay : '[ನಾಳೆ] LT',
 	        nextWeek : 'dddd, LT',
 	        lastDay : '[ನಿನ್ನೆ] LT',
-	        lastWeek : '[ಕೊನೆಯ] dddd, LT',
+	        lastWeek : '[ಕೊನೆಯ] dddd, LT',
 	        sameElse : 'L'
 	    },
 	    relativeTime : {
@@ -44746,9 +44746,9 @@
 	            return 'ರಾತ್ರಿ';
 	        }
 	    },
-	    dayOfMonthOrdinalParse: /\d{1,2}(ನೇ)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(ನೇ)/,
 	    ordinal : function (number) {
-	        return number + 'ನೇ';
+	        return number + 'ನೇ';
 	    },
 	    week : {
 	        dow : 0, // Sunday is the first day of the week.
@@ -46140,7 +46140,7 @@
 	        sameElse: 'L'
 	    },
 	    relativeTime: {
-	        future: 'လာမည့် %s မှာ',
+	        future: 'လာမည့် %s မှာ',
 	        past: 'လွန်ခဲ့သော %s က',
 	        s: 'စက္ကန်.အနည်းငယ်',
 	        m: 'တစ်မိနစ်',
@@ -48412,8 +48412,8 @@
 	};
 
 	var ta = moment.defineLocale('ta', {
-	    months : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
-	    monthsShort : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
+	    months : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
+	    monthsShort : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
 	    weekdays : 'ஞாயிற்றுக்கிழமை_திங்கட்கிழமை_செவ்வாய்கிழமை_புதன்கிழமை_வியாழக்கிழமை_வெள்ளிக்கிழமை_சனிக்கிழமை'.split('_'),
 	    weekdaysShort : 'ஞாயிறு_திங்கள்_செவ்வாய்_புதன்_வியாழன்_வெள்ளி_சனி'.split('_'),
 	    weekdaysMin : 'ஞா_தி_செ_பு_வி_வெ_ச'.split('_'),
@@ -48522,8 +48522,8 @@
 
 
 	var te = moment.defineLocale('te', {
-	    months : 'జనవరి_ఫిబ్రవరి_మార్చి_ఏప్రిల్_మే_జూన్_జూలై_ఆగస్టు_సెప్టెంబర్_అక్టోబర్_నవంబర్_డిసెంబర్'.split('_'),
-	    monthsShort : 'జన._ఫిబ్ర._మార్చి_ఏప్రి._మే_జూన్_జూలై_ఆగ._సెప్._అక్టో._నవ._డిసె.'.split('_'),
+	    months : 'జనవరి_ఫిబ్రవరి_మార్చి_ఏప్రిల్_మే_జూన్_జూలై_ఆగస్టు_సెప్టెంబర్_అక్టోబర్_నవంబర్_డిసెంబర్'.split('_'),
+	    monthsShort : 'జన._ఫిబ్ర._మార్చి_ఏప్రి._మే_జూన్_జూలై_ఆగ._సెప్._అక్టో._నవ._డిసె.'.split('_'),
 	    monthsParseExact : true,
 	    weekdays : 'ఆదివారం_సోమవారం_మంగళవారం_బుధవారం_గురువారం_శుక్రవారం_శనివారం'.split('_'),
 	    weekdaysShort : 'ఆది_సోమ_మంగళ_బుధ_గురు_శుక్ర_శని'.split('_'),
@@ -49813,11 +49813,11 @@
 
 
 	var yo = moment.defineLocale('yo', {
-	    months : 'Sẹ́rẹ́_Èrèlè_Ẹrẹ̀nà_Ìgbé_Èbibi_Òkùdu_Agẹmo_Ògún_Owewe_Ọ̀wàrà_Bélú_Ọ̀pẹ̀̀'.split('_'),
-	    monthsShort : 'Sẹ́r_Èrl_Ẹrn_Ìgb_Èbi_Òkù_Agẹ_Ògú_Owe_Ọ̀wà_Bél_Ọ̀pẹ̀̀'.split('_'),
-	    weekdays : 'Àìkú_Ajé_Ìsẹ́gun_Ọjọ́rú_Ọjọ́bọ_Ẹtì_Àbámẹ́ta'.split('_'),
-	    weekdaysShort : 'Àìk_Ajé_Ìsẹ́_Ọjr_Ọjb_Ẹtì_Àbá'.split('_'),
-	    weekdaysMin : 'Àì_Aj_Ìs_Ọr_Ọb_Ẹt_Àb'.split('_'),
+	    months : 'Sẹ́rẹ́_Èrèlè_Ẹrẹ̀nà_Ìgbé_Èbibi_Òkùdu_Agẹmo_Ògún_Owewe_Ọ̀wàrà_Bélú_Ọ̀pẹ̀̀'.split('_'),
+	    monthsShort : 'Sẹ́r_Èrl_Ẹrn_Ìgb_Èbi_Òkù_Agẹ_Ògú_Owe_Ọ̀wà_Bél_Ọ̀pẹ̀̀'.split('_'),
+	    weekdays : 'Àìkú_Ajé_Ìsẹ́gun_Ọjọ́rú_Ọjọ́bọ_Ẹtì_Àbámẹ́ta'.split('_'),
+	    weekdaysShort : 'Àìk_Ajé_Ìsẹ́_Ọjr_Ọjb_Ẹtì_Àbá'.split('_'),
+	    weekdaysMin : 'Àì_Aj_Ìs_Ọr_Ọb_Ẹt_Àb'.split('_'),
 	    longDateFormat : {
 	        LT : 'h:mm A',
 	        LTS : 'h:mm:ss A',
@@ -49827,27 +49827,27 @@
 	        LLLL : 'dddd, D MMMM YYYY h:mm A'
 	    },
 	    calendar : {
-	        sameDay : '[Ònì ni] LT',
+	        sameDay : '[Ònì ni] LT',
 	        nextDay : '[Ọ̀la ni] LT',
-	        nextWeek : 'dddd [Ọsẹ̀ tón\'bọ] [ni] LT',
-	        lastDay : '[Àna ni] LT',
-	        lastWeek : 'dddd [Ọsẹ̀ tólọ́] [ni] LT',
+	        nextWeek : 'dddd [Ọsẹ̀ tón\'bọ] [ni] LT',
+	        lastDay : '[Àna ni] LT',
+	        lastWeek : 'dddd [Ọsẹ̀ tólọ́] [ni] LT',
 	        sameElse : 'L'
 	    },
 	    relativeTime : {
-	        future : 'ní %s',
-	        past : '%s kọjá',
-	        s : 'ìsẹjú aayá die',
-	        m : 'ìsẹjú kan',
-	        mm : 'ìsẹjú %d',
-	        h : 'wákati kan',
-	        hh : 'wákati %d',
+	        future : 'ní %s',
+	        past : '%s kọjá',
+	        s : 'ìsẹjú aayá die',
+	        m : 'ìsẹjú kan',
+	        mm : 'ìsẹjú %d',
+	        h : 'wákati kan',
+	        hh : 'wákati %d',
 	        d : 'ọjọ́ kan',
 	        dd : 'ọjọ́ %d',
-	        M : 'osù kan',
-	        MM : 'osù %d',
-	        y : 'ọdún kan',
-	        yy : 'ọdún %d'
+	        M : 'osù kan',
+	        MM : 'osù %d',
+	        y : 'ọdún kan',
+	        yy : 'ọdún %d'
 	    },
 	    dayOfMonthOrdinalParse : /ọjọ́\s\d{1,2}/,
 	    ordinal : 'ọjọ́ %d',

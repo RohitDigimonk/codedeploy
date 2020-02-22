@@ -10,7 +10,7 @@ https://github.com/jamalhassouni
 		var DEFAULTS = {
 			backgroundColor: '#b3cef6', // default background color 
 			progressColor: '#4b86db', // default progress color 
-			percent: 75, // default percent value
+			percent: 0, // default percent value
 			duration: 2000 // default duration value 
 		};	
 		
@@ -29,7 +29,7 @@ https://github.com/jamalhassouni
 			};
 			 console.log(options);
 	         // add divs for structure
-			$target.append('<div class="background"></div><div class="rotate"></div><div class="left"></div><div class="right"></div><div class=""><span>' + options.percent + '%</span></div>');
+			$target.append('<div class="background"></div><div class="rotate"></div><div class="left"></div><div class="right"></div><div class=""><span>' + options.percent + '</span></div>');
 	         // change style of the circle with the options values 
 			$target.find('.background').css('background-color', options.backgroundColor);
 			$target.find('.left').css('background-color', options.backgroundColor);

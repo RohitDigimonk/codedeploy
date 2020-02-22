@@ -31,7 +31,7 @@ var url_in_array = geturl.split("/");
 var for_enver = false;
 var for_manage_user = false;
 var for_dashboard = false;
-
+var for_exchange = false;
 
 
 
@@ -202,6 +202,24 @@ console.log($(this).data("page"));
 	        	 $("#feed").html('<input type="text" class="form-control" readonly="" name="feedback_page" value="Iteration View">');
 	        	 for_dashboard = true;
 	        }
+	      break;
+
+	      case "manage_export_data" :
+	      	 if(jQuery.inArray("export-data", url_in_array) != -1 || jQuery.inArray("export-data#", url_in_array) != -1)
+	        {
+	        	 $(this).addClass('active');
+	        	 $("#feed").html('<input type="text" value="Manage Export" class="form-control" readonly="" name="feedback_page">');
+	        	 for_exchange = true;
+	        }
+	      break;
+
+	      	      case "manage_import_data" :
+	      	 if(jQuery.inArray("import-data", url_in_array) != -1 || jQuery.inArray("import-data#", url_in_array) != -1)
+	        {
+	        	 $(this).addClass('active');
+	        	 $("#feed").html('<input type="text" value="Manage Import" class="form-control" readonly="" name="feedback_page">');
+	        	 for_exchange = true;
+	        }
 	      break;      
         
      
@@ -217,6 +235,13 @@ console.log($(this).data("page"));
         $(".manage_users_menu").addClass("active");
         $(".manage_account_menu").addClass("active");
     }
+
+    if(for_exchange)
+    {
+        $(".data_exchange_menu").addClass("active");
+        $(".manage_account_menu").addClass("active");
+    }
+    
     if(for_dashboard)
     {
     	$(".dashboard_menu").addClass("active");

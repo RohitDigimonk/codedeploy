@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import AR_product
 from datetime import datetime
 from django.template.defaulttags import register
+from django.db.models import Q
 # Create your views here.
 
 @register.filter
@@ -67,7 +68,7 @@ def index(request,set_statue="",set_statue_2="",csv_id=""):
     if get_status_of_permission:
         org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
         if AR_product.objects.filter(ORG_ID=org_ins).exists():
-            all_project_get = AR_product.objects.filter(ORG_ID=org_ins).order_by("-id")
+            all_project_get = AR_product.objects.filter(ORG_ID=org_ins).order_by("-id").filter(~Q(Product_name = 'None'))
         else:
             all_project_get = {}
         if ArShowcolumns.objects.filter(Table_name='AR_PRODUCT').filter(user_id=request.session['user_id']).exists():

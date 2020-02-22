@@ -17503,6 +17503,12 @@ body {
 	letter-spacing:.2px;
 	padding-right:0!important
 }
+a.dropdown-item.disabled.selected.active {
+    background-color: #c52241!important;
+}
+a.dropdown-item.selected.active {
+    background-color: #c52241!important;
+}
 a {
 	color:#c52241
 }
@@ -18240,7 +18246,7 @@ input[type=checkbox], input[type=radio] {
 .paper-nav-toggle i {
 	position:relative;
 	display:inline-block;
-	width:25px;
+	width:18px;
 	height:2px;
 	color:#ffffff;
 	font:bold 14px/.4 Helvetica;
@@ -18251,7 +18257,7 @@ input[type=checkbox], input[type=radio] {
 }
 .paper-nav-toggle i::after, .paper-nav-toggle i::before {
 	content:'';
-	width:25px;
+	width:18px;
 	height:2px;
 	background:#ffffff;
 	position:absolute;
@@ -18310,7 +18316,7 @@ input[type=checkbox], input[type=radio] {
 	margin:0 auto;
 	display:block;
 	height:44px;
-	width:44px;
+	width:34px;
 	z-index:2001;
 	border-bottom:none!important;
 	text-align:center
@@ -21624,7 +21630,7 @@ height: 10px!important;
 	margin-top: 7px;
 	float: left;
 	color: #fff!important;
-	border:1px solid #333333!important;
+	border:2px solid #333333!important;
 }
 .import-data{
      background-color: #c52241!important;

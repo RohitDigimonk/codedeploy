@@ -12,6 +12,7 @@ from user_story_points.models import ArUserStoryPoints
 from manage_product.models import AR_product
 from manage_product import views as product_view
 from user_story_view import views as storyes_view
+from django.db.models import Q
 # Create your views here.
 
 ##################################View##############################
@@ -39,7 +40,7 @@ def index(request):
         ar_backlog = AR_BACKLOG.objects.filter(ORG_ID=request.session['org_id'])
         org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
         if AR_BACKLOG.objects.filter(ORG_ID=org_ins).exists():
-            all_backlog_get = AR_BACKLOG.objects.filter(ORG_ID=org_ins).order_by("-id")
+            all_backlog_get = AR_BACKLOG.objects.filter(ORG_ID=org_ins).order_by("-id").filter(~Q(title = 'None'))
         else:
             all_backlog_get = {}
         if ArShowcolumns.objects.filter(Table_name='AR_BACKLOG').filter(user_id=request.session['user_id']).exists():
@@ -188,9 +189,9 @@ def delete_backlog(request,id):
         try:
 
             get_instance = get_object_or_404(AR_BACKLOG,pk=id)
-            product_id = get_instance.product_parent.id
+            # product_id = get_instance.product_parent.id
             get_instance.delete()
-            storyes_view.BacklogGoodnessScore(request, 0, product_id)
+            # storyes_view.BacklogGoodnessScore(request, 0, product_id)
             msg = get_object_or_404(Notification, page_name="Manage Backlog", notification_key="Remove")
             msg_data = msg.notification_desc
             messages.info(request, msg_data)

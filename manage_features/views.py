@@ -12,13 +12,13 @@ from datetime import datetime
 from user_story_view.models import AR_USER_STORY
 from agileproject.serializers import Ar_Epic_Serializer,Ar_Feature_Serializer
 from manage_product import views as product_view
-
+from django.db.models import Q
 # Create your views here.
 @login_required
 def index(request):
     if product_view.check_permition(request, 'Manage Features', 0):
         org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
-        ar_feature = AR_FEATURE.objects.filter(ORG_ID=org_ins).order_by("-id")
+        ar_feature = AR_FEATURE.objects.filter(ORG_ID=org_ins).order_by("-id").filter(~Q(Feature_key = 'None'))
         msg = get_object_or_404(Notification, page_name="Manage Feature", notification_key="Not_Remove")
         Not_Remove_msg = msg.notification_desc
         msg = get_object_or_404(Notification, page_name="Manage Feature", notification_key="Remove Request")

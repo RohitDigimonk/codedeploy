@@ -116,14 +116,14 @@
                             <div class="form-group">
                                     <label>Iteration Score</label>
                                     <!-- {{IterationForm.IterationScore}} -->
-                                    <input class="form-control login-frm-input" type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_score">
+                                    <input class="form-control login-frm-input"id="id_IterationScore"  type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_score">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                     <label>Iteration Size</label>
                                     <!-- {{IterationForm.IterationSize}} -->
-                                    <input class="form-control login-frm-input" type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_size">
+                                    <input class="form-control login-frm-input" id="id_IterationSize" type="text" value="" readonly="" placeholder="0" aid="login" name="iteration_size">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -173,6 +173,11 @@ $(document).ready(function(){
   var get_backlog_id = $("#id_Backlog").val();
  get_user_story(get_backlog_id);
 
+
+var ids = $("#id_UserStory").val();
+
+get_score(ids);
+
 });
 
 function doSomething() {
@@ -198,13 +203,22 @@ $("#id_StartDate").on("dp.change", function (e) {
   });
 
 
+
+
 $(document).on('change','#id_UserStory',function(){
 
 var ids = $(this).val();
 
-var ids_in_string = ids.join(",");
+get_score(ids);
 
-if(ids_in_string != "")
+
+
+});
+
+
+function get_score(ids){
+  var ids_in_string = ids.join(",");
+  if(ids_in_string != "")
 {
   
   $.ajax({
@@ -222,8 +236,7 @@ else{
   $("#id_IterationScore").val("0");
   $("#id_IterationSize").val("0");
 }
-
-});
+}
 
   $(document).ready(function(){
 
@@ -276,6 +289,7 @@ function get_user_story(backlog_id)
 {
   var get_backlog_id = backlog_id;
   var selected_user_storyes = $("#selected_user_storyes").val();
+  var selected_selected_team  = $("#id_Team").val();
    
   if(get_backlog_id)
   {
@@ -293,7 +307,7 @@ function get_user_story(backlog_id)
       $.ajax({
       method:"POST",
       url:"{{BASE_URL}}iteration-view/get_team",
-      data:{"get_backlog_id":get_backlog_id},
+      data:{"get_backlog_id":get_backlog_id,"selected_selected_team":selected_selected_team},
       dataType:"html",
       success:function(data){
           $("#id_Team").html(data);
