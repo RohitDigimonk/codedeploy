@@ -319,12 +319,16 @@ def get_team(request):
     get_backlog_id = request.POST["get_backlog_id"]
     selected_team = request.POST["selected_selected_team"]
     # get_backlog_id = 70
-    # selected_team = ""
+    if selected_team == "":
+        selected_team_set = 0
+    else:
+        selected_team_set = int(selected_team)
 
 
     backlog_ins = get_object_or_404(AR_BACKLOG, pk=get_backlog_id)
     print("====depak===")
+    print(select_team_default)
     print(backlog_ins.title)
     print(backlog_ins.team_list.all())
-    return render(request, 'admin/iterations/get_team.html', {'get_team':backlog_ins.team_list.all(),"select_team_default":select_team_default,"selected_team":selected_team})
+    return render(request, 'admin/iterations/get_team.html', {'get_team':backlog_ins.team_list.all(),"select_team_default":select_team_default,"selected_team":selected_team_set})
 

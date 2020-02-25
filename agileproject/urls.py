@@ -19,7 +19,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from home import views
+
+
 import django_summernote.urls
+
+handler404 = views.handler404
+handler500 = views.handler500
 
 urlpatterns = [
     url('^', include('django.contrib.auth.urls')),

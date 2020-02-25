@@ -13,5 +13,6 @@ class Ar_teamAdmin(ImportExportModelAdmin):
     date_hierarchy = 'create_dt'
     search_fields = ['Team_name','ORG_id']
     list_display = ('Team_name','Team_description','ORG_id','create_by','update_by','update_by','create_dt',)
+    list_filter = ('ORG_id',)
 admin.site.register(AR_product,Ar_productAdmin)
 admin.site.register(AR_team,Ar_teamAdmin)

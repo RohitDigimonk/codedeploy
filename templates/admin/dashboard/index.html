@@ -4,6 +4,10 @@
 {% load add_value %}
  {% block cssstyle %}
 <style type="text/css">
+  #modal-alert-set-profile .modal-header {
+    background-color: #c52241;
+    color: #fff;
+}
   .scrollbar
   {
      /*margin-left: 30px;*/
@@ -163,10 +167,13 @@
                               <tr>
                                 <td>{{data.Product_name}}</td>
                                 <td>
-                                  <div class="progress">
+                                                                     <div class="col-md-1 mb10">
+   <div class="cdev" data-percent="{% mul_add data.ORG_ID data.id %}" data-duration="1000" data-color=",#d35400"></div>
+</div>
+                                 <!--  <div class="progress">
                                     <div class="barOverflow">
                                       <div class="bar"></div>
-                                    </div> <span>{% mul_add data.ORG_ID data.id %}</span></div>
+                                    </div> <span>{% mul_add data.ORG_ID data.id %}</span></div> -->
                                 </td>
                               </tr>
                               {% endfor %}
@@ -187,10 +194,13 @@
                               <tr>
                                 <td>{{data.IterationName}}</td>
                                 <td>
-                                  <div class="progress">
+                                  <div class="col-md-1 mb10">
+   <div class="cdev" data-percent="{% iter_score data.ORG_ID data.id%}" data-duration="1000" data-color=",#d35400"></div>
+</div>
+                                 <!--  <div class="progress">
                                     <div class="barOverflow">
                                       <div class="bar"></div>
-                                    </div> <span>{% iter_score data.ORG_ID data.id%}</span></div>
+                                    </div> <span>{% iter_score data.ORG_ID data.id%}</span></div> -->
                                 </td>
                               </tr>
                               {% endfor %}
@@ -212,10 +222,13 @@
                               <tr>
                                 <td>{{data.title}}</td>
                                 <td>
-                                  <div class="progress">
+                                                               <div class="col-md-1 mb10">
+   <div class="cdev" data-percent="{% back_scr data.ORG_ID data.id%}" data-duration="1000" data-color=",#d35400"></div>
+</div>
+                                 <!--  <div class="progress">
                                     <div class="barOverflow">
                                       <div class="bar"></div>
-                                    </div> <span>{% back_scr data.ORG_ID data.id%}</span></div>
+                                    </div> <span>{% back_scr data.ORG_ID data.id%}</span></div> -->
                                 </td>
                               </tr>
                               {% endfor %}
@@ -239,7 +252,11 @@
                               <tr>
                                 <td>{{data.title}}</td>
                                 <td>{{data.readiness_quality_score}}</td>
-                                <td>{{data.ac_readability_score}} %</td>
+                                <td><!-- {{data.ac_readability_score}} % -->
+                                  <div class="col-md-1 mb10">
+   <div class="cdev" data-percent="{{data.ac_readability_score}}" data-duration="1000" data-color=",#d35400"></div>
+</div>
+                                </td>
                               </tr>
                               {% endfor %}
                               
@@ -264,4 +281,52 @@
     </div>
   </div>
 </div>
+
+
+
+
+<!-----------2nd Modal Popup Start------>
+<div class="modal fade in sp-map" id="modal-alert-set-profile">
+   <div class="modal-dialog">
+      <div class="modal-content" >
+         <div class="modal-header">
+            <h4 class="modal-title">Profile Alert</h4>
+          
+         </div>
+
+         
+
+                   
+          
+         <div class="modal-body">
+            <div class="paper">
+              <div class="row">
+                
+              </div>
+               <div class="row">
+              <div class="col-md-11" style="border: 2px solid #c52241; margin-left: 4%;">
+              <h5><strong>Note:</strong></h5>
+              <p></p>
+              <p>We recommend you to please update your Profile and  change your password <a href="{{BASE_URL}}account-settings"><u>< From Hare ></u></p>
+              
+             
+            </div>
+          </div>
+         
+            </div>
+         </div>
+{% block script %}  
+{% if user_ins.user_name == "" %}       
+<script type="text/javascript">
+
+$('#modal-alert-set-profile').modal({
+    backdrop: 'static',
+    keyboard: false
+});
+   $(window).load(function(){        
+   $('#modal-alert-set-profile').modal('show');
+    }); 
+</script>
+{% endif %}
+{% endblock %}
 {% endblock %}

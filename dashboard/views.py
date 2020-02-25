@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect,HttpResponse,get_object_or_404
 from django.contrib.auth.models import User,auth
 from agileproject import settings
 from datetime import date
-from account.models import AR_organization,csvFilesUplodaded,Notification
-from manage_product.models import AR_product,AR_team,Ar_user
+from account.models import AR_organization,csvFilesUplodaded,Notification,Ar_user
+from manage_product.models import AR_product,AR_team
 from manage_backlogs.models import AR_BACKLOG,AR_BACKLOG_STATUS
 from user_story_view.models import AR_USER_STORY,AR_US_STATUS,AR_US_TYPE
 from user_story_points.models import ArUserStoryPoints
@@ -620,6 +620,7 @@ def logout(request):
 @login_required
 def index(request):
     org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
+    user_ins = get_object_or_404(Ar_user, pk=request.session['user_id'])
     team = AR_team.objects.filter(ORG_id=org_ins).count()
     team_data = AR_team.objects.filter(ORG_id=org_ins)
     product = AR_product.objects.filter(ORG_ID=org_ins).count()
@@ -630,7 +631,7 @@ def index(request):
     user_storyes_data = AR_USER_STORY.objects.filter(ORG_id=org_ins)
     itearations = ArIterations.objects.filter(ORG_ID=org_ins).count()
     itearations_data = ArIterations.objects.filter(ORG_ID=org_ins)
-    return render(request,"admin/dashboard/index.html",{'itearations_data':itearations_data,'user_storyes_data':user_storyes_data,'backlog_data':backlog_data,
+    return render(request,"admin/dashboard/index.html",{'user_ins':user_ins,'itearations_data':itearations_data,'user_storyes_data':user_storyes_data,'backlog_data':backlog_data,
                                                         'product_data':product_data,'team_data':team_data,'date':datetime.now(),'itearations':itearations,
                                                         'user_storyes':user_storyes,'team':team,'product':product,'backlog':backlog,'user_name':request.session['user_name'],
                                                         "BASE_URL":settings.BASE_URL})

@@ -10,8 +10,8 @@ class export_data_infoAdmin(admin.ModelAdmin):
 class import_dataAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
     search_fields = ['files']
-    list_display = ('file_name','files','file_data','error_log','upload_status','ORG_ID','created_by','created_date','priority')
-    list_filter = ('file_name', 'ORG_ID', 'priority')
+    list_display = ('file_name','files','file_data','error_log','upload_status','ORG_ID','created_by','created_date','priority','dommy_set')
+    list_filter = ('file_name', 'ORG_ID', 'priority','dommy_set')
 
 
 class dommy_dataAdmin(admin.ModelAdmin):

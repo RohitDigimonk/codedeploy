@@ -9,7 +9,9 @@ class AR_BACKLOG_STATUSAdmin(ImportExportModelAdmin):
 
 class AR_BACKLOGAdmin(ImportExportModelAdmin):
     search_fields = ['title']
-    list_display = ('title','owner')
+    list_display = ('title','owner','backlog_score','Backlog_size','ORG_ID','product_parent')
+    list_filter = ('ORG_ID','product_parent',)
+
 
 
 

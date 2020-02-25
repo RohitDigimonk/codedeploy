@@ -68,70 +68,7 @@ def get_string_to_table(data_string, *args, **kwargs):
 
 
 def test_csv_file(request):
-    list = [239]
-    # test(list)
-    org_id = request.session['org_id']
-    user_id = request.session['user_id']
-    org_ins = get_object_or_404(AR_organization, id=org_id)
-    org_name = org_ins.organization_name.split(" ")
-    for val in list:
-        file_ins = get_object_or_404(import_files_data, id=val)
-        # create error text file code start -------------------
-        today_date = date.today()
-        org = org_name[0] + "_" + "ORG"
-        date_folder = str(today_date.day) + "_" + str(today_date.month) + "_" + str(today_date.year)
-        direct_url = 'media/implode_data/errors/' + org
-        directry_path_check = pathlib.Path(direct_url)
-        if directry_path_check.exists():
-            direct_url = direct_url + "/" + date_folder
-            directry_path_check = pathlib.Path(direct_url)
-            if directry_path_check.exists():
-                direct_url = direct_url
-            else:
-                filet_path = os.mkdir(direct_url)
-                direct_url = direct_url
-        else:
-            filet_path = os.mkdir('media/implode_data/errors/' + org)
-            direct_url = 'media/implode_data/errors/' + org + "/" + date_folder
-            filet_path = os.mkdir(direct_url)
-            direct_url = direct_url
-        file_name_text = direct_url + "/" + file_ins.file_name + '.txt'
-        file_path = file_ins.files.url
-        file_name = file_ins.file_name
 
-        if file_name == "Ar_user":
-            read_ar_user_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-
-        if file_name == "AR_team":
-            read_ar_team_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-
-        if file_name == "AR_product":
-            read_ar_product_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-
-        if file_name == "AR_BACKLOG":
-            read_ar_backlogs_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-
-        if file_name == "AR_EPIC_CAPABILITY":
-            read_ar_epic_capability_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-
-        if file_name == "ArRole":
-            read_ArRole_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-        if file_name == "ArManageGoals":
-            read_ArManageGoals_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-
-        if file_name == "ArManageBenefits":
-            print(file_ins.id)
-            read_ArManageBenefits_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-
-        if file_name == "ArUserStoryPoints":
-            read_ArUserStoryPoints_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-        if file_name == "AR_USER_STORY":
-            print("sdjbfhv")
-            read_AR_USER_STORY_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-        if file_name == "AR_FEATURE":
-            read_AR_FEATURE_csv(file_ins, org_ins, file_name, file_name_text, user_id)
-        if file_name == "ArIterations":
-            read_ArIterations_csv(file_ins, org_ins, file_name, file_name_text, user_id)
     return HttpResponse("test function")
 
 
@@ -615,7 +552,12 @@ def import_data(request):
             get_data = import_files_data.objects.filter(ORG_ID=org_ins).order_by("-id")
         else:
             get_data = {}
-        return render(request, 'admin/data_import_export/import.html', {'import_data_status':import_data_status,'get_data':get_data,'ImportFilesDataFormUse':ImportFilesDataFormUse,"BASE_URL": settings.BASE_URL,'user_name':request.session['user_name']})
+
+        if import_files_data.objects.filter(dommy_set=1).exists():
+            get_dommy_data = import_files_data.objects.filter(dommy_set=1).order_by("priority")
+        else:
+            get_dommy_data = {}
+        return render(request, 'admin/data_import_export/import.html', {'user_name':request.session['user_name'],'get_dommy_data':get_dommy_data,'import_data_status':import_data_status,'get_data':get_data,'ImportFilesDataFormUse':ImportFilesDataFormUse,"BASE_URL": settings.BASE_URL,'user_name':request.session['user_name']})
     else:
         msg = get_object_or_404(Notification, page_name="Authorized",notification_key="Error")
         error_data = msg.notification_desc

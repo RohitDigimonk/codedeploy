@@ -47,7 +47,7 @@ class ArUserProfilePermissionAdmin(ImportExportModelAdmin):
 
 
 class NotificationAdmin(ImportExportModelAdmin):
-    search_fields = ['page_name','notification_key']
+    search_fields = ['page_name','notification_desc']
     list_display = ('page_name','notification_key','notification_desc')
     list_filter = ('page_name','notification_key')
 

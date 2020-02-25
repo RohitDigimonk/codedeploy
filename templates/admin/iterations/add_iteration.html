@@ -70,14 +70,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                     <label>Start Date <samp style="color: red">*</samp></label>
-                                   <input type="text" name="StartDate" class="form-control datetimepicker-input" data-target="#datetimepicker1" required="" id="id_StartDate">
+                                   <input type="text" name="StartDate" placeholder="mm/dd/YYYY" class="form-control datetimepicker-input" data-target="#datetimepicker1" required="" id="id_StartDate">
 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                     <label>End Date <samp style="color: red">*</samp></label>
-                                   <input type="text" name="EndDate" class="form-control datetimepicker-input" data-target="#datetimepicker1" required="" id="id_EndDate">
+                                   <input type="text" name="EndDate" placeholder="mm/dd/YYYY" class="form-control datetimepicker-input" data-target="#datetimepicker1" required="" id="id_EndDate">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -239,7 +239,7 @@ $("#id_StartDate").on("dp.change", function (e) {
 });
 
 $("#id_Product").change(function(){
-
+clear_data();
   var get_prodict_id = $(this).val();
   if(get_prodict_id)
   {
@@ -307,6 +307,14 @@ function get_user_story(backlog_id)
      $("#id_Team").html('<option value="" selected="">Please select team or None</option>');
   }
 } 
+
+function clear_data()
+{
+     $("#id_IterationScore").val("0");
+  $("#id_IterationSize").val("0");
+   $("#id_UserStory").html('');
+     $("#id_Team").html('<option value="">Please select team or None</option>'); 
+}
 
 </script>
 

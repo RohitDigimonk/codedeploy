@@ -10,7 +10,7 @@ from user_story_view.models import AR_USER_STORY
 class AR_FEATURE(models.Model):
     Feature_key = models.CharField(max_length=50, default="", blank=True)
     Feature_desc = models.TextField(default="", blank=True)
-    CE_ID  = models.ForeignKey(AR_EPIC_CAPABILITY, default="", null=True, on_delete=models.SET_NULL)
+    CE_ID  = models.ForeignKey(AR_EPIC_CAPABILITY, default="", null=True, on_delete=models.SET_NULL, related_name='epic_from_feature')
     ORG_ID   = models.ForeignKey(AR_organization,default="",null=True , on_delete=models.SET_NULL)
     User_story = models.ManyToManyField(AR_USER_STORY, default="",blank=True)
     create_by = models.ForeignKey(Ar_user, on_delete=models.SET_NULL,related_name='create_by_feature',null=True)

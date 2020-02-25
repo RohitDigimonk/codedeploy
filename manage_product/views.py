@@ -3,6 +3,7 @@ from agileproject import settings
 from .forms import ProductForm
 from django.contrib import messages
 from manage_backlogs.models import AR_BACKLOG
+from manage_epic_capability.models import AR_EPIC_CAPABILITY
 from account.models import Ar_user,AR_organization,ArShowcolumns,ArUserProfilePermission,Notification
 from django.contrib.auth.decorators import login_required
 from .models import AR_product
@@ -90,6 +91,8 @@ def index(request,set_statue="",set_statue_2="",csv_id=""):
             "create_dt":"Created Date",
             "update_by":"Updated By",
             "update_dt":"Updated Date",
+            "capability":"Capability",
+            "feature":"Feature",
                 }
         msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Rearrange_Request")
         Rearrange_Request_msg = msg.notification_desc
@@ -160,10 +163,67 @@ def remove_product(request,id):
         messages.error(request, msg_data)
     return redirect(settings.BASE_URL+'manage-products')
 
+
+
+
+@register.filter
+def get_capability(id):
+    capability_data = AR_EPIC_CAPABILITY.objects.filter(PROJECT_ID=id)
+    epic_data_get = ""
+    for data in capability_data:
+        if epic_data_get != "":
+            epic_data_get = epic_data_get + " | " + str(data)
+        else:
+            epic_data_get = str(data)
+    return epic_data_get
+
+@register.filter
+def get_feature(id):
+    capability_data = AR_EPIC_CAPABILITY.objects.filter(PROJECT_ID=id)
+    epic_data_get = ""
+    feature_data_get = ""
+    for data in capability_data:
+        if epic_data_get != "":
+            epic_data_get = epic_data_get + " | " + str(data)
+        else:
+            epic_data_get = str(data)
+        for val in data.epic_from_feature.all():
+
+            if feature_data_get != "":
+                feature_data_get = feature_data_get + " | " + str(val)
+            else:
+                feature_data_get = str(val)
+    return feature_data_get
+
+
 @login_required
 def edit_product(request,id):
     if check_permition(request, 'Manage Products', 1):
         product_info = get_object_or_404(AR_product, pk=id)
+
+        capability_data = AR_EPIC_CAPABILITY.objects.filter(PROJECT_ID=id)
+        epic_data_get = ""
+        feature_data_get= ""
+        for data in capability_data:
+            if epic_data_get != "":
+                epic_data_get = epic_data_get + " | " + str(data)
+            else:
+                epic_data_get = str(data)
+            for val in data.epic_from_feature.all():
+
+                if feature_data_get != "":
+                    feature_data_get = feature_data_get + " | " + str(val)
+                else:
+                    feature_data_get = str(val)
+
+        # for data in capability_data:
+        #     for val in data.backlog_team.all():
+        #         product_name = product_data_get.split(" | ")
+        #         if product_data_get != "":
+        #             if str(val.product_parent) not in product_name:
+        #                 product_data_get = product_data_get + " | " + str(val.product_parent)
+
+
         if request.method == 'POST':
             product_form = ProductForm(request.user, request.session['org_id'], request.POST,instance = product_info)
             if product_form.is_valid():
@@ -181,7 +241,7 @@ def edit_product(request,id):
             return redirect(settings.BASE_URL + "manage-products")
         else:
             product_form = ProductForm(request.user, request.session['org_id'],instance=product_info)
-        return render(request, 'admin/manage_product/edit_project.html',{'team_id': id,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL, 'product_form': product_form})
+        return render(request, 'admin/manage_product/edit_project.html',{'feature_data_get':feature_data_get,'epic_data_get':epic_data_get,'team_id': id,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL, 'product_form': product_form})
     else:
         msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
         error_data = msg.notification_desc

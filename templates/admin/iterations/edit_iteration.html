@@ -70,14 +70,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                     <label>Start Date <samp style="color: red">*</samp></label>
-                                   <input type="text" name="StartDate" class="form-control datetimepicker-input" data-target="#datetimepicker1" required="" id="id_StartDate" value="{{start_data}}">
+                                   <input type="text" name="StartDate" placeholder="mm/dd/YYYY" class="form-control datetimepicker-input" data-target="#datetimepicker1" required="" id="id_StartDate" value="{{start_data}}">
 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                     <label>End Date <samp style="color: red">*</samp></label>
-                                   <input type="text" name="EndDate" class="form-control datetimepicker-input" data-target="#datetimepicker1" required="" id="id_EndDate" value="{{end_data}}">
+                                   <input type="text" name="EndDate" placeholder="mm/dd/YYYY" class="form-control datetimepicker-input" data-target="#datetimepicker1" required="" id="id_EndDate" value="{{end_data}}">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -248,8 +248,11 @@ else{
 });
 
 $("#id_Product").change(function(){
+clear_data();
+
 
   var get_prodict_id = $(this).val();
+
   if(get_prodict_id)
   {
      $.ajax({
@@ -275,12 +278,16 @@ $("#id_Product").change(function(){
 
  $(document).on("change","#id_Backlog",function(){
 
+
   var get_backlog_id = $(this).val();
  get_user_story(get_backlog_id);
   $("#id_IterationScore").val("0");
   $("#id_IterationSize").val("0");
  
  }); 
+
+
+
 
 
 
@@ -321,6 +328,14 @@ function get_user_story(backlog_id)
      
   }
 } 
+
+function clear_data()
+{
+     $("#id_IterationScore").val("0");
+  $("#id_IterationSize").val("0");
+   $("#id_UserStory").html('');
+     $("#id_Team").html('<option value="">Please select team or None</option>'); 
+}
 
 </script>
 

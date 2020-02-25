@@ -214,8 +214,12 @@
               {% endif %}  
          
 
-              {% if v == 'update_dt' %}
-              <td align="left" class="backpa"  valign="top">{{ data.update_dt  }}</td> 
+              {% if v == 'capability' %}
+              <td align="left" class="backpa"  valign="top">{{ data.id|get_capability  }}</td> 
+              {% endif %}  
+
+               {% if v == 'feature' %}
+              <td align="left" class="backpa"  valign="top">{{ data.id|get_feature  }}</td> 
               {% endif %}  
 
 
@@ -252,6 +256,9 @@
               <td align="left" class="usid"  valign="top">{{data.create_dt}}</td>
                <td align="left" class="usid"  valign="top">{{data.update_by}}</td>
               <td align="left" class="usid"  valign="top">{{data.update_dt}}</td>
+              <td align="left" class="backpa"  valign="top">{{ data.id|get_capability  }}</td> 
+              <td align="left" class="backpa"  valign="top">{{ data.id|get_feature  }}</td> 
+
 {% endif %}
 
 

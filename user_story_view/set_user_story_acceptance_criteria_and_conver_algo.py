@@ -119,7 +119,7 @@ def flesch_reading_ease(text):
     """
     FRE = 206.835 - float(1.015 * avg_sentence_length(text)) -\
           float(84.6 * avg_syllables_per_word(text))
-    return legacy_round(FRE, 2)
+    return legacy_round(int(FRE))
 
 def flesch_grade_level(text):
     """

@@ -7,6 +7,14 @@ import smtplib
 import email.message
 # Create your views here.
 
+
+def handler404(request):
+    return render(request, 'web/error_page/page_404.html', {'BASE_URL':settings.BASE_URL})
+def handler500(request):
+    return render(request, 'web/error_page/page_500.html',  {'BASE_URL':settings.BASE_URL})
+
+
+
 def login_page(request):
     return render(request, 'web/home/index.html', {'home_active': "active", 'BASE_URL': settings.BASE_URL,"set_login":"do_login"})
 

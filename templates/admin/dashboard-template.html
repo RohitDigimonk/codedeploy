@@ -343,6 +343,7 @@
                               {% csrf_token %}
                               <input type="hidden" name="modal_name" id="csv_for" value="">
                               <input type="hidden" name="return_url" id="redirect_to" value="">
+                              <div id="set_demo_files"></div>
                               <label>Select CSV File</label>
                               <div class="input-group mb-3">
                                  <input type="file" name="attachments" class="form-control">
@@ -385,6 +386,30 @@
       <script type="text/javascript">
          function set_data(csv_for,redirect_to)
          {
+            var image_url = '{% static "img/download_icon.png" %}';
+           
+            var file_url = '{% static "img/use_csv/AR_BACKLOG-2020-02-05_RqDUPoM_giFgbwl.csv" %}';
+            if (csv_for== "Ar Backlog")
+            {
+               file_url = '{% static "img/use_csv/AR_BACKLOG-2020-02-05_RqDUPoM_giFgbwl.csv" %}';
+            }
+            if (csv_for== "Ar Product")
+            {
+               file_url = '{% static "img/use_csv/AR_product-2020-02-07_zhJCbSP.csv" %}';
+            }
+
+             if (csv_for== "Ar User Story")
+            {
+               file_url = '{% static "img/use_csv/AR_USER_STORY-2020-02-07_2TLaxCC.csv" %}';
+            }
+
+            if (csv_for== "Ar Iteration")
+            {
+               file_url = '{% static "img/use_csv/ArIterations-2020-02-07_1_pGLEjqu.csv" %}';
+            }
+
+
+            $("#set_demo_files").html('<a href="'+file_url+'" target="_blank">dummy '+csv_for+' csv <img src='+image_url+'  style="width:10px; height: 10px;"></a>');
             $("#csv_for").val(csv_for);
             $("#redirect_to").val(redirect_to);
          }
