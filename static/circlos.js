@@ -9,7 +9,7 @@ https://github.com/jamalhassouni
 		// deafualt options 
 		var DEFAULTS = {
 			backgroundColor: '#b3cef6', // default background color 
-			progressColor: '#4b86db', // default progress color 
+			progressColor: '#c52241', // default progress color 
 			percent: 0, // default percent value
 			duration: 2000 // default duration value 
 		};	
@@ -29,12 +29,30 @@ https://github.com/jamalhassouni
 			};
 			 console.log(options);
 	         // add divs for structure
+			
+			var set_progressColor = '#c52241';
+			if(options.percent<35)
+			{
+			 set_progressColor = '#c52241';	
+			}
+			else
+			{
+				 if(options.percent<65)
+				{
+				 set_progressColor = '#E1CB28';	
+				}
+				 else
+				 {
+				 	set_progressColor = '#0DB428';
+				 }	
+			}
+			
 			$target.append('<div class="background"></div><div class="rotate"></div><div class="left"></div><div class="right"></div><div class=""><span>' + options.percent + '</span></div>');
 	         // change style of the circle with the options values 
 			$target.find('.background').css('background-color', options.backgroundColor);
 			$target.find('.left').css('background-color', options.backgroundColor);
-			$target.find('.rotate').css('background-color', options.progressColor);
-			$target.find('.right').css('background-color', options.progressColor);
+			$target.find('.rotate').css('background-color', set_progressColor);
+			$target.find('.right').css('background-color', set_progressColor);
 	
 			var $rotate = $target.find('.rotate');
 			setTimeout(function () {	

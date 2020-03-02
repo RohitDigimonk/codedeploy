@@ -1,6 +1,11 @@
 {% extends 'admin/dashboard-template.html' %}
 {% block content %}
 {% load static %}
+<style type="text/css">
+  .userper td:last-child {
+    width: 17%;
+}
+</style>
             <div class="container-fluid text-white">
                <div class="row p-t-b-8 ">
                   <div class="col">
@@ -134,7 +139,7 @@
                 <td align="left" valign="top">Product View</td>
                 <input type="hidden" name="activity[]" value="Product View">
                 <td align="center" valign="top">
-                <div class="text-center">
+                <div class="text-center ">
                   <label class="switch">
                          <input type="checkbox" class="checkbox"  id="viewer0" name="productviewview" >
                          <span class="slider round"></span>
@@ -142,7 +147,8 @@
                   </div>
                 </td>
                                 <td align="center" valign="top">
-                  <div class="text-center">
+<label>Viewe only Permissions</label>
+                  <div class="text-center hidden">
                   <label class="switch">
                          <input type="checkbox" disabled="" class="checkbox" id="editor0" name="productviewedit"  >
                          <span class="slider round"></span>
@@ -157,7 +163,7 @@
                 <input type="hidden" name="activity[]" value="Backlog View">
                 
                 <td align="center" valign="top">
-                <div class="text-center">
+                <div class="text-center ">
                   <label class="switch">
                          <input type="checkbox" class="checkbox"  id="viewer1" name="backlogviewview" >
                          <span class="slider round"></span>
@@ -165,8 +171,10 @@
                   </div>
                 </td>
                 <td align="center" valign="top">
-                  <div class="text-center">
+                <label>Viewe only Permissions</label>
+                  <div class="text-center hidden">
                   <label class="switch">
+
                          <input type="checkbox" disabled="" class="checkbox" id="editor1" name="backlogviewedit"  >
                          <span class="slider round"></span>
                   </label>
@@ -179,6 +187,7 @@
                 <input type="hidden" name="activity[]" value="User Story View">
                 <td align="center" valign="top">
                 <div class="text-center">
+
                   <label class="switch">
                          <input type="checkbox" class="checkbox"  id="viewer2" name="userstoryviewview" >
                          <span class="slider round"></span>
@@ -188,7 +197,7 @@
                 <td align="center" valign="top">
                   <div class="text-center">
                   <label class="switch">
-                         <input type="checkbox" disabled="" class="checkbox" id="editor2" name="userstoryviewedit"  >
+                         <input type="checkbox" class="checkbox" id="editor2" name="userstoryviewedit"  >
                          <span class="slider round"></span>
                   </label>
                   </div>
@@ -208,7 +217,8 @@
                   </div>
                 </td>
                 <td align="center" valign="top">
-                  <div class="text-center">
+                  <label>Viewe only Permissions</label>
+                  <div class="text-center hidden">
                   <label class="switch">
                          <input type="checkbox" disabled="" class="checkbox" id="editor3" name="iterationviewedit"  >
                          <span class="slider round"></span>

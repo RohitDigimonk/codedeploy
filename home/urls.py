@@ -9,8 +9,8 @@ urlpatterns= [
     path('ar-whyar/', views.whyar, name='whyar'),
     path('ar-whyar', views.whyar, name='whyar'),
 
-    path('view-information/', views.view_information, name='view_information'),
-    path('view-information', views.view_information, name='view_information'),
+    path('view-information/<slug:keyword>/', views.view_information, name='view_information'),
+    path('view-information/<slug:keyword>', views.view_information, name='view_information'),
 
 
     path('ar-company/', views.company, name='company'),
@@ -21,6 +21,26 @@ urlpatterns= [
 
     path('ar-usrating/', views.usrating, name='usrating'),
     path('ar-usrating', views.usrating, name='usrating'),
+
+    path('ar-usrating/', views.usrating, name='usrating'),
+    path('ar-usrating', views.usrating, name='usrating'),
+
+    path('security', views.security, name='security'),
+    path('security/', views.security, name='security'),
+
+    path('privacy', views.privacy, name='privacy'),
+    path('privacy/', views.privacy, name='privacy'),
+
+    path('eula', views.eula, name='eula'),
+    path('eula/', views.eula, name='eula'),
+
+    path('about-us', views.about_us, name='about_us'),
+    path('about-us/', views.about_us, name='about_us'),
+
+    path('contact-us', views.contact_us, name='contact_us'),
+    path('contact-us/', views.contact_us, name='contact_us'),
+
+    path('test_data', views.test_data, name='test_data'),
 
 
 ]

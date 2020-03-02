@@ -38,7 +38,14 @@
                   <!-- <div class="card no-b"> -->
               <div class="login-form-card">
                                   <div class="login-form-content">
-
+                               {% if user.0.user_type == 'Root' %}
+                               <div class="row">
+                                 <div class="col-md-12">
+                                   <button class="btn-block btn-new btn btn-white all-btn" onclick="remove_product_reset('{{BASE_URL}}account-settings/set_default_data','Are you sure to reset your account?','Account reset successfutlly.','Account not reset.');">Reset the account tables & set default data</button>
+                                   <br>
+                                 </div>
+                               </div>
+                               {% endif %}
                                     <form action="#"   method="POST">
                                       {% csrf_token %}
                                      <!-- start login -->

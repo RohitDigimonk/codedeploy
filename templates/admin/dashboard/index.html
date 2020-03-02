@@ -251,12 +251,13 @@
                               {% for data in user_storyes_data %}
                               <tr>
                                 <td>{{data.title}}</td>
-                                <td>{{data.readiness_quality_score}}</td>
-                                <td><!-- {{data.ac_readability_score}} % -->
-                                  <div class="col-md-1 mb10">
-   <div class="cdev" data-percent="{{data.ac_readability_score}}" data-duration="1000" data-color=",#d35400"></div>
+                                
+                                <td>                                                  <div class="col-md-1 mb10">
+   <div class="cdev" data-percent="{{data.readiness_quality_score}}" data-duration="1000" data-color=",#d35400"></div>
 </div>
                                 </td>
+
+                             
                               </tr>
                               {% endfor %}
                               

@@ -433,6 +433,7 @@
           $('.attach p').text(this.files.length + " file(s) selected");
          });
          });
+
          function remove_product(urls,message,done,fail)
          {
          swal({
@@ -449,6 +450,27 @@
             }
           });
          }  
+
+
+
+     function remove_product_reset(urls,message,done,fail)
+         {
+         swal({
+            title: message,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                $(".se-pre-con").css("display","block");
+             window.location.href = urls;           
+            } else {
+              swal(fail);
+            }
+          });
+         }  
+
          // datatables JS START========================================
          $(document).ready(function() {
          $('#example').DataTable();
@@ -913,6 +935,11 @@
             $(".se-pre-con").css("display","block");
          }
       </script>
+
+
+
+
+
       {% block script %}
       {% endblock %}
    </body>

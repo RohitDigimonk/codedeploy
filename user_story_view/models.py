@@ -13,9 +13,9 @@ class AR_US_STATUS(models.Model):
     status_key  = models.CharField(max_length=50,blank=True,unique=True)
     status_desc  = models.TextField(blank=True)
     status_shortcode   = models.CharField(max_length=50,blank=True,unique=True)
-    create_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='create_by_us_status',default="")
+    create_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='create_by_us_status',default="",blank=True,null=True)
     create_dt = models.DateTimeField(default=django.utils.timezone.now,blank=True,null=True)
-    update_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',default="",related_name='update_by_us_status')
+    update_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',default="",related_name='update_by_us_status',blank=True,null=True)
     update_dt = models.DateTimeField(default=django.utils.timezone.now,blank=True,null=True)
     class Meta:
         verbose_name_plural = "Ar user story status"

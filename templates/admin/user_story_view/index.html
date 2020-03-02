@@ -59,7 +59,11 @@
                         <button class="btn-primary add-data"><a href="{{BASE_URL}}user-story-view/add-new" style="text-decoration: none; color: #fff;">Add User Story</a></button>
                         <button class="btn-primary import-data" id="create_user_story_copy">Copy Selected Stories</button>
                         <button  id="show_col" class="btn-primary import-data" data-toggle="modal" data-target="#myModal">Show Columns</button>
+                  {% if user_story_view_status %}
                   <button class="btn-primary import-data" data-toggle="modal" onclick="set_data('Ar User Story','user-story-view')" data-target="#myModalImportCSV">Import</button>
+                  {% else %}
+                  <button class="btn-primary import-data">You don't have permission to import data </button>
+                  {% endif %}
          </div>
             <div class="col-md-12">
          
@@ -214,6 +218,7 @@
               <th align="left" class="usid sorting" valign="top"  tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="US ID: activate to sort column ascending" style="">
                 
                     <div class="col-md-1 mb20">
+                    
    <div class="cdev" data-percent="{{data.readiness_quality_score}}" data-duration="1000" data-color=",#d35400"></div>
 </div>
                          <!--      <div class="progress">

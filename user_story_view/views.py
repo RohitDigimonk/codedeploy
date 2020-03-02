@@ -168,7 +168,8 @@ def index(request,set_statue="",set_statue_2="",csv_id=""):
         Remove_Request_msg = msg.notification_desc
         msg = get_object_or_404(Notification, page_name="User Story View", notification_key="Remove_Success")
         Remove_done_msg = msg.notification_desc
-        return render(request, 'admin/user_story_view/index.html',{'Copy_Story_msg':Copy_Story_msg,'Copy_Request_msg':Copy_Request_msg,'Rearrange_Request_msg':Rearrange_Request_msg,'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'date':datetime.now(),'csv_id':csv_id,'set_statue':set_statue,'set_statue_2':set_statue_2,'csvFilesUplodadedForm':csvFilesUplodadedForm_get,'all_column_list':all_column_list,'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,'get_user_story':get_user_story,"get_show_column":get_show_column})
+        user_story_view_status = product_view.check_permition(request, 'User Story View', 1)
+        return render(request, 'admin/user_story_view/index.html',{'user_story_view_status':user_story_view_status,'Copy_Story_msg':Copy_Story_msg,'Copy_Request_msg':Copy_Request_msg,'Rearrange_Request_msg':Rearrange_Request_msg,'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'date':datetime.now(),'csv_id':csv_id,'set_statue':set_statue,'set_statue_2':set_statue_2,'csvFilesUplodadedForm':csvFilesUplodadedForm_get,'all_column_list':all_column_list,'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,'get_user_story':get_user_story,"get_show_column":get_show_column})
     else:
         msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
         error_data = msg.notification_desc

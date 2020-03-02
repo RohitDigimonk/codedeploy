@@ -15,19 +15,29 @@ from manage_product import views as product_view
 def index(request):
     if product_view.check_permition(request, 'Manage Team Members', 0):
         check_edit_permition = product_view.check_permition(request, 'Manage Team Members', 1)
-        user1 = Ar_user.objects.filter(org_id=request.session['org_id'])
+        user1 = Ar_user.objects.filter(org_id=request.session['org_id']).order_by("user_name")
+        get_current_user = Ar_user.objects.get(id=request.session['user_id'])
         msg = get_object_or_404(Notification, page_name="Manage Team Members", notification_key="Not_Remove")
         Not_Remove_msg = msg.notification_desc
         msg = get_object_or_404(Notification, page_name="Manage Team Members", notification_key="Remove Request")
         Remove_Request_msg = msg.notification_desc
         msg = get_object_or_404(Notification, page_name="Manage Team Members", notification_key="Remove_Success")
         Remove_done_msg = msg.notification_desc
-        return render(request, 'admin/manage_teams_members/index.html',{'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'check_edit_permition':check_edit_permition,'date':datetime.now(),'user':user1,'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL})
+        return render(request, 'admin/manage_teams_members/index.html',{'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'check_edit_permition':check_edit_permition,'date':datetime.now(),'user':user1,'user_name':request.session['user_name'],'BASE_URL': settings.BASE_URL,"get_current_user":get_current_user})
     else:
         msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
         error_data = msg.notification_desc
         return render(request, 'admin/dashboard/no_permssion.html', {'BASE_URL': settings.BASE_URL,'error_message':error_data})
 
+
+def update_root_user(request,id):
+    if Ar_user.objects.filter(id=id).exists():
+        Ar_user.objects.filter(id=request.session['user_id']).update(user_type="User")
+        Ar_user.objects.filter(id=id).update(user_type="Root")
+        msg = get_object_or_404(Notification, page_name="Manage Team Members", notification_key="change_root_user")
+        msg_data = msg.notification_desc
+        messages.info(request, msg_data)
+    return redirect(settings.BASE_URL + 'manage-team-member')
 
 @login_required
 def edit_team_member(request,id):

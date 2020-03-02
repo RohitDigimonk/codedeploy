@@ -28,6 +28,29 @@
   z-index: 99999999999;
   background: url(http://3.17.177.133/media/img/demo/loader3.gif) center no-repeat rgba(0,0,0,0.5);
 }
+
+.new-links-footer{
+  background-color: #fff!important;
+}
+.new-links-footer li {
+  display: inline-block!important;
+}
+.new-links-footer a{
+  padding: 0 10px;
+  color:#60676a;
+}
+.new-links-footer a:hover{
+  color:crimson;
+}
+.new-links-footer a.active{
+  color:crimson;
+}
+.new-links-footer .cont-right{
+  text-align: right!important;
+}
+.check-agree a{
+  color: crimson!important;
+}
    </style>
 </head>
 <body>
@@ -109,6 +132,31 @@
            <!--  </div>
          </div> -->
          </div>
+      </div>
+   </section>
+   </footer>
+
+<!-----------------------Second footer ------------->
+<footer class="new-links-footer">
+      <section class=" service-blocks animatedParent animateOnce">
+      <div class="container">
+         
+         <div class="row">
+          <div class="col-md-6">
+             <p class="">© 2020 Agile Ready, LLC All Rights Reserved
+          </div>
+
+          <div class="col-md-6 cont-right">
+            <ul>
+              <li>
+             <a class="{{Security_active}}" href="http://3.17.177.133/security">Security</a> </li>
+            <li> <a class="{{Privacy_active}}" href="http://3.17.177.133/privacy"> Privacy</a></li>
+             <li><a class="{{EULA_active}}" href="http://3.17.177.133/eula"> EULA</a></li>
+            <li> <a class="{{about_active}}" href="http://3.17.177.133/ar-company"> Compayn</a></li>
+             <li><a class="{{Contact_active}}" href="http://3.17.177.133/contact-us"> Contact Us</a></li>
+           </ul>
+          </div>
+          
       </div>
    </section>
    </footer>
@@ -240,7 +288,12 @@
                                  <input type="text" name="organization_url" onkeyup="check_url_pettorn(this.value)" class="form-control form-control-lg" placeholder="organization site URL">
                               </div></div></div>
 
-							  <div class="row">
+							<div class="row">
+  <div class="col-md-12 check-agree">
+    <label><input type="checkbox" required="true" value="1" name="terms_active">By clicking this box I agree to <a href="http://3.17.177.133/eula">"terms of use"</a></label>
+</div>
+</div>
+                <div class="row">
                               <div class="col-md-8" id="show_message">
 
                               </div>

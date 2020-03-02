@@ -49,7 +49,12 @@
                       <div class="col-md-12 mb-2">
                         <a href="{{BASE_URL}}manage-iteration/add-iteration"><button type="button" class="btn-primary add-data">Add Iteration</button></a>
               <button  id="show_col" class="btn-primary import-data" data-toggle="modal" data-target="#myModal">Show Columns</button>
+        {% if product_view_manage_status %}
         <button class="btn-primary import-data" data-toggle="modal" onclick="set_data('Ar Iteration','iteration-view')" data-target="#myModalImportCSV">Import</button>
+        {% else %}
+        <button class="btn-primary import-data" >You don't have permission to import data </button>
+        {% endif %}
+
             </div>
             
                 </div>

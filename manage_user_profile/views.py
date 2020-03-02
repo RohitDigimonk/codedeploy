@@ -11,7 +11,8 @@ from agileproject.serializers import ArUserProfilePermissionSerializer
 
 # Create your views here.
 def index(request):
-    if request.session['user_type'] == "Root":
+    get_current_user = Ar_user.objects.get(id=request.session['user_id'])
+    if get_current_user.user_type == "Root":
         org_ins = get_object_or_404(AR_organization, id=request.session['org_id'])
         ar_user_profile_form = ArUserProfileForm()
         ar_user_data = ArUserProfile.objects.filter(ORG_ID=org_ins)

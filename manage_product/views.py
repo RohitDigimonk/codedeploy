@@ -29,7 +29,8 @@ def check_permition(request,page_name_get,page_action_get):
     page_name = page_name_get   #'Product View'
     page_action = page_action_get    # 0 USE FOR VIEW ACTION AND 1 FOR EDIT SECTION
     # page_name_action = '1'
-    if request.session['user_type'] == 'User':
+    get_current_user = Ar_user.objects.get(id=request.session['user_id'])
+    if get_current_user.user_type == 'User':
         status_set = False
         get_user_info = get_object_or_404(Ar_user, pk=request.session['user_id'])
         set_profile_daat = get_user_info.profile_permission.all()
@@ -103,7 +104,10 @@ def index(request,set_statue="",set_statue_2="",csv_id=""):
         msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Remove_Success")
         Remove_done_msg = msg.notification_desc
         ar_backlog = AR_BACKLOG.objects.all()
-        return render(request, 'admin/manage_product/index.html', {'ar_backlog':ar_backlog,'Rearrange_Request_msg':Rearrange_Request_msg,'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'all_project_get':all_project_get,'all_column_list':all_column_list,"get_show_column":get_show_column,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,"all_project_get":all_project_get})
+
+        get_permition_for_edit = check_permition(request, 'Manage Products', 1)
+
+        return render(request, 'admin/manage_product/index.html', {'get_permition_for_edit':get_permition_for_edit,'ar_backlog':ar_backlog,'Rearrange_Request_msg':Rearrange_Request_msg,'Remove_done_msg':Remove_done_msg,'Remove_Request_msg':Remove_Request_msg,'Not_Remove_msg':Not_Remove_msg,'all_project_get':all_project_get,'all_column_list':all_column_list,"get_show_column":get_show_column,'date':datetime.now(),'user_name':request.session['user_name'],'BASE_URL':settings.BASE_URL,"all_project_get":all_project_get})
     else:
         msg = get_object_or_404(Notification, page_name="Authorized", notification_key="Error")
         error_data = msg.notification_desc

@@ -94,6 +94,7 @@ class Ar_user(models.Model):
     profile_permission = models.ManyToManyField(ArUserProfile,blank=True, related_name='user_favourite')
     login_status = models.BooleanField(default=False)
     activate_status = models.BooleanField(default=False)
+    terms_accept = models.BooleanField(default=True)
     org_id = models.ForeignKey(AR_organization, on_delete=models.SET_NULL,  default="",null=True ,  blank=True)
     verification_status = models.BooleanField(default=False)
     created_by = models.IntegerField(default=0)

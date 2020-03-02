@@ -7,6 +7,9 @@ urlpatterns = [
     path('get-data', views.get_data, name='get_data'),
     path('get-data/', views.get_data, name='get_data'),
 
+    path('set_default_data/', views.set_default_data, name='set_default_data'),
+    path('set_default_data', views.set_default_data, name='set_default_data'),
+
 
     path('pass-change', views.pass_change, name='pass_change'),
     path('pass-change/', views.pass_change, name='pass_change'),

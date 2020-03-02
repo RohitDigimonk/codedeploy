@@ -1,14 +1,11 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from .models import ArHelpFile
+from .models import Cms_manage
 # Register your models here.
 
-class ArHelpFileAdmin(SummernoteModelAdmin):
-# class ArHelpFileAdmin(admin.ModelAdmin):
+class Cms_manageAdmin(SummernoteModelAdmin):
     date_hierarchy = 'created_dt'
-    search_fields = ['help_topic_title']
-    # summernote_fields = ('help_topic_title')
-    list_display = ('help_topic_title','help_description','help_text','help_link_1','help_link_2','help_link_3','created_by','created_dt',
-                    'updated_by','updated_dt')
+    search_fields = ['keyword','title']
+    list_display = ('keyword','title','created_by','created_dt','updated_by','updated_dt')
 
-admin.site.register(ArHelpFile,ArHelpFileAdmin)
+admin.site.register(Cms_manage,Cms_manageAdmin)

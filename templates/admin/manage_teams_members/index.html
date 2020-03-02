@@ -52,11 +52,14 @@
                   <!-- <div class="card no-b"> -->
 				  <div class="login-form-card">
                    <!-- <div class="login-form-content"> -->
-                        <form onsubmit="doSomething();" action="javascript:(0);">
+               
 						<div class="table-responsive">
-              <!-- <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default1">Add Team Members</button> -->
+              {% if get_current_user.user_type == 'Root' %}
+              <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default_set_root_user2">Change Your Root User</button>
+              {% endif %}
               <!-- <button class="btn-primary import-data">Export</button> -->
                                      <!-- start Table --><br><br>
+
                                      <table id="example" width="100%" border="1" class="table table-striped table-bordered newpage" align="center" cellpadding="0" cellspacing="0" style=" font-size: 15px;">
         <thead>
             <tr>
@@ -111,170 +114,14 @@
             {% endif %}
 
             {% endfor %}
-            <!-- <tr>
-                <td align="left" valign="top">Apple Timbol</td>
-                  <td align="left" valign="top">
-                  <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="left" valign="top" width="90%">Business Stackholder</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Analyst</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Ent Consult</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Org Admin</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Product Master</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Product Manager</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Process Master</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Scrum Master</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Team Member</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                </table>
-                </td>
-                <td align="left" valign="top">List Of Teams</td>
-                <td align="left" valign="top">
-                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href="" data-toggle="modal" data-target="#modal-default2"><i class="icon-delete"></i><a></td>
-                   </tr>
-                </table>
-                </td>
-
-            </tr>
-            <tr>
-                <td align="left" valign="top">Team Davinci</td>
-                <td align="left" valign="top">
-                  <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="left" valign="top" width="90%">Business Stackholder</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Analyst</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Ent Consult</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Org Admin</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Product Master</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Product Manager</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Process Master</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Scrum Master</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Team Member</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                </table>
-                </td>
-                <td align="left" valign="top">List Of Teams</td>
-                <td align="left" valign="top">
-                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href="" data-toggle="modal" data-target="#modal-default2"><i class="icon-delete"></i><a></td>
-                   </tr>
-                </table>
-                </td>
-            </tr>
-            <tr>
-                <td align="left" valign="top">Shandi Pettine</td>
-                <td align="left" valign="top">
-                  <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="left" valign="top" width="90%">Business Stackholder</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Analyst</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Ent Consult</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Org Admin</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Product Master</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Product Manager</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Process Master</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Scrum Master</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                   <tr>
-                    <td align="left" valign="top" width="90%">Team Member</td>
-                    <td align="center" valign="top" width="10%"><input type="checkbox" name=""></td>
-                   </tr>
-                </table>
-                </td>
-                <td align="left" valign="top">List Of Teams</td>
-                <td align="left" valign="top">
-                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                   <tr>
-                    <td align="center" valign="top"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-default"><i class="icon-pencil"></i></a></td>
-                    <td align="center" valign="top"><a href="" data-toggle="modal" data-target="#modal-default2"><i class="icon-delete"></i><a></td>
-                   </tr>
-                </table>
-                </td>
-            </tr> -->
+            
             
         </tbody>
     </table>
                                      <!---Table Ends---->
 </div>
                                     
-                         </form>
+                
                       <!-- </div> -->
              </div>
 				  <!-- </div> -->
@@ -498,12 +345,76 @@
           <!-- /.modal-dialog -->
         </div>
         <!----------------------2nd Modal Ends---------------->
+
+        <!------------Delete messege Modal Popup Start------->
+<div class="modal fade in sp-map" id="modal-default_set_root_user2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color: #fff;background-color: #c52241;}">
+          <h4 class="modal-title">Change Root User</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="font-size: 32px;">×</span>
+          </button>
+                
+      </div>
+      <div class="modal-body">
+        <div class="paper">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container-fluid">
+                                   <!--  <div class="login-form-content"> -->
+  
+                  <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                           <label>New Root User Is :</label>
+                       </div>
+                   </div>
+                        <div class="col-md-7">
+                          <div class="form-group">
+                           <select name="get_new_root_user" id="get_new_root_user" class="form-control" required="true" >
+                              <option value="">Select New Root User</option>
+                               {% for user_data in user %}
+                                {% if user_data.user_name != "" %}
+                                {% if user_data.user_type != "Root" %}
+                                <option value="{{user_data.id}}">{{user_data.user_name}}</option>
+                                {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                              
+                           </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <button type="button" class="btn-block btn btn-white all-btn set_new_root_user" >Yes</button>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          <button type="button"  data-dismiss="modal" aria-label="Close"  class="btn-block btn btn-white all-btn" >Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+    
+              </div>
+            </div>
+                  
+                      <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        
         <!------------Delete messege Modal Popup Start------->
 <div class="modal fade in sp-map" id="modal-default2">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-          <h4 class="modal-title">Confirm</h4>
+          <h4 class="modal-title">Change Root User</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" style="font-size: 32px;">×</span>
           </button>
@@ -517,7 +428,21 @@
                                    <!--  <div class="login-form-content"> -->
                 <form onsubmit="doSomething();" action="javascript:(0);">
                   <div class="row">
-                      <p>Are you sure you want to Delete?</p>
+                  	<div class="col-md-4">
+                        <div class="form-group">
+                           <label>User</label>
+                       </div>
+                   </div>
+                        <div class="col-md-8">
+                        	<div class="form-group">
+                           <select name="root_user" class="form-control" required>
+                              <option>Block</option>
+                              <option>Unblock</option>
+                              <option selected="">Block</option>
+                           </select>
+                        </div>
+                    </div>
+                    
                     <div class="col-md-6">
                         <button type="submit" class="btn-block btn btn-white all-btn" >Yes</button>
                     </div>
@@ -697,5 +622,22 @@ $.ajax({
    function doSomething() {
     $(".se-pre-con").css("display","block");
 }
+
+
+$(document).on("click",".set_new_root_user",function(){
+var id= $("#get_new_root_user").val();
+
+if(id== "")
+{
+alert("Please select user.");
+}
+else
+{
+
+remove_product('{{BASE_URL}}manage-team-member/update_root_user/'+id,'Are you sure you want to change root user?','Root user update successfully.','Root user is not updated.');
+}
+
+});
+
 </script>
 {% endblock %}

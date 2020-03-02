@@ -350,7 +350,7 @@ def login_user(request):
         email = request.POST["email"]
         password = request.POST["password"]
         user = auth.authenticate(username=email, password=password)
-
+        status = 0
         if user is not None:
             get_user_info = Ar_user.objects.get(user=user)
             status=get_user_info.status

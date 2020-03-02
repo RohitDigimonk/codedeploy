@@ -47,7 +47,11 @@
                   <div class="col-md-12 mb-2">
                      <button class="btn-success add-data" data-toggle="modal" data-target="#modal-default1">Add Backlog</button>
                      <button  id="show_col" class="btn-primary import-data" data-toggle="modal" data-target="#myModal">Show Columns</button>
+                     {% if backlog_edit_status %}
                      <button class="btn-primary import-data" data-toggle="modal" onclick="set_data('Ar Backlog','backlog-view')" data-target="#myModalImportCSV">Import</button>
+                     {% else %}
+                     <button class="btn-primary import-data">You don't have permission to import data </button>
+                     {% endif %}
                   </div>
                 </div>
                   <div class="table-responsive ">

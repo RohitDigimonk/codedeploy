@@ -111,8 +111,11 @@ def index(request):
         Remove_Request_msg = msg.notification_desc
         msg = get_object_or_404(Notification, page_name="Manage Iteration", notification_key="Remove_Success")
         Remove_done_msg = msg.notification_desc
+
+        product_view_manage_status = product_view.check_permition(request, 'Manage Iterations', 1)
+
         return render(request, 'admin/iterations/index.html',
-                      {'date': datetime.now(), "Rearrange_Request_msg": Rearrange_Request_msg,
+                      {'date': datetime.now(),'product_view_manage_status':product_view_manage_status, "Rearrange_Request_msg": Rearrange_Request_msg,
                        'Remove_done_msg': Remove_done_msg, 'Remove_Request_msg': Remove_Request_msg,
                        'Not_Remove_msg': Not_Remove_msg, 'all_column_list': all_column_list,
                        'get_show_column': get_show_column, 'get_all_iterations': get_all_iterations,

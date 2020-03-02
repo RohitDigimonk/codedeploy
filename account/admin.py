@@ -30,7 +30,7 @@ class ArShowcolumnsAdmin(ImportExportModelAdmin):
 class csvFilesUplodadedAdmin(ImportExportModelAdmin):
     search_fields = ['ORG_ID']
     list_display = ('attachments','csvUseFor','ORG_ID','created_by')
-    list_filter = ('csvUseFor',)
+    list_filter = ('csvUseFor','created_by',)
 
 
 class ArUserProfileAdmin(ImportExportModelAdmin):
