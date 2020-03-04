@@ -103,32 +103,32 @@ WSGI_APPLICATION = 'agileproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     # 'default': {
-#     #     'ENGINE': 'django.db.backends.sqlite3',
-#     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     # }
-#
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',  # Database Engine of PostgreSQL Database
-#         'NAME': 'agile_database',  # Database Name
-#         'USER': 'root',  # Database has a Root User
-#         'PASSWORD': 'Digimonk@123',  # Database Connection Password
-#         'HOST': "",  # IP Address for Localhost
-#         'PORT' : "",
-#         'OPTIONS': {
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-#         }
-#     }
-# }
-
-
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',  # Database Engine of PostgreSQL Database
+        'NAME': 'agile_database',  # Database Name
+        'USER': 'root',  # Database has a Root User
+        'PASSWORD': 'Digimonk@123',  # Database Connection Password
+        'HOST': "",  # IP Address for Localhost
+        'PORT' : "",
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -176,7 +176,7 @@ STATICFILES_DIRS = [
 ]
 
 # BASE_URL = 'http://203.190.153.20/'
-BASE_URL = 'http://3.17.177.133/'
+BASE_URL = 'http://www.beagileready.com/'
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL ='/media/'

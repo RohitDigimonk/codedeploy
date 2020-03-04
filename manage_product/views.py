@@ -233,6 +233,7 @@ def edit_product(request,id):
             if product_form.is_valid():
                 product = product_form.save(commit=False)
                 ar_user_insta = get_object_or_404(Ar_user, pk=request.session['user_id'])
+                product.update_dt = datetime.now()
                 product.update_by = ar_user_insta
                 product.save()
                 product_form.save_m2m()

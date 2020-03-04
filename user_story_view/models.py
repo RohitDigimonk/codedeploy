@@ -3,6 +3,7 @@ from manage_epic_capability.models import AR_EPIC_CAPABILITY
 from account.models import Ar_user,AR_organization
 from user_story_points.models import ArUserStoryPoints
 from manage_backlogs.models import AR_BACKLOG
+from django.contrib.auth.models import User
 import django
 import os
 # Create your models here.
@@ -13,9 +14,9 @@ class AR_US_STATUS(models.Model):
     status_key  = models.CharField(max_length=50,blank=True,unique=True)
     status_desc  = models.TextField(blank=True)
     status_shortcode   = models.CharField(max_length=50,blank=True,unique=True)
-    create_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',related_name='create_by_us_status',default="",blank=True,null=True)
+    create_by = models.ForeignKey(User, on_delete='models.SET_NULL',related_name='create_by_us_status',default="",blank=True,null=True)
     create_dt = models.DateTimeField(default=django.utils.timezone.now,blank=True,null=True)
-    update_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',default="",related_name='update_by_us_status',blank=True,null=True)
+    update_by = models.ForeignKey(User, on_delete='models.SET_NULL',default="",related_name='update_by_us_status',blank=True,null=True)
     update_dt = models.DateTimeField(default=django.utils.timezone.now,blank=True,null=True)
     class Meta:
         verbose_name_plural = "Ar user story status"
@@ -27,9 +28,9 @@ class AR_US_TYPE(models.Model):
     type_key  = models.CharField(max_length=50,blank=True,unique=True)
     type_desc  = models.TextField(blank=True)
     type_short_code   = models.CharField(max_length=50,blank=True,unique=True)
-    create_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',default="",related_name='create_by_us_type',blank=True,null=True)
+    create_by = models.ForeignKey(User, on_delete='models.SET_NULL',default="",related_name='create_by_us_type',blank=True,null=True)
     create_dt = models.DateTimeField(default=django.utils.timezone.now)
-    update_by = models.ForeignKey(Ar_user, on_delete='models.SET_NULL',default="",related_name='update_by_us_type',blank=True,null=True)
+    update_by = models.ForeignKey(User, on_delete='models.SET_NULL',default="",related_name='update_by_us_type',blank=True,null=True)
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
     class Meta:
         verbose_name_plural = "Ar user story type"

@@ -3,6 +3,7 @@ import django
 from account.models import Ar_user,AR_organization
 from manage_product.models import AR_product
 from manage_product.models import AR_team
+from django.contrib.auth.models import User
 
 
 
@@ -11,9 +12,9 @@ from manage_product.models import AR_team
 class AR_BACKLOG_STATUS(models.Model):
     bl_status_key   = models.CharField(max_length=50,blank=True)
     bl_status_desc  = models.TextField(blank=True)
-    create_by = models.ForeignKey(Ar_user, on_delete=models.SET_NULL,related_name='create_by_backlogstatus',null=True,blank=True )
+    create_by = models.ForeignKey(User, on_delete=models.SET_NULL,related_name='create_by_backlogstatus',null=True,blank=True )
     create_dt = models.DateTimeField(default=django.utils.timezone.now)
-    update_by = models.ForeignKey(Ar_user, on_delete=models.SET_NULL,related_name='update_by_backlogstatus',null=True,blank=True )
+    update_by = models.ForeignKey(User, on_delete=models.SET_NULL,related_name='update_by_backlogstatus',null=True,blank=True )
     update_dt = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
         return str(self.bl_status_key)

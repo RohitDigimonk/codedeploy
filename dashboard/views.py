@@ -19,6 +19,10 @@ import csv, io
 import dateutil.parser
 # Create your views here.
 
+def get_user_name(request):
+    ar_user_set = get_object_or_404(Ar_user, pk=request.session['user_id'])
+    return HttpResponse(ar_user_set.user_name)
+
 def read_csv_file_for_iteration(request,file_id):
     file_id = file_id
     if csvFilesUplodaded.objects.filter(id=file_id).exists():

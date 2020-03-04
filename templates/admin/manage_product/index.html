@@ -218,7 +218,10 @@
               <td align="left" class="backpa"  valign="top">{{ data.update_by  }}</td> 
               {% endif %}  
          
-
+{% if v == 'update_dt' %}
+              <td align="left" class="backpa"  valign="top">{{ data.update_dt  }}</td> 
+              {% endif %}  
+              
               {% if v == 'capability' %}
               <td align="left" class="backpa"  valign="top">{{ data.id|get_capability  }}</td> 
               {% endif %}  

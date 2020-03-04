@@ -138,12 +138,12 @@ def remove_benefit(request,id):
     if product_view.check_permition(request, 'Manage Benefits', 1):
         try:
             ManageBenefits = get_object_or_404(ArManageBenefits, pk=id)
-            use = ArManageBenefits.Use_in
+            use = ManageBenefits.Use_in
             if use != "":
                 data = use.split(" , ")
             else:
                 data = 0
-            ManageGoals.delete()
+            # ManageGoals.delete()
             ManageBenefits.delete()
             # ###########-----------------------------------------
             if data != 0:
