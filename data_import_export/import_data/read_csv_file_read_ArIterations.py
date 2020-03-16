@@ -149,11 +149,13 @@ def read_ArIterations_csv(file_ins,org_ins,file_name_value,file_name_txt,user_id
 
                     # CREATE_DT UPDATE_DT START
                     created_dt = item[12]
-                    if created_dt == "":
-                        created_dt = datetime.now()
-                    updated_dt = item[14]
-                    if updated_dt == "":
-                        updated_dt = datetime.now()
+                    updated_dt = datetime.now()
+                    created_dt = datetime.now()
+                    # if created_dt == "":
+                    #     created_dt = datetime.now()
+                    # updated_dt = item[14]
+                    # if updated_dt == "":
+                    #     updated_dt = datetime.now()
                     print(created_dt)
                     print(updated_dt)
                     # CREATE_DT UPDATE_DT END

@@ -143,13 +143,13 @@ def edit(request,id):
 def remove_goal(request,id):
     if product_view.check_permition(request, 'Manage Goals', 1):
         try:
-            ManageGoals = get_object_or_404(ArManageGoals, pk=id)
-            use = ArManageGoals.Use_in
+            managegoals = get_object_or_404(ArManageGoals, pk=id)
+            use = managegoals.Use_in
             if use != "":
                 data = use.split(" , ")
             else:
                 data = 0
-            ManageGoals.delete()
+            managegoals.delete()
             # ###########-----------------------------------------
             if data != 0:
                 for val in data:

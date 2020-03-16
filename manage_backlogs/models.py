@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 ###########################
+
 class AR_BACKLOG_STATUS(models.Model):
     bl_status_key   = models.CharField(max_length=50,blank=True)
     bl_status_desc  = models.TextField(blank=True)

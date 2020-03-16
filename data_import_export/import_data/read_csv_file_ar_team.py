@@ -62,12 +62,14 @@ def read_ar_team_csv(file_ins,org_ins,file_name_value,file_name_txt,user_id):
                             if Ar_user.objects.filter(user_name=item[6]).filter(org_id=org_ins).exists():
                                 updateded_by_ins = get_object_or_404(Ar_user, user_name=item[6], org_id=org_ins)
 
-                    update_date = item[7]
-                    if update_date == "":
-                        update_date = datetime.now()
-                    create_date = item[5]
-                    if create_date == "":
-                        create_date = datetime.now()
+                    # update_date = item[7]
+                    # if update_date == "":
+                    #     update_date = datetime.now()
+                    # create_date = item[5]
+                    # if create_date == "":
+                    #     create_date = datetime.now()
+                    update_date = datetime.now()
+                    create_date = datetime.now()
                     AR_team_create = AR_team(Team_name=item[0],Team_description=item[1],ORG_id=org_ins,create_by=created_by_ins,create_dt=create_date,update_by=updateded_by_ins,update_dt=update_date)
                     try:
                         AR_team_create.save()

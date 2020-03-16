@@ -14,62 +14,113 @@
     <section class="p-t-b-20 service-blocks animatedParent animateOnce light">
          <div class="container">
             <div class="row">
+<!-- ----------------_____________________________________________-------------- -->
+
+
+
+              {% for data in data %}
                <div class="col-md-4 col-sm-6 wow fadeInUp animated" data-wow-delay=".5s" style="visibility: visible;-webkit-animation-delay: .5s; -moz-animation-delay: .5s; animation-delay: .5s;">
                     <div class="plan text-center subscription" style="background-color: #fff;">
-                        <span class="plan-name">Team Edition (Free Trial)</span>
-                        <p class="plan-price text-center"><sup class="currency">Free</sup><strong></strong></p>
-                        <ul class="list-unstyled" style="border-radius: 20px;">
-                            <li><b>1 Admin User can add up to 7 Users  Per Team</b></li>
-                           <li><b>Up to 2 Teams</b></li>
-                           <li><b>Role Based User Access and Security</b></li>
-                           <li><b>Up to 2 Product Lines</b></li>
-                           <li><b>Up to 4 backlogs per Product Line</b></li>
-                           <li><b>Unlimited Rating Cycles</b></li>
-                           <li><b>Up to 80 User Stories</b></li>
-                           <li><b>60 day trial $0 cost</b></li>
-                           <li><button class="btn-primary btn">Buy Now</button></li>
-                            <!-- <li>
-                                <strong style="text-transform: uppercase; font-size: 1.3em;">Your Earning </strong>
-                                 </li><li>400%</li>
-                                <br><span style="width: 50%; height: 1px; background-color:#000; position: absolute; margin: 10px 0 -15px -25%;"></span><br> -->
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 wow fadeInUp animated" data-wow-delay=".5s" style="visibility: visible;-webkit-animation-delay: .5s; -moz-animation-delay: .5s; animation-delay: .5s;">
-                    <div class="plan text-center subscription">
-                        <span class="plan-name">Team Edition</span>
-                         <p class="plan-price text-center"><sup class="currency">Q1</sup><strong>2020</strong></p>
-                        <ul class="list-unstyled" style="border-radius: 20px;">
-                            <li><b>1 Admin User can add up to 7 Users Per Team</b></li>
-                           <li><b>Up to 2 Teams</b></li>
-                           <li><b>Role Based User Access and Security</b></li>
-                           <li><b>Up to 10 Product Lines</b></li>
-                           <li><b>Up to 4 backlogs per Product Line</b></li>
-                           <li><b>Unlimited Rating Cycles</b></li>
-                           <li><b>Up to 1350 User Stories</b></li>
-                           <li><b>Pricing available Q1 2020</b></li>
-                           <li><button class="btn-primary btn">Buy Now</button></li>
-                            <!-- <li>
-                                <strong style="text-transform: uppercase; font-size: 1.3em;">Your Earning </strong>
-                                 </li><li>400%</li>
-                                <br><span style="width: 50%; height: 1px; background-color:#000; position: absolute; margin: 10px 0 -15px -25%;"></span><br> -->
-                        </ul>
+                        <span class="plan-name">{{data.Title}}</span>
 
+                        {% if data.Undefine_price == True %}
+                         <p class="plan-price text-center"><sup class="currency">Q3</sup><strong>2020</strong></p>
+                        {% endif %}
+                        {% if data.Price == 0 and data.Undefine_price == False %}
+                        <p class="plan-price text-center"><sup class="currency">Free</sup><strong></strong></p>
+                        {% elif data.Price != 0 and data.Undefine_price == False  %}
+                        <p class="plan-price text-center"><sup class="currency">{{data.Price}}</sup><strong></strong></p>
+                        {% endif %}
+
+                        <ul class="list-unstyled" style="border-radius: 20px;">
+                          {% if data.Invite_user == 0 %}
+                            <li><b>Multi Admin User can add up to Multi Users  Per Team</b></li>
+                            {% else %}
+                            <li><b>1 Admin User can add up to {{data.Invite_user}} Users  Per Team</b></li>
+                            {% endif %}
+
+                            {% if data.Team == 0 %}
+                           <li><b>Unlimited Teams</b></li>
+                           {% else %}
+                           <li><b>Up to {{data.Team}} Teams</b></li>
+                           {% endif %}
+
+                           {% if data.Role_access_and_security == True %}
+                           <li><b>Role Based User Access and Security</b></li>
+                           {% else %}
+                           <li><b>No Role Based User Access and Security</b></li>
+                           {% endif %}
+
+                           {% if data.Product == 0 %}
+                           <li><b>Unlimited Product Lines</b></li>
+                           {% else %}
+                           <li><b>Up to {{data.Product}} Product Lines</b></li>
+                           {% endif %}
+
+                           {% if data.Backlog_per_Product == 0 %}
+                           <li><b>Unlimited Backlogs</b></li>
+                           {% else %}
+                           <li><b>Up to {{data.Backlog_per_Product}} backlogs per Product Line</b></li>
+                           {% endif %}
+
+                           {% if data.Rating_cycle == 0 %}
+                           <li><b>Unlimited Rating Cycles</b></li>
+                           {% else %}
+                           <li><b>{{data.Rating_cycle}} Rating Cycles</b></li>
+                           {% endif %}
+
+                           {% if data.User_story == 0 %}
+                           <li><b>Unlimited User Stories</b></li>
+                           {% else %}
+                           <li><b>Up to {{data.User_story}} User Stories</b></li>
+                           {% endif %}
+
+
+                        {% if data.Undefine_price == True %}
+                           <li><b>Pricing Available Q3 2020</b></li>
+                        {% endif %}
+                        {% if data.Time_duration_count == 0 and data.Undefine_price == False %}
+                           <li><b>Unlimited day</b></li>
+                        {% elif data.Time_duration_count != 0 and data.Undefine_price == False  %}
+                           <li><b>{{data.Time_duration_count}} {{data.Time_duration_type}} trial $0 cost</b></li>
+                        {% endif %}
+
+
+                           <li>
+                             {% if login_data != "" %}
+                             <a href="#" data-toggle="modal" class="btn btn-primary nav-btn" data-target="#modalLogin">Buy Now</a>
+                             {% else %}
+                               <button class="btn-primary btn" disabled="">Buy Now</button>
+                               {% endif %}
+                          </li>
+                            <!-- <li>
+                                <strong style="text-transform: uppercase; font-size: 1.3em;">Your Earning </strong>
+                                 </li><li>400%</li>
+                                <br><span style="width: 50%; height: 1px; background-color:#000; position: absolute; margin: 10px 0 -15px -25%;"></span><br> -->
+                        </ul>
                     </div>
                 </div>
+                {% endfor %}
+<!-- ----------------_____________________________________________-------------- -->
+
+
                 <div class="col-md-4 col-sm-6 wow fadeInUp animated" data-wow-delay=".5s" style="visibility: visible;-webkit-animation-delay: .5s; -moz-animation-delay: .5s; animation-delay: .5s;">
                     <div class="plan text-center subscription">
                         <span class="plan-name">Enterprise Edition</span>
-                        <p class="plan-price text-center"><sup class="currency">Q1</sup><strong>2020</strong></p>
+                        <p class="plan-price text-center" style="    font-size: 18px;">
+                          Call 904-523-9575 or email us at sales@agileready.net
+                        </p>
                         <ul class="list-unstyled" style="border-radius: 20px;">
-                            <li><b>Multi Admin can add Multi Users per Team</b></li>
-                           <li><b>Unlimited number of teams</b></li>
-                           <li><b>Role Based User Access and Security</b></li>
-                           <li><b>Unlimited Product Lines</b></li>
-                           <li><b>Unlimited Backlogs</b></li>
-                           <li><b>Unlimited Rating Cycles</b></li>
-                           <li><b>Unlimited Userstories</b></li>
-                           <li><b>Pricing Available Q1 2020</b></li>
+                            <li><b>Custom implementations available for large organizations with</b></li>
+                           <li><b>20+ teams</b></li>
+                           <li><b>Agile Release Trains</b></li>
+                           <li><b>Solution Trains</b></li>
+                           <li><b>Less or Less Huge</b></li>
+                           <li><b>Implementation Rodmap</b></li>
+                           <li><b>Tool on-boarding and Integration</b></li>
+                           <li><b>Training (in-person and remote)</b></li>
+                           <li><b>Agile Product Management Consulting</b></li>
+                           <li><b>Including Product Owner Training</b></li>
                            <li><button class="btn-primary btn">Buy Now</button></li>
                             <!-- <li>
                                 <strong style="text-transform: uppercase; font-size: 1.3em;">Your Earning </strong>

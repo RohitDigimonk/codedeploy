@@ -65,13 +65,16 @@ def read_ar_epic_capability_csv(file_ins,org_ins,file_name_value,file_name_txt,u
                                 updateded_by_ins = get_object_or_404(Ar_user, user_name=item[5], org_id=org_ins)
                     # ger instasnce of create_by and update_by user END
                     # GET DATE START
-                    created_dt = item[4]
-                    if created_dt == "":
-                        created_dt = datetime.now()
 
-                    updated_dt = item[6]
-                    if updated_dt == "":
-                        updated_dt = datetime.now()
+                    created_dt = datetime.now()
+                    updated_dt = datetime.now()
+                    # created_dt = item[4]
+                    # if created_dt == "":
+                    #     created_dt = datetime.now()
+                    #
+                    # updated_dt = item[6]
+                    # if updated_dt == "":
+                    #     updated_dt = datetime.now()
 
                     # GET DATE END
 

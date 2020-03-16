@@ -30,11 +30,6 @@ def read_ArManageBenefits_csv(file_ins,org_ins,file_name_value,file_name_txt,use
     i=2
     try:
         for item in file_name:
-            print("===")
-            print(item)
-            # print("0:"+item[0]+"====1:"+item[1]+"====2:"+item[2]+"====3:"+item[3])
-            print("===")
-
             if item[1] == "":
                 empty_data += 1
                 file2.write("Error : " + str(file_name_value) + " : row no. : " + str(i) + " : Benefits title is empty. : " + str(datetime.now()) + "\r\n")
@@ -64,13 +59,15 @@ def read_ArManageBenefits_csv(file_ins,org_ins,file_name_value,file_name_txt,use
                                 updateded_by_ins = get_object_or_404(Ar_user, user_name=item[6], org_id=org_ins)
                     # ger instasnce of create_by and update_by user END
                     # GET DATE START
-                    created_dt = item[5]
-                    if created_dt == "":
-                        created_dt = datetime.now()
-
-                    updated_dt = item[7]
-                    if updated_dt == "":
-                        updated_dt = datetime.now()
+                    created_dt = datetime.now()
+                    updated_dt = datetime.now()
+                    # created_dt = item[5]
+                    # if created_dt == "":
+                    #     created_dt = datetime.now()
+                    #
+                    # updated_dt = item[7]
+                    # if updated_dt == "":
+                    #     updated_dt = datetime.now()
                     add_ArManageBenefits = ArManageBenefits(Benefits_title=item[1], Benefits_description=item[2], Use_in=item[3], ORG_ID=org_ins, created_by=created_by_ins,created_dt=created_dt, updated_by=updateded_by_ins, updated_dt=updated_dt)
                     try:
                         add_ArManageBenefits.save()

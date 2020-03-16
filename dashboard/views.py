@@ -17,6 +17,7 @@ from django.utils.encoding import force_bytes,force_text
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 import csv, io
 import dateutil.parser
+from django.db.models import Q
 # Create your views here.
 
 def get_user_name(request):
@@ -625,14 +626,14 @@ def logout(request):
 def index(request):
     org_ins = get_object_or_404(AR_organization, pk=request.session['org_id'])
     user_ins = get_object_or_404(Ar_user, pk=request.session['user_id'])
-    team = AR_team.objects.filter(ORG_id=org_ins).count()
-    team_data = AR_team.objects.filter(ORG_id=org_ins)
-    product = AR_product.objects.filter(ORG_ID=org_ins).count()
-    product_data = AR_product.objects.filter(ORG_ID=org_ins)
-    backlog = AR_BACKLOG.objects.filter(ORG_ID=org_ins).count()
-    backlog_data = AR_BACKLOG.objects.filter(ORG_ID=org_ins)
-    user_storyes = AR_USER_STORY.objects.filter(ORG_id=org_ins).count()
-    user_storyes_data = AR_USER_STORY.objects.filter(ORG_id=org_ins)
+    team = AR_team.objects.filter(ORG_id=org_ins).filter(~Q(Team_name = 'None')).count()
+    team_data = AR_team.objects.filter(ORG_id=org_ins).filter(~Q(Team_name = 'None'))
+    product = AR_product.objects.filter(ORG_ID=org_ins).filter(~Q(Product_name = 'None')).count()
+    product_data = AR_product.objects.filter(ORG_ID=org_ins).filter(~Q(Product_name = 'None'))
+    backlog = AR_BACKLOG.objects.filter(ORG_ID=org_ins).filter(~Q(title = 'None')).count()
+    backlog_data = AR_BACKLOG.objects.filter(ORG_ID=org_ins).filter(~Q(title = 'None'))
+    user_storyes = AR_USER_STORY.objects.filter(ORG_id=org_ins).filter(~Q(title = 'None')).count()
+    user_storyes_data = AR_USER_STORY.objects.filter(ORG_id=org_ins).filter(~Q(title = 'None'))
     itearations = ArIterations.objects.filter(ORG_ID=org_ins).count()
     itearations_data = ArIterations.objects.filter(ORG_ID=org_ins)
     return render(request,"admin/dashboard/index.html",{'user_ins':user_ins,'itearations_data':itearations_data,'user_storyes_data':user_storyes_data,'backlog_data':backlog_data,

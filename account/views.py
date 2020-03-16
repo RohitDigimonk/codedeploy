@@ -114,16 +114,24 @@ def set_dummy_data(org_id,user_id):
     return True
 
 
-def test_mail(org_id,user_id):
+def test_mail(request):
     default = "Test"
-    # if import_files_data.objects.filter(dommy_set=1).exists():
-    #     get_data =  import_files_data.objects.filter(dommy_set=1).order_by("priority")
-    #     set_list = []
-    #     for item in get_data:
-    #         set_list.append(item.id)
-    #     read_csv_file(set_list, org_id, user_id)
-    # else:
-    #     print("sdjfdhbv")
+    get_user_instant = User.objects.get(email='jitulodhi2010@gmail.com')
+    uid = urlsafe_base64_encode(force_bytes(get_user_instant.id))
+    token = account_activation_token.make_token(get_user_instant)
+    email_content = settings.BASE_URL + "account/activate/" + uid + "/" + token
+    msg = email.message.Message()
+    msg['Subject'] = 'Account Create successfully'
+    msg['From'] = settings.EMAIL_HOST_USER
+    msg['To'] = 'deepaksinghpatel052@gmail.com'
+    password = settings.EMAIL_HOST_PASSWORD
+    msg.add_header('Content-Type', 'text/html')
+    msg.set_payload(email_content)
+    s = smtplib.SMTP(settings.EMAIL_HOST + ':' + str(settings.EMAIL_PORT))
+    s.starttls()
+    # Login Credentials for sending the mail
+    s.login(msg['From'], password)
+    s.sendmail(msg['From'], [msg['To']], msg.as_string())
     return HttpResponse(default)
 
 

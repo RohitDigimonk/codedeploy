@@ -2,10 +2,11 @@ from django.shortcuts import render,HttpResponse
 from django.conf import settings
 from user_story_view import set_user_story_acceptance_criteria_and_conver_algo as ACCA
 # from account.forms import User_Form,AR_USER_Form
+from subscription.models import Subscription
 from django.core.mail import send_mail
 import smtplib
 import email.message
-import stripe
+# import stripe
 from helpuser.models import Cms_manage
 # Create your views here.
 
@@ -67,8 +68,33 @@ def company(request):
     return render(request, 'web/company/index.html', {'company_active': "active", 'BASE_URL':settings.BASE_URL})
 
 
+
+def check_login(request):
+    # -----------------Stripe Payment Gateway ---------------
+    if 'user_id' in request.session and 'org_id' in request.session and 'user_name' in request.session:
+        return HttpResponse("login")
+    else:
+        data = Subscription.objects.filter(All_member=True)
+        login_data = "not login"
+        return render(request, 'web/subscriptions/index.html', {'subscription_active': "active",'data':data,'login_data':login_data, 'BASE_URL':settings.BASE_URL})
+
+    # -----------------Stripe Payment Gateway code After Payment Process---------------
+
+    return render(request, 'web/company/index.html', {'company_active': "active", 'BASE_URL':settings.BASE_URL})
+
+
 def subscription(request):
-    return render(request, 'web/subscriptions/index.html', {'subscription_active': "active", 'BASE_URL':settings.BASE_URL})
+    data = Subscription.objects.filter(All_member=True)
+    url = settings.BASE_URL + "subscription"
+    if 'user_id' in request.session and 'org_id' in request.session and 'user_name' in request.session:
+        login_data = ""
+        pass
+    else:
+        login_data = "not login"
+
+
+
+    return render(request, 'web/subscriptions/index.html', {'url': url,'subscription_active': "active",'login_data':login_data,'data':data, 'BASE_URL':settings.BASE_URL})
 
 
 def usrating(request):

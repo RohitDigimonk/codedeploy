@@ -79,7 +79,7 @@ def index(request,set_statue="",set_statue_2="",csv_id=""):
         else:
             get_show_column = {}
         all_column_list = {
-            "Team_parent": "Team Parent",
+            "Team_parent": "Teams",
             "Children_backlog_list": "Children Backlog List",
             "Product_name":"Product Name",
             "Product_description":"Product Description",

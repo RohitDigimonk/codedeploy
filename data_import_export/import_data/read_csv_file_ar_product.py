@@ -40,47 +40,56 @@ def read_ar_product_csv(file_ins,org_ins,file_name_value,file_name_txt,user_id):
                     exists_data += 1
                     msg = get_object_or_404(Notification, page_name="Manage Products", notification_key="Exists")
                     msg_data = msg.notification_desc
-                    file2.write("Error : " + str(file_name_value) + " : row no. : "+str(i)+" : "+ str(item[0]) + " : "+str(msg_data)+" : " + str(datetime.now()) + "\r\n")
+                    file2.write(
+                        "Error : " + str(file_name_value) + " : row no. : " + str(i) + " : " + str(
+                            item[0]) + " : " + str(
+                            msg_data) + " : " + str(datetime.now()) + "\r\n")
                 else:
-                    update_date = item[12]
-                    if update_date == "":
-                        update_date = datetime.now()
-                    create_date = item[10]
+                    update_date = datetime.now()
+                    create_date = datetime.now()
 
-                    if create_date == "":
-                        create_date = datetime.now()
+                    # ============== create_by update_by start
+                    if item[4] != "":
+                        try:
+                            created_by_ins_id = int(item[4])
+                            if Ar_user.objects.filter(id=created_by_ins_id).filter(org_id=org_ins).exists():
+                                created_by_ins = get_object_or_404(Ar_user, pk=created_by_ins_id)
+                        except:
+                            if Ar_user.objects.filter(user_name=item[4]).filter(org_id=org_ins).exists():
+                                created_by_ins = get_object_or_404(Ar_user, user_name=item[4], org_id=org_ins)
+                    if item[6] != "":
+                        try:
+                            updateded_by_ins_id = int(item[6])
+                            if Ar_user.objects.filter(id=updateded_by_ins_id).filter(org_id=org_ins).exists():
+                                updateded_by_ins = get_object_or_404(Ar_user, pk=updateded_by_ins_id)
+                        except:
+                            if Ar_user.objects.filter(user_name=item[6]).filter(org_id=org_ins).exists():
+                                updateded_by_ins = get_object_or_404(Ar_user, user_name=item[6], org_id=org_ins)
 
-                    else:
-                        # ============== create_by update_by start
-                        if item[4] != "":
-                            try:
-                                created_by_ins_id = int(item[4])
-                                if Ar_user.objects.filter(id=created_by_ins_id).filter(org_id=org_ins).exists():
-                                    created_by_ins = get_object_or_404(Ar_user, pk=created_by_ins_id)
-                            except:
-                                if Ar_user.objects.filter(user_name=item[4]).filter(org_id=org_ins).exists():
-                                    created_by_ins = get_object_or_404(Ar_user, user_name=item[4], org_id=org_ins)
-                        if item[6] != "":
-                            try:
-                                updateded_by_ins_id = int(item[6])
-                                if Ar_user.objects.filter(id=updateded_by_ins_id).filter(org_id=org_ins).exists():
-                                    updateded_by_ins = get_object_or_404(Ar_user, pk=updateded_by_ins_id)
-                            except:
-                                if Ar_user.objects.filter(user_name=item[6]).filter(org_id=org_ins).exists():
-                                    updateded_by_ins = get_object_or_404(Ar_user, user_name=item[6], org_id=org_ins)
-
-                    product_create = AR_product(Product_name=item[0],Product_description=item[1],Business_unit=item[3],US_quality_threshold=item[7],ORG_ID=org_ins,
-                                                create_by=created_by_ins,create_dt=create_date,update_by=updateded_by_ins,update_dt=update_date)
+                    try:
+                        US_quality_threshold_set = int(item[7])
+                    except:
+                        US_quality_threshold_set = 0
+                    product_create = AR_product(Product_name=item[0], Product_description=item[1],
+                                                Business_unit=item[3],
+                                                US_quality_threshold=US_quality_threshold_set, ORG_ID=org_ins,
+                                                create_by=created_by_ins, create_dt=create_date,
+                                                update_by=updateded_by_ins,
+                                                update_dt=update_date)
+                    # product_create.save()
                     try:
                         product_create.save()
                         import_data += 1
                     except:
                         other_error += 1
-                        file2.write("Error : " + str(file_name_value) + " : row no. : " + str(i) + " : Something was wrong in this file : " + str(datetime.now()) + "\r\n")
+                        file2.write("Error : " + str(file_name_value) + " : row no. : " + str(
+                            i) + " : Something was wrong in this file : " + str(datetime.now()) + "\r\n")
             else:
-                empty_data +=1
-                file2.write("Error : " + str(file_name_value) + " : row no. : " + str(i) + " : product name is empty. : " + str(datetime.now()) + "\r\n")
-            i+=1
+                empty_data += 1
+                file2.write(
+                    "Error : " + str(file_name_value) + " : row no. : " + str(i) + " : product name is empty. : " + str(
+                        datetime.now()) + "\r\n")
+            i += 1
             total_data += 1
     except:
         empty_data += 1

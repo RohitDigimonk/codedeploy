@@ -66,13 +66,15 @@ def read_ArManageGoals_csv(file_ins,org_ins,file_name_value,file_name_txt,user_i
                                 updateded_by_ins = get_object_or_404(Ar_user, user_name=item[6], org_id=org_ins)
                     # ger instasnce of create_by and update_by user END
                     # GET DATE START
-                    created_dt = item[5]
-                    if created_dt == "":
-                        created_dt = datetime.now()
-
-                    updated_dt = item[7]
-                    if updated_dt == "":
-                        updated_dt = datetime.now()
+                    created_dt = datetime.now()
+                    updated_dt = datetime.now()
+                    # created_dt = item[5]
+                    # if created_dt == "":
+                    #     created_dt = datetime.now()
+                    #
+                    # updated_dt = item[7]
+                    # if updated_dt == "":
+                    #     updated_dt = datetime.now()
                     add_ar_Goals = ArManageGoals(Goal_title=item[1], Gole_description=item[2], Use_in=item[3], ORG_ID=org_ins, created_by=created_by_ins,created_dt=created_dt, updated_by=updateded_by_ins, updated_dt=updated_dt)
                     try:
                         add_ar_Goals.save()

@@ -45,12 +45,14 @@ def read_ar_backlogs_csv(file_ins,org_ins,file_name_value,file_name_txt,user_id)
                     msg_data = msg.notification_desc
                     file2.write("Error : " + str(file_name_value) + " : row no. : "+str(i)+" : "+ str(item[0]) + " : "+str(msg_data)+" : " + str(datetime.now()) + "\r\n")
                 else:
-                    updated_dt = item[10]
-                    if updated_dt == "":
-                        updated_dt = datetime.now()
-                    created_dt = item[8]
-                    if created_dt == "":
-                        created_dt = datetime.now()
+                    updated_dt = datetime.now()
+                    created_dt = datetime.now()
+                    # updated_dt = item[10]
+                    # if updated_dt == "":
+                    #     updated_dt = datetime.now()
+                    # created_dt = item[8]
+                    # if created_dt == "":
+                    #     created_dt = datetime.now()
                     product_ins = None
                     if item[5] != "":
                         try:

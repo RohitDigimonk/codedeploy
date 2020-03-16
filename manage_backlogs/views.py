@@ -49,7 +49,7 @@ def index(request):
         else:
             get_show_column = {}
         all_column_list = {
-            "team_list": "Team List",
+            "team_list": "Teams",
             "product_parent": "Product Parent",
             "title": "Title",
             "children_us_list": "Children Us List",

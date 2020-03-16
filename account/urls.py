@@ -14,6 +14,7 @@ urlpatterns = [
     path('send_varification_link', views.send_varification_link,name='send_varification_link'),
 
     path('login', views.login_user,name='login_user'),
+    path('test_mail', views.test_mail,name='test_mail'),
 
     path('send_forgate_password_link', views.send_forgate_password_link,name='send_forgate_password_link'),
     # path('activate', views.account_activate,name='account_activate'),

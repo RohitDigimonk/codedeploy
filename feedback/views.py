@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render,get_object_or_404,redirect
+from django.shortcuts import render,get_object_or_404,redirect,HttpResponse
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from account.models import Ar_user
-from .models import ArFeedback
+from .models import ArFeedback, ArSendFeedbackEmail
 from datetime import datetime
 from django.contrib import messages
 from manage_backlogs.models import AR_BACKLOG
@@ -11,9 +11,39 @@ from manage_backlogs.forms import Ar_Backlog_Form
 from account.models import AR_organization,Notification
 from manage_epic_capability.models import AR_EPIC_CAPABILITY
 from datetime import datetime
-
-
+from django.template.loader import render_to_string
+import email.message
+import smtplib
+import django
 # Create your views here.
+def sent_feedback_email(request):
+    get_data = ArSendFeedbackEmail.objects.filter(status=False)
+    if get_data:
+        data_content = {"user_name":"Admin","logo_image":settings.BASE_URL+"static/img/basic/logo.png","get_data":get_data}
+        email_content = render_to_string('email_template/email_sent_for_feedback_template.html', data_content)
+        user_email = "feedback@agileready.net"
+        msg = email.message.Message()
+        msg['Subject'] = 'beagileready Feedback'
+        msg['From'] = settings.EMAIL_HOST_USER
+        msg['To'] = user_email
+        password = settings.EMAIL_HOST_PASSWORD
+        msg.add_header('Content-Type', 'text/html')
+        msg.set_payload(email_content)
+        s = smtplib.SMTP(settings.EMAIL_HOST + ':' + str(settings.EMAIL_PORT))
+        s.starttls()
+        s.login(msg['From'], password)
+        s.sendmail(msg['From'], [msg['To']], msg.as_string())
+        get_data.update(status=True,sent_date=django.utils.timezone.now())
+    return HttpResponse("True")
+
+def function_feedback_sent(feedback_page, entry_user,created_by_ins):
+    default = 'Test'
+    entry_feedback_sent = ArSendFeedbackEmail(page_name=feedback_page, feedback_id=entry_user, user_id=created_by_ins)
+    entry_feedback_sent.save()
+
+    return True
+
+
 @login_required
 def index(request):
     print("enter")
@@ -38,6 +68,12 @@ def index(request):
         entry_user = ArFeedback(page_name=feedback_page, feedback_nature=feed_nature, feedback_information=feedinformation,
                                 attachments=upload_file_name,created_by=created_by_ins)
         entry_user.save()
+
+        # ___________________________________ feedback store for send mail ___________________________________
+
+        data_res = function_feedback_sent(feedback_page, entry_user,created_by_ins)
+
+        # ____________________________________________________________________________________________________
         msg = Notification.objects.filter(page_name="Feedback").filter(notification_key="Send")
         msg_data = msg[0].notification_desc
         messages.info(request, msg_data)

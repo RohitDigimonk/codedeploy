@@ -21,12 +21,12 @@
                    <a href="{{BASE_URL}}dashboard" class="btn btn-primary nav-btn" >Go To Dashboard</a>
                     {% endif %}
                    {% else %}
-                   <h5>Activation link is invalid!.</h5>
+                   <h5>Your activation link is invalid. To receive a verification link again on your register email click button below.</h5>
                   <br>
                     {% if user.username == ""  %}
                    <a href="#" data-toggle="modal" class="btn btn-primary btn-lg " data-target="#varification_ling">Send varification link</a>
                    {% else %}
-                   <a href="{{BASE_URL}}dashboard" class="btn btn-primary nav-btn" >Go To Dashboard</a>
+                   <a href="#" data-toggle="modal" class="btn btn-primary btn-lg " data-target="#varification_ling">Send varification link</a>
                     {% endif %}
 
 

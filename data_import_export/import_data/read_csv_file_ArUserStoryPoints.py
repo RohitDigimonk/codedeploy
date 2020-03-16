@@ -33,9 +33,6 @@ def read_ArUserStoryPoints_csv(file_ins,org_ins,file_name_value,file_name_txt,us
     try:
 
         for item in file_name:
-            # print("===")
-            # print("0:"+item[0]+"====1:"+item[1]+"====2:"+item[2]+"====3:"+item[3]+"====4:"+item[4]+"====5:"+item[5]+"====6:"+item[6]+"====7:"+item[7]+"====8:"+item[8])
-            # print("===")
             if item[0] == "":
                 empty_data += 1
                 file2.write(
@@ -65,13 +62,15 @@ def read_ArUserStoryPoints_csv(file_ins,org_ins,file_name_value,file_name_txt,us
                                 updateded_by_ins = get_object_or_404(Ar_user, user_name=item[5], org_id=org_ins)
                     # ger instasnce of create_by and update_by user END
                     # GET DATE START
-                    created_dt = item[4]
-                    if created_dt == "":
-                        created_dt = datetime.now()
-
-                    updated_dt = item[6]
-                    if updated_dt == "":
-                        updated_dt = datetime.now()
+                    created_dt = datetime.now()
+                    updated_dt = datetime.now()
+                    # created_dt = item[4]
+                    # if created_dt == "":
+                    #     created_dt = datetime.now()
+                    #
+                    # updated_dt = item[6]
+                    # if updated_dt == "":
+                    #     updated_dt = datetime.now()
                     add_ArUserStoryPoints = ArUserStoryPoints(Point_Key=item[0],Point_Description=item[1],Point_score=item[2],ORG_ID=org_ins,create_by=created_by_ins,create_dt=created_dt,update_by=updateded_by_ins,update_dt=updated_dt)
                     try:
                         add_ArUserStoryPoints.save()

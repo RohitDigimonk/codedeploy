@@ -18,4 +18,17 @@ class ArFeedback(models.Model):
         return str(self.page_name)
     class Meta:
         verbose_name_plural = "Ar feedback"
+######################################################
+
+class ArSendFeedbackEmail(models.Model):
+    page_name   = models.CharField(max_length=50,blank=True)
+    feedback_id = models.ForeignKey(ArFeedback, on_delete=models.SET_NULL,related_name='feedback_id_for_sent', null=True)
+    user_id = models.ForeignKey(Ar_user, on_delete=models.SET_NULL,related_name='user_id_for_sent', null=True)
+    status = models.BooleanField(default=False)
+    sent_date = models.DateTimeField(null=True, blank=True)
+    created_dt = models.DateTimeField(default=django.utils.timezone.now)
+    def __str__(self):
+        return str(self.page_name)
+    class Meta:
+        verbose_name_plural = "Ar send feedback email"
 ###########################

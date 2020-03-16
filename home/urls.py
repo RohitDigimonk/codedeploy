@@ -42,5 +42,7 @@ urlpatterns= [
 
     path('test_data', views.test_data, name='test_data'),
 
+    path('check-login', views.check_login, name='check_login'),
+
 
 ]

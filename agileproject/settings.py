@@ -32,6 +32,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -65,6 +66,7 @@ INSTALLED_APPS = [
     'manage_goals',
     'manage_benefits',
     'data_import_export',
+    'subscription',
 ]
 
 MIDDLEWARE = [
@@ -176,7 +178,7 @@ STATICFILES_DIRS = [
 ]
 
 # BASE_URL = 'http://203.190.153.20/'
-BASE_URL = 'http://www.beagileready.com/'
+BASE_URL = 'https://beagileready.com/'
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL ='/media/'
@@ -186,10 +188,10 @@ MEDIA_URL ='/media/'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'mail.agileready.net'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'no-reply@digimonk.in'
-# EMAIL_HOST_PASSWORD = 'digi@123'
-EMAIL_HOST_USER = 'support@digimonk.in'
-EMAIL_HOST_PASSWORD = 'digimonk@123'
+EMAIL_HOST_USER = 'customercare@agileready.net'
+EMAIL_HOST_PASSWORD = 'We@care2020&'
+# EMAIL_HOST_USER = 'support@digimonk.in'
+# EMAIL_HOST_PASSWORD = 'digimonk@123'

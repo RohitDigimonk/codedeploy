@@ -156,12 +156,15 @@ def read_AR_USER_STORY_csv(file_ins,org_ins,file_name_value,file_name_txt,user_i
                     # ============== create_by update_by end
 
                     # CREATE_DT UPDATE_DT START
-                    created_dt = item[16]
-                    if created_dt == "":
-                        created_dt = datetime.now()
-                    updated_dt = item[17]
-                    if updated_dt == "":
-                        updated_dt = datetime.now()
+                    created_dt = datetime.now()
+                    updated_dt = datetime.now()
+                    # created_dt = item[16]
+                    #
+                    # if created_dt == "":
+                    #     created_dt = datetime.now()
+                    # updated_dt = item[17]
+                    # if updated_dt == "":
+                    #     updated_dt = datetime.now()
                     # CREATE_DT UPDATE_DT END
 
                     # set string to int start
